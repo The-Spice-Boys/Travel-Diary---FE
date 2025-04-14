@@ -1,0 +1,40 @@
+[
+  {
+    "note_id": 1,
+    "activity_id": 1,
+    "text": "The temple was busy but peaceful."
+  },
+  { "note_id": 2, "activity_id": 2, "text": "Best sushi I've ever had!" },
+  {
+    "note_id": 5,
+    "activity_id": 5,
+    "text": "Dancing with locals was amazing!"
+  },
+  { "note_id": 6, "activity_id": 6, "text": "Views worth every minute." },
+  { "note_id": 7, "activity_id": 7, "text": "Hike was intense but rewarding." },
+  { "note_id": 8, "activity_id": 8, "text": "Cold water but beautiful views." },
+  { "note_id": 11, "activity_id": 11, "text": "Romantic spot for sunset." },
+  { "note_id": 12, "activity_id": 12, "text": "Loved the art collection." },
+  { "note_id": 15, "activity_id": 15, "text": "Lots of waterfalls!" },
+  { "note_id": 16, "activity_id": 16, "text": "So relaxing. A must-do." },
+  { "note_id": 18, "activity_id": 18, "text": "Sandy but so worth it." },
+  { "note_id": 20, "activity_id": 20, "text": "Great beach day!" },
+  { "note_id": 23, "activity_id": 23, "text": "Very muddy, wear boots!" },
+  { "note_id": 24, "activity_id": 24, "text": "Saw pink dolphins!" },
+  { "note_id": 26, "activity_id": 26, "text": "Super cold but unique." },
+  { "note_id": 27, "activity_id": 27, "text": "Scenic stops everywhere." },
+  { "note_id": 29, "activity_id": 29, "text": "Felt like royalty!" },
+  { "note_id": 30, "activity_id": 30, "text": "New favorite red wine." },
+  { "note_id": 34, "activity_id": 34, "text": "So warm and cozy." },
+  { "note_id": 36, "activity_id": 36, "text": "Fast and dusty!" },
+  {
+    "note_id": 38,
+    "activity_id": 38,
+    "text": "Surprising and creative exhibits."
+  },
+  { "note_id": 39, "activity_id": 39, "text": "The forest felt enchanted." },
+  { "note_id": 41, "activity_id": 41, "text": "Humidity was crazy high!" },
+  { "note_id": 45, "activity_id": 45, "text": "Legs hurt but worth it." },
+  { "note_id": 47, "activity_id": 47, "text": "Tallest thing I've seen!" },
+  { "note_id": 49, "activity_id": 49, "text": "So many food options." }
+]

@@ -1,0 +1,6 @@
+[
+  { "favourite_id": 1, "itinerary_id": 1, "user_id": 2 },
+  { "favourite_id": 2, "itinerary_id": 2, "user_id": 1 },
+  { "favourite_id": 3, "itinerary_id": 5, "user_id": 3 },
+  { "favourite_id": 4, "itinerary_id": 8, "user_id": 4 }
+]

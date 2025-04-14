@@ -1,0 +1,42 @@
+[
+  {
+    "user_id": 1,
+    "username": "wanderer_joe",
+    "first_name": "Joe",
+    "last_name": "Smith",
+    "email": "joe@example.com",
+    "bio": "World explorer and coffee lover.",
+    "profile_pic_url": "https://example.com/profiles/joe.jpg",
+    "private": false
+  },
+  {
+    "user_id": 2,
+    "username": "globetrotter_amy",
+    "first_name": "Amy",
+    "last_name": "Johnson",
+    "email": "amy@example.com",
+    "bio": "Adventure is out there!",
+    "profile_pic_url": "https://example.com/profiles/amy.jpg",
+    "private": false
+  },
+  {
+    "user_id": 3,
+    "username": "nomad_mike",
+    "first_name": "Mike",
+    "last_name": "Chen",
+    "email": "mike@example.com",
+    "bio": "Backpacking one trail at a time.",
+    "profile_pic_url": "https://example.com/profiles/mike.jpg",
+    "private": true
+  },
+  {
+    "user_id": 4,
+    "username": "traveldiaries_lisa",
+    "first_name": "Lisa",
+    "last_name": "Nguyen",
+    "email": "lisa@example.com",
+    "bio": "Photographer with a passion for cultures.",
+    "profile_pic_url": "https://example.com/profiles/lisa.jpg",
+    "private": false
+  }
+]
