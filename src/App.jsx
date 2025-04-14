@@ -13,9 +13,9 @@ function App() {
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/:country" element={<CountryPage />} />
-        <Route path="/:username" element={<UserPage />} />
-        <Route path="/:username/settings" element={<UserSettingsPage />} />
+        <Route path="/countries/:country" element={<CountryPage />} />
+        <Route path="/users/:username" element={<UserPage />} />
+        <Route path="/users/:username/settings" element={<UserSettingsPage />} />
       </Routes>
     </UserProvider>
   );
