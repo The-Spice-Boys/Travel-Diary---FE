@@ -1,3 +1,9 @@
+import {Activity} from "./Activity.jsx";
+
+
 export const Itinerary = () => {
-  return <div>Itinerary</div>;
+
+  return (
+      <Activity/>
+  );
 };
