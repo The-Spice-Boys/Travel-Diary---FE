@@ -2,6 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import { ListGroup } from 'react-bootstrap';
+import { MenuPopover } from './MenuPopover';
 import { GrStatusGood } from 'react-icons/gr';
 
 const MyVerticallyCenteredModal = (props) => {
@@ -47,9 +48,15 @@ export const Activity = ({ itineraryActivity }) => {
       >
         <p className="m-2">{itineraryActivity.title}</p>
 
-        {itineraryActivity.completion_status && (
-          <GrStatusGood className="react-icon m-0" size={20} />
-        )}
+        <div
+          className="d-flex gap-1 align-items-center"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {itineraryActivity.completion_status && (
+            <GrStatusGood className="react-icon m-0" size={15} />
+          )}
+          <MenuPopover />
+        </div>
       </ListGroup.Item>
       <MyVerticallyCenteredModal
         itineraryactivity={itineraryActivity}
