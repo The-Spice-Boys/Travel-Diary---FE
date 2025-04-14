@@ -1,7 +1,8 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { useState } from "react";
-import { ListGroup } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useState } from 'react';
+import { ListGroup } from 'react-bootstrap';
+import { GrStatusGood } from 'react-icons/gr';
 
 const MyVerticallyCenteredModal = (props) => {
   return (
@@ -35,17 +36,26 @@ export const Activity = ({ itineraryActivity }) => {
   const [modalShow, setModalShow] = useState(false);
 
   return (
-    <ListGroup.Item>
-      <p>{itineraryActivity.title}</p>
-      <Button variant="primary" onClick={() => setModalShow(true)}>
-        Show more
-      </Button>
+    <>
+      <ListGroup.Item
+        className={`d-flex justify-content-between align-items-center ${
+          itineraryActivity.completion_status && 'activity-completed'
+        }`}
+        onClick={() => {
+          if (itineraryActivity.completion_status) setModalShow(true);
+        }}
+      >
+        <p className="m-2">{itineraryActivity.title}</p>
 
+        {itineraryActivity.completion_status && (
+          <GrStatusGood className="react-icon m-0" size={20} />
+        )}
+      </ListGroup.Item>
       <MyVerticallyCenteredModal
         itineraryactivity={itineraryActivity}
         show={modalShow}
         onHide={() => setModalShow(false)}
       />
-    </ListGroup.Item>
+    </>
   );
 };
