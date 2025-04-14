@@ -3,60 +3,60 @@
     "country_id": 1,
     "name": "Japan",
     "description": "Land of the Rising Sun",
-    "photo": "https://example.com/countries/japan.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 2,
     "name": "Italy",
     "description": "Rich in art and history",
-    "photo": "https://example.com/countries/italy.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 3,
     "name": "Brazil",
     "description": "Vibrant culture and festivals",
-    "photo": "https://example.com/countries/brazil.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 4,
     "name": "Canada",
     "description": "Home to wilderness and mountains",
-    "photo": "https://example.com/countries/canada.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 5,
     "name": "Australia",
     "description": "Outback adventures",
-    "photo": "https://example.com/countries/australia.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 6,
     "name": "France",
     "description": "Gourmet food and romance",
-    "photo": "https://example.com/countries/france.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 7,
     "name": "Thailand",
     "description": "Land of Smiles",
-    "photo": "https://example.com/countries/thailand.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 8,
     "name": "Iceland",
     "description": "Fire and Ice",
-    "photo": "https://example.com/countries/iceland.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 9,
     "name": "Morocco",
     "description": "Colorful markets and deserts",
-    "photo": "https://example.com/countries/morocco.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   },
   {
     "country_id": 10,
     "name": "USA",
     "description": "Diverse landscapes and cities",
-    "photo": "https://example.com/countries/usa.jpg"
+    "photo": "https://picsum.photos/id/237/200/300"
   }
 ]

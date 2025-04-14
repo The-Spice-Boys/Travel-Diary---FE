@@ -6,7 +6,7 @@
     "last_name": "Smith",
     "email": "joe@example.com",
     "bio": "World explorer and coffee lover.",
-    "profile_pic_url": "https://example.com/profiles/joe.jpg",
+    "profile_pic_url": "https://picsum.photos/seed/picsum/200/300",
     "private": false
   },
   {
@@ -16,7 +16,7 @@
     "last_name": "Johnson",
     "email": "amy@example.com",
     "bio": "Adventure is out there!",
-    "profile_pic_url": "https://example.com/profiles/amy.jpg",
+    "profile_pic_url": "https://picsum.photos/seed/picsum/200/300",
     "private": false
   },
   {
@@ -26,7 +26,7 @@
     "last_name": "Chen",
     "email": "mike@example.com",
     "bio": "Backpacking one trail at a time.",
-    "profile_pic_url": "https://example.com/profiles/mike.jpg",
+    "profile_pic_url": "https://picsum.photos/seed/picsum/200/300",
     "private": true
   },
   {
@@ -36,7 +36,7 @@
     "last_name": "Nguyen",
     "email": "lisa@example.com",
     "bio": "Photographer with a passion for cultures.",
-    "profile_pic_url": "https://example.com/profiles/lisa.jpg",
+    "profile_pic_url": "https://picsum.photos/seed/picsum/200/300",
     "private": false
   }
 ]

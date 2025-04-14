@@ -3,156 +3,156 @@
     "photo_id": 1,
     "activity_id": 1,
     "caption": "Temple entrance",
-    "url": "https://example.com/photos/sensoji.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 2,
     "activity_id": 2,
     "caption": "Fresh sushi platter",
-    "url": "https://example.com/photos/sushi.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 5,
     "activity_id": 5,
     "caption": "Carnival dancers",
-    "url": "https://example.com/photos/carnival.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 6,
     "activity_id": 6,
     "caption": "View from Sugarloaf",
-    "url": "https://example.com/photos/sugarloaf.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 7,
     "activity_id": 7,
     "caption": "Forest trail",
-    "url": "https://example.com/photos/banff.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 8,
     "activity_id": 8,
     "caption": "Kayak on turquoise water",
-    "url": "https://example.com/photos/louise.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 11,
     "activity_id": 11,
     "caption": "Eiffel Tower from below",
-    "url": "https://example.com/photos/eiffel.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 12,
     "activity_id": 12,
     "caption": "Louvre Pyramid",
-    "url": "https://example.com/photos/louvre.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 15,
     "activity_id": 15,
     "caption": "Golden Circle waterfall",
-    "url": "https://example.com/photos/circle.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 16,
     "activity_id": 16,
     "caption": "Blue Lagoon relaxation",
-    "url": "https://example.com/photos/lagoon.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 18,
     "activity_id": 18,
     "caption": "Camel ride at dusk",
-    "url": "https://example.com/photos/camels.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 20,
     "activity_id": 20,
     "caption": "Santa Monica Pier",
-    "url": "https://example.com/photos/pier.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 23,
     "activity_id": 23,
     "caption": "Amazon trail",
-    "url": "https://example.com/photos/amazon.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 24,
     "activity_id": 24,
     "caption": "Wildlife on boat tour",
-    "url": "https://example.com/photos/boat.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 26,
     "activity_id": 26,
     "caption": "Ice hotel lobby",
-    "url": "https://example.com/photos/icehotel.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 27,
     "activity_id": 27,
     "caption": "Coastal drive view",
-    "url": "https://example.com/photos/oceanroad.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 29,
     "activity_id": 29,
     "caption": "Château exterior",
-    "url": "https://example.com/photos/chateau.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 30,
     "activity_id": 30,
     "caption": "Wine cellar",
-    "url": "https://example.com/photos/wine.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 34,
     "activity_id": 34,
     "caption": "Hot spring",
-    "url": "https://example.com/photos/hotspring.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 36,
     "activity_id": 36,
     "caption": "ATV in sand",
-    "url": "https://example.com/photos/atv.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 38,
     "activity_id": 38,
     "caption": "Modern art piece",
-    "url": "https://example.com/photos/moma.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 39,
     "activity_id": 39,
     "caption": "Bamboo forest",
-    "url": "https://example.com/photos/arashiyama.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 41,
     "activity_id": 41,
     "caption": "Rainforest canopy",
-    "url": "https://example.com/photos/canopy.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 45,
     "activity_id": 45,
     "caption": "Mountain peak view",
-    "url": "https://example.com/photos/mountain.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 47,
     "activity_id": 47,
     "caption": "Toronto skyline",
-    "url": "https://example.com/photos/cntower.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   },
   {
     "photo_id": 49,
     "activity_id": 49,
     "caption": "Floating market boats",
-    "url": "https://example.com/photos/market.jpg"
+    "url": "https://picsum.photos/id/1/200/300"
   }
 ]
