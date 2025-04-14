@@ -16,6 +16,7 @@ function App() {
         <Route path="/countries/:country" element={<CountryPage />} />
         <Route path="/users/:username" element={<UserPage />} />
         <Route path="/users/:username/settings" element={<UserSettingsPage />} />
+        <Route path="*" element={<Error error={404} />}/>
       </Routes>
     </UserProvider>
   );
