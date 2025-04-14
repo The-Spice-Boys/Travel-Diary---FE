@@ -1,3 +1,7 @@
+import {GlobeSearch} from "./GlobeSearch.jsx";
+
 export const HomePage = () => {
-  return <div>HomePage</div>;
+  return (
+      <GlobeSearch />
+  );
 };

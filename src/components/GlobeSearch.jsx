@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import Globe from 'globe.gl';
 import * as topojson from 'topojson-client';
 
-function Globe() {
+export const GlobeSearch = ()=> {
   const globeEl = useRef();
 
   useEffect(() => {
-    const globe = Globe()(globeEl.current)
+    const globe = GlobeSearch()(globeEl.current)
         .globeImageUrl('src/assets/Equirectangular_projection_SW.jpg')
         .backgroundColor('#FFF')
         .polygonCapColor(() => 'rgba(255, 255, 255, 0.3)')
@@ -47,5 +47,3 @@ function Globe() {
       </div>
   );
 }
-
-export default App;
