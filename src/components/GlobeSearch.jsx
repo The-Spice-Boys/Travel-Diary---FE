@@ -17,7 +17,7 @@ export const GlobeSearch = () => {
       .polygonLabel((d) => `<b>${d.properties.name}</b>`)
       .polygonAltitude(0.01)
       .onPolygonHover((hoveredCountry) => {
-        console.log(hoveredCountry);
+        // console.log(hoveredCountry);
         // hoveredCountry = polygon object
         globe.polygonCapColor((country) => {
           // updates polygon colour dynamically according to current polygon being hovered, then back to no update when not hovered
