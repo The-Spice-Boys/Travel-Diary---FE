@@ -1,15 +1,17 @@
 import Accordion from "react-bootstrap/Accordion";
 import { Itinerary } from "./Itinerary.jsx";
 
-export const ItineraryAccordion = () => {
-  return (
-    <Accordion defaultActiveKey="0">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Tokyo Adventure</Accordion.Header>
-        <Accordion.Body>
-          <Itinerary />
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
-  );
+export const ItineraryAccordion = ({ itineraries }) => {
+   const accordionItems = itineraries.map(({ itinerary_id, title }) => {
+      return (
+         <Accordion.Item key={itinerary_id} eventKey={itinerary_id}>
+            <Accordion.Header>{title}</Accordion.Header>
+            <Accordion.Body>
+               <Itinerary itineraryId={itinerary_id} />
+            </Accordion.Body>
+         </Accordion.Item>
+      );
+   });
+
+   return <Accordion defaultActiveKey="0">{accordionItems}</Accordion>;
 };
