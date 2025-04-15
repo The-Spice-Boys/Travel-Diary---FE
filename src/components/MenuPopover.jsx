@@ -3,12 +3,14 @@ import Popover from 'react-bootstrap/Popover';
 import { IoMenu } from 'react-icons/io5';
 
 export const MenuPopover = () => {
+  
+
   const popover = (
     <Popover id="popover-basic">
       <Popover.Header as="h3">Popover right</Popover.Header>
       <Popover.Body>
-        And here's some <strong>amazing</strong> content. It's very engaging.
-        right?
+          <input class="btn btn-primary" type="button" value="Edit"/>
+        <input class="btn btn-primary" type="button" value="Delete"/>
       </Popover.Body>
     </Popover>
   );

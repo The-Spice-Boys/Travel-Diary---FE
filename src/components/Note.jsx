@@ -1,3 +1,6 @@
-export const Note = ({text}) => {
-  return <p>{text}</p>;
+export const Note = ({text, edit}) => {
+  return <>
+    <p>{text}</p>
+    {edit}
+  </>
 };
