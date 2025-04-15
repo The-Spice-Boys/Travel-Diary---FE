@@ -21,5 +21,9 @@ export const getPhotosByActivityId = (requestId) => {
 }   
 
 export const getNotesByActivityId = (requestId) => {
-    return notes.filter(({activity_id}) => activity_id === requestId)
+    return notes.filter(({activity_id}) => activity_id === requestId);
+}
+
+export const getUserBioByUsername = (requestUsername) => {
+   return users.filter(({username , bio}) => username === requestUsername ? bio : null);
 }
