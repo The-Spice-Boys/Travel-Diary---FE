@@ -1,109 +1,157 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import {Photo} from "./Photo";
-import {Note} from "./Note";
-import { use, useContext, useState } from 'react';
-import { ListGroup } from 'react-bootstrap';
-import { MenuPopover } from './MenuPopover';
-import { GrStatusGood } from 'react-icons/gr';
-import { getNotesByActivityId, getPhotosByActivityId } from '../api';
-import { UserContext } from '../context/User';
-import { useParams } from 'react-router-dom';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Photo } from "./Photo";
+import { Note } from "./Note";
+import { useContext, useState, useEffect } from "react";
+import { ListGroup } from "react-bootstrap";
+import { MenuPopover } from "./MenuPopover";
+import { getNotesByActivityId, getPhotosByActivityId } from "../api";
+import { UserContext } from "../context/User";
+import { useParams } from "react-router-dom";
+
+import { MdAddAPhoto } from "react-icons/md";
+import { LuNotebookPen } from "react-icons/lu";
+import { MdOutlineCheckBox } from "react-icons/md";
+import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 
 const MyVerticallyCenteredModal = (props) => {
-  const {activity : {activity_id, title}, edit} = props;
-  const photos = getPhotosByActivityId(activity_id);
-  const notes = getNotesByActivityId(activity_id);
-  const [addPhotoButton, setAddPhotoButton] = useState(false)
-  const [addNoteButton, setAddNoteButton] = useState(false)
-  
+   let { editenabled } = props;
+   editenabled = editenabled === "true" ? true : false;
 
-  const photoArray = photos.map(({photo_id, caption, url}) => {
-    return <Photo key={photo_id} url={url} caption={caption} edit={edit}/>
-  })
+   const {
+      activity: { activity_id, title },
+      show,
+   } = props;
 
-  const noteArray = notes.map(({note_id, text}) => {
-    return <Note key={note_id} text={text} edit={edit}/>
-  })
+   const photos = getPhotosByActivityId(activity_id);
+   const notes = getNotesByActivityId(activity_id);
+   const [addPhotoButton, setAddPhotoButton] = useState(false);
+   const [addNoteButton, setAddNoteButton] = useState(false);
 
-  function handleAddPhoto(){
-    setAddPhotoButton(true);
-  }
+   useEffect(() => {
+      setAddNoteButton(false);
+      setAddPhotoButton(false);
+   }, [show]);
 
-  function handleAddNote(){
-    setAddNoteButton(true);
-  }
+   const photoArray = photos.map(({ photo_id, caption, url }) => {
+      return (
+         <Photo
+            key={photo_id}
+            url={url}
+            caption={caption}
+            editenabled={editenabled.toString()}
+         />
+      );
+   });
 
-  return (
-    <Modal
-      {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          {title}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-      
-        {photoArray}
-        {noteArray}
+   const noteArray = notes.map(({ note_id, text }) => {
+      return <Note key={note_id} text={text} editenabled={editenabled.toString()} />;
+   });
 
-        {addPhotoButton ? (
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Upload photo</label>
-            <input class="form-control" type="file" id="formFile"/>
-                 </div>
-                ) : null}
-        {addNoteButton ? (<input class="form-control" type="text" placeholder="Add a note" aria-label="default input example"/>) 
-        : null}
-      </Modal.Body>
+   function handleAddPhoto() {
+      setAddNoteButton(false);
+      setAddPhotoButton(true);
+   }
 
-      <Modal.Footer>
-        <Button onClick={handleAddPhoto}>Add Photo</Button>
-        <Button onClick={handleAddNote}>Add Note</Button>
-        <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
-    </Modal>
-  );
+   function handleAddNote() {
+      setAddPhotoButton(false);
+      setAddNoteButton(true);
+   }
+
+   return (
+      <Modal
+         {...props}
+         size="lg"
+         aria-labelledby="contained-modal-title-vcenter"
+         centered
+      >
+         <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title-vcenter">
+               {title}
+            </Modal.Title>
+         </Modal.Header>
+         <Modal.Body>
+            {photoArray}
+            {noteArray}
+
+            {addPhotoButton && (
+               <div className="mb-3">
+                  <label htmlFor="formFile" className="form-label">
+                     Upload photo
+                  </label>
+                  <input className="form-control" type="file" id="formFile" />
+               </div>
+            )}
+            {addNoteButton && (
+               <div>
+                  <input
+                     className="form-control"
+                     type="text"
+                     placeholder="Add a note"
+                     aria-label="default input example"
+                  />
+               </div>
+            )}
+         </Modal.Body>
+
+         {editenabled && (
+            <Modal.Footer>
+               <Button onClick={handleAddPhoto}>
+                  <MdAddAPhoto />
+               </Button>
+               <Button onClick={handleAddNote}>
+                  <LuNotebookPen />
+               </Button>
+            </Modal.Footer>
+         )}
+      </Modal>
+   );
 };
 
-export const Activity = ({ activity }) => {
-  const [modalShow, setModalShow] = useState(false);
-  const {loggedInUser} = useContext(UserContext)
-  const {username} = useParams()
-  const editPermission = loggedInUser === username ? <MenuPopover /> : null
+export const Activity = ({ activity, editenabled }) => {
+   editenabled = editenabled === "true" ? true : false;
+   const [modalShow, setModalShow] = useState(false);
+   const [isActivityComplete, setIsActivityComplete] = useState(
+      activity.completion_status
+   );
 
-  return (
-    <>
-      <ListGroup.Item
-        className={`d-flex justify-content-between align-items-center ${
-          activity.completion_status && 'activity-completed'
-        }`}
-        onClick={() => {
-          if (activity.completion_status) setModalShow(true);
-        }}
-      >
-        <p className="m-2">{activity.title}</p>
+   const handleDisplayModal = () => {
+      if (isActivityComplete) setModalShow(true);
+   };
 
-        <div
-          className="d-flex gap-1 align-items-center"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {activity.completion_status && (
-            <GrStatusGood className="react-icon m-0" size={15} />
-          )}
-          {editPermission}
-        </div>
-      </ListGroup.Item>
-      <MyVerticallyCenteredModal
-        edit = {editPermission}
-        activity={activity}
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      />
-    </>
-  );
+   const handleToggleCompletion = (event) => {
+      event.stopPropagation();
+      if (editenabled) setIsActivityComplete(!isActivityComplete);
+   };
+
+   return (
+      <div>
+         <ListGroup.Item
+            onClick={handleDisplayModal}
+            className={`d-flex justify-content-between align-items-center ${
+               isActivityComplete && "activity-completed"
+            }`}
+         >
+            <div className="d-flex align-items-center">
+               <p className="m-2">{activity.title}</p>
+               <Button className="p-0" onClick={handleToggleCompletion}>
+                  {isActivityComplete ? (
+                     <MdOutlineCheckBox size={30} />
+                  ) : (
+                     <MdOutlineCheckBoxOutlineBlank size={30} />
+                  )}
+               </Button>
+            </div>
+
+            {editenabled && <MenuPopover icon="dots" />}
+         </ListGroup.Item>
+
+         <MyVerticallyCenteredModal
+            editenabled={editenabled.toString()}
+            activity={activity}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+         />
+      </div>
+   );
 };
