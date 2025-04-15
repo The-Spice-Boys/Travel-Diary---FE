@@ -42,8 +42,7 @@ export const GlobeSearch = () => {
   }, []);
 
   return (
-    <div>
-      <div ref={globeEl} style={{ width: '100vw', height: '100vh' }} />
-    </div>
+    <div className="d-flex justify-content-center align-items-center" ref={globeEl}>
+  </div>
   );
 };
