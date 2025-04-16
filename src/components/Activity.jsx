@@ -16,7 +16,7 @@ import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 
 const MyVerticallyCenteredModal = (props) => {
    let { editenabled } = props;
-   editenabled = editenabled === "true" ? true : false;
+   editenabled = editenabled === "true";
 
    const {
       activity: { activity_id, title },
@@ -70,8 +70,10 @@ const MyVerticallyCenteredModal = (props) => {
                {title}
             </Modal.Title>
          </Modal.Header>
-         <Modal.Body>
-            {photoArray}
+         <Modal.Body >
+            <div className="d-flex justify-content-center align-items-center flex-column">
+               {photoArray}
+            </div>
             {noteArray}
 
             {addPhotoButton && (
@@ -109,7 +111,7 @@ const MyVerticallyCenteredModal = (props) => {
 };
 
 export const Activity = ({ activity, editenabled }) => {
-   editenabled = editenabled === "true" ? true : false;
+   editenabled = editenabled === "true";
    const [modalShow, setModalShow] = useState(false);
    const [isActivityComplete, setIsActivityComplete] = useState(
       activity.completion_status
@@ -125,7 +127,7 @@ export const Activity = ({ activity, editenabled }) => {
    };
 
    return (
-      <div>
+      <div className="activity-container my-2 rounded-2">
          <ListGroup.Item
             onClick={handleDisplayModal}
             className={`d-flex justify-content-between align-items-center ${
@@ -134,13 +136,11 @@ export const Activity = ({ activity, editenabled }) => {
          >
             <div className="d-flex align-items-center">
                <p className="m-2">{activity.title}</p>
-               <Button className="p-0" onClick={handleToggleCompletion}>
                   {isActivityComplete ? (
-                     <MdOutlineCheckBox size={30} />
+                     <MdOutlineCheckBox size={30} onClick={handleToggleCompletion}/>
                   ) : (
-                     <MdOutlineCheckBoxOutlineBlank size={30} />
+                     <MdOutlineCheckBoxOutlineBlank size={30} onClick={handleToggleCompletion}/>
                   )}
-               </Button>
             </div>
 
             {editenabled && <MenuPopover icon="dots" />}
