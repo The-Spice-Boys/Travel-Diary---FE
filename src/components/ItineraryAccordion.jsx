@@ -1,27 +1,66 @@
-import Accordion from 'react-bootstrap/Accordion';
-import {Itinerary} from "./Itinerary.jsx";
+import Accordion from "react-bootstrap/Accordion";
+import { Button } from "react-bootstrap";
+import { Itinerary } from "./Itinerary.jsx";
+import { MenuPopover } from "./MenuPopover.jsx";
+import { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { UserContext } from "../context/User.jsx";
+import { FaHeart } from "react-icons/fa";
+import favourites from "../dummy_data/favourites.json";
 
-export const ItineraryAccordion = () => {
-  return (
-      <Accordion defaultActiveKey="0">
-    <Accordion.Item eventKey="0">
-      <Accordion.Header>Tokyo Adventure</Accordion.Header>
-      <Accordion.Body>
-        <Itinerary />
-      </Accordion.Body>
-    </Accordion.Item>
-    <Accordion.Item eventKey="1">
-      <Accordion.Header>Accordion Item #2</Accordion.Header>
-      <Accordion.Body>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-        eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-        aliquip ex ea commodo consequat. Duis aute irure dolor in
-        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </Accordion.Body>
-    </Accordion.Item>
-  </Accordion>
-  )
+const Favourite = ({ id }) => {
+
+   // --- MOCK API FUNCTION & TEMP STYLING LOGIC ---
+  const handleFavourite = () => setIsFavourited(!isFavourited);
+  const returnColour = () => isFavourited ? "btn-danger" : "btn-secondary"
+  
+  const [isFavourited, setIsFavourited] = useState(
+     favourites.some(
+        ({ itinerary_id, user_id }) => itinerary_id === id && user_id === 1
+      )
+   );
+   const [colour, setColour] = useState(returnColour());
+
+   useEffect(() => {
+      const newColour = isFavourited ? "btn-danger" : "btn-secondary";
+      setColour(newColour);
+   }, [isFavourited])
+   // --- MOCK API CALLS & TEMP STYLING LOGIC ---
+
+   return (
+      <Button className={colour} onClick={handleFavourite}>
+         <FaHeart />
+      </Button>
+   );
+};
+
+export const ItineraryAccordion = ({ itineraries }) => {
+   const { loggedInUser } = useContext(UserContext);
+   const { username } = useParams();
+   const editenabled = loggedInUser === username;
+
+   const accordionItems = itineraries.map(({ itinerary_id, title }) => {
+      return (
+         <Accordion.Item key={itinerary_id} eventKey={itinerary_id}>
+            <div className="d-flex">
+               <Accordion.Header className="flex-fill">
+                  {title}
+               </Accordion.Header>
+               {editenabled ? (
+                  <MenuPopover icon="dots" className="p-2" />
+               ) : (
+                  <Favourite id={itinerary_id} />
+               )}
+            </div>
+            <Accordion.Body>
+               <Itinerary
+                  itineraryId={itinerary_id}
+                  editenabled={editenabled.toString()}
+               />
+            </Accordion.Body>
+         </Accordion.Item>
+      );
+   });
+
+   return <Accordion>{accordionItems}</Accordion>;
 };

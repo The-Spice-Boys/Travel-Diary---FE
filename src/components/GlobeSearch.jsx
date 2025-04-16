@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Globe from 'globe.gl';
 import * as topojson from 'topojson-client';
+import { useNavigate } from 'react-router-dom';
 
 export const GlobeSearch = () => {
   const globeEl = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const globe = Globe()(globeEl.current)
@@ -15,7 +17,7 @@ export const GlobeSearch = () => {
       .polygonLabel((d) => `<b>${d.properties.name}</b>`)
       .polygonAltitude(0.01)
       .onPolygonHover((hoveredCountry) => {
-        console.log(hoveredCountry);
+        // console.log(hoveredCountry);
         // hoveredCountry = polygon object
         globe.polygonCapColor((country) => {
           // updates polygon colour dynamically according to current polygon being hovered, then back to no update when not hovered
@@ -24,8 +26,8 @@ export const GlobeSearch = () => {
             : 'rgba(255, 255, 255, 0.3)';
         });
       })
-      .onPolygonClick((country, evt) => {
-        console.log(country.properties.name, evt);
+      .onPolygonClick(({properties: {name}}, evt) => {
+        navigate(`/countries/${name}`);
       });
 
     // Fetch country shape data, simplified low-res border data in topojson format (a way to encode borders?)
@@ -42,8 +44,7 @@ export const GlobeSearch = () => {
   }, []);
 
   return (
-    <div>
-      <div ref={globeEl} style={{ width: '100vw', height: '100vh' }} />
-    </div>
+    <div className="d-flex justify-content-center align-items-center" ref={globeEl}>
+  </div>
   );
 };

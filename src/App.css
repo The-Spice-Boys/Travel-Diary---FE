@@ -1,0 +1,8 @@
+.react-icon {
+    cursor: pointer;
+}   
+
+.activity-completed:hover {
+    border: 1px solid grey;
+    cursor: pointer;
+}
