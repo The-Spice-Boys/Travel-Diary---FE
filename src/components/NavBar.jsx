@@ -8,8 +8,7 @@ import { useContext } from "react";
 import { UserContext } from "../context/User";
 
 export const NavBar = () => {
-  const { loggedInUser } = useContext(UserContext);
-
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
       <Container>
@@ -23,10 +22,12 @@ export const NavBar = () => {
           id="responsive-navbar-nav"
           className="justify-content-end"
         >
-          {loggedInUser === "" && (
+          {loggedInUser === "" ? (
             <Button as={Link} to="/login">
               Login
             </Button>
+          ) : (
+            <Button onClick={() => setLoggedInUser("")}>Log out</Button>
           )}
         </Navbar.Collapse>
       </Container>
