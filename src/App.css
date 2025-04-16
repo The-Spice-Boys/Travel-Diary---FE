@@ -6,3 +6,13 @@
     border: 1px solid grey;
     cursor: pointer;
 }
+
+#accordion-item {
+    width: 40%;
+}
+
+@media (max-width: 768px) {
+    #accordion-item {
+        width: 100%;
+    }
+}
