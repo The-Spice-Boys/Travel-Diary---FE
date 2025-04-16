@@ -5,6 +5,8 @@ import {
   getUserByUsername,
 } from '../api.js';
 import { ItineraryAccordion } from './ItineraryAccordion.jsx';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 export const UserPage = () => {
   const { username } = useParams();
@@ -15,21 +17,23 @@ export const UserPage = () => {
 
   return (
     <>
-      <div className="container-fluid mt-5 mb-2">
-        <h2>Profile</h2>
-        <figure className="figure">
-          <img
-            src={profile_pic_url}
-            className="figure-img img-fluid rounded"
-            alt={username}
-          />
-        </figure>
-        <p>{bio}</p>
-      </div>
-      <div className="container-fluid text-left">
-        <h2>My itineraries</h2>
-      </div>
-      <ItineraryAccordion itineraries={itineraries} />
+        <div className="d-flex justify-content-center align-items-center p-3">
+            <Card style={{ width: '100%' }}>
+                <Card.Img variant="top" src={profile_pic_url} alt={username} style={{objectFit: 'cover',height: '200px'}}/>
+                <Card.Body>
+                    <Card.Title className="mt-3">Profile</Card.Title>
+                    <Card.Text className="my-5">
+                        {bio}
+                    </Card.Text>
+                    <div className="text-left ms-3 mt-5">
+                        <h2>My Itineraries</h2>
+                    </div>
+                    <ItineraryAccordion itineraries={itineraries} />
+                </Card.Body>
+            </Card>
+        </div>
+
+
     </>
   );
 };

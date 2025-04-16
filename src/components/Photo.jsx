@@ -6,7 +6,7 @@ export const Photo = ({ url, caption, editenabled }) => {
   console.log(editenabled);
    return (
       <Figure className="position-relative d-inline-block">
-         <Figure.Image src={url} />
+         <Figure.Image src={url} className="rounded" />
          {editenabled && (
             <MenuPopover
                icon="edit"
