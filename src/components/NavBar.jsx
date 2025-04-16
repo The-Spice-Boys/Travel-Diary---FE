@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useContext } from "react";
 import { UserContext } from "../context/User";
+import { FaRegUser } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export const NavBar = () => {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
@@ -27,7 +29,15 @@ export const NavBar = () => {
               Login
             </Button>
           ) : (
-            <Button onClick={() => setLoggedInUser("")}>Log out</Button>
+            <div>
+              <Button onClick={() => setLoggedInUser("")}>Log out</Button>
+              <Link to={`/users/${loggedInUser}`}>
+                <FaRegUser />
+              </Link>
+              <Link to={`/users/${loggedInUser}/settings`}>
+                <IoSettingsOutline />
+              </Link>
+            </div>
           )}
         </Navbar.Collapse>
       </Container>
