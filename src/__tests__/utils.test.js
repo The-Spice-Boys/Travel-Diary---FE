@@ -1,4 +1,4 @@
-import { dateFormatter } from "./utils";
+import { dateFormatter } from "../utils/utils";
 
 describe("dateFormatter()", () => {
   let now;
