@@ -8,34 +8,37 @@ import { useContext } from "react";
 import { UserContext } from "../context/User";
 import { FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
+import { IoLogOutOutline } from "react-icons/io5";
 
 export const NavBar = () => {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-      <Container>
-        <div className="d-flex w-100 justify-content-between align-items-center">
-          <Navbar.Brand as={Link} to="/">
-            Travel Diary
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        </div>
+      <Container fluid>
+        <Navbar.Brand as={Link} to="/" className="me-auto">
+          Travel Diary
+        </Navbar.Brand>
+
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+
         <Navbar.Collapse
           id="responsive-navbar-nav"
           className="justify-content-end"
         >
           {loggedInUser === "" ? (
-            <Button as={Link} to="/login">
-              Login
-            </Button>
+            <div className="d-flex flex-lg-row flex-column align-items-lg-center align-items-end justify-content-lg-end gap-3 w-100 mt-lg-0 mt-3">
+              <Button as={Link} to="/login">
+                Login
+              </Button>
+            </div>
           ) : (
-            <div>
+            <div className="d-flex flex-lg-row flex-column align-items-lg-center align-items-end justify-content-lg-end gap-3 w-100 mt-lg-0 mt-3">
               <Button onClick={() => setLoggedInUser("")}>Log out</Button>
               <Link to={`/users/${loggedInUser}`}>
-                <FaRegUser />
+                <FaRegUser size={24} />
               </Link>
               <Link to={`/users/${loggedInUser}/settings`}>
-                <IoSettingsOutline />
+                <IoSettingsOutline size={24} />
               </Link>
             </div>
           )}
