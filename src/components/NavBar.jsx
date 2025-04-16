@@ -1,36 +1,49 @@
 import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import { useContext } from "react";
+import { UserContext } from "../context/User";
+import { FaRegUser } from "react-icons/fa";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export const NavBar = () => {
+  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home">Travel Diary</Navbar.Brand>
+      <Container fluid>
+        <Navbar.Brand as={Link} to="/" className="me-auto">
+          Travel Diary
+        </Navbar.Brand>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#features">Log Out</Nav.Link>
-            <Nav.Link href="#pricing">Profile</Nav.Link>
-            <Nav.Link href="#deets">Favourites</Nav.Link>
-            <NavDropdown title="Settings" id="collapsible-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-          <Nav>
-            <Nav.Link eventKey={2} href="#memes">
-              Theme
-            </Nav.Link>
-          </Nav>
+
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="justify-content-end"
+        >
+          {loggedInUser === "" ? (
+            <div className="d-flex flex-lg-row flex-column align-items-lg-center align-items-end justify-content-lg-end gap-3 w-100 mt-lg-0 mt-3">
+              <Button style={{ maxWidth: "200px" }} as={Link} to="/login">
+                Log in
+              </Button>
+            </div>
+          ) : (
+            <div className="d-flex flex-lg-row flex-column align-items-lg-center align-items-end justify-content-lg-end gap-3 w-100 mt-lg-0 mt-3">
+              <Link to={`/users/${loggedInUser}`}>
+                <FaRegUser size={24} />
+              </Link>
+              <Link to={`/users/${loggedInUser}/settings`}>
+                <IoSettingsOutline size={24} />
+              </Link>
+              <Button
+                style={{ maxWidth: "200px" }}
+                onClick={() => setLoggedInUser("")}
+              >
+                Log out
+              </Button>
+            </div>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>
