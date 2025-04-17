@@ -10,12 +10,18 @@ import Card from "react-bootstrap/Card";
 import itineraries from "../dummy_data/itineraries.json";
 import favourites from "../dummy_data/favourites.json";
 import { Button, ButtonGroup } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { UserContext } from "../context/User.jsx";
+import { ItineraryCreationForm } from "./ItineraryCreationForm.jsx";
 
 export const UserPage = () => {
    const { username } = useParams();
    const { user_id } = getUserByUsername(username);
    const { bio, profile_pic_url } = getUserBioByUsername(username)[0];
+   const [modalShow, setModalShow] = useState(false);
+
+   const { loggedInUser } = useContext(UserContext);
+   const editenabled = loggedInUser === username;
 
    //MOCK API CALLS
    const userItineraries = getItinerariesByUserId(user_id);
@@ -58,9 +64,19 @@ export const UserPage = () => {
                         showUserMade ? userItineraries : favouriteItineraries
                      }
                   />
+                  {showUserMade && editenabled && (
+                     <Button onClick={() => setModalShow(true)}>
+                        Create new itinerary
+                     </Button>
+                  )}
                </Card.Body>
             </Card>
          </div>
+
+         <ItineraryCreationForm
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+         ></ItineraryCreationForm>
       </>
    );
 };
