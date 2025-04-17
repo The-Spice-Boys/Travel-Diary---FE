@@ -3,10 +3,10 @@ import { Button } from "react-bootstrap";
 import { Itinerary } from "./Itinerary.jsx";
 import { MenuPopover } from "./MenuPopover.jsx";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { UserContext } from "../context/User.jsx";
 import { FaHeart } from "react-icons/fa";
 import { getFavouritesByUserId, getUserByUsername } from "../api.js";
+import { editEnabled } from "../utils/utils.js";
 
 const Favourite = ({ itineraryId }) => {
    const { loggedInUser } = useContext(UserContext);
@@ -36,13 +36,7 @@ const Favourite = ({ itineraryId }) => {
 };
 
 export const ItineraryAccordion = ({ itineraries }) => {
-   const { loggedInUser } = useContext(UserContext);
-   const { username } = useParams();
-   const editenabled = loggedInUser === username;
-
-   console.log(itineraries);
-
-   const accordionItems = itineraries.map(({ itinerary_id, title }) => {
+   const accordionItems = itineraries.map(({ itinerary_id, title, user_id }) => {
       return (
          <div
             key={itinerary_id}
@@ -54,7 +48,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   <Accordion.Header className="flex-fill">
                      {title}
                   </Accordion.Header>
-                  {editenabled ? (
+                  {editEnabled(user_id) ? (
                      <MenuPopover icon="dots" className="p-2 ms-2" />
                   ) : (
                      <Favourite itineraryId={itinerary_id} />
@@ -64,7 +58,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   <Itinerary
                      key={itinerary_id}
                      itineraryId={itinerary_id}
-                     editenabled={editenabled.toString()}
+                     userId={user_id}
                   />
                </Accordion.Body>
             </Accordion.Item>

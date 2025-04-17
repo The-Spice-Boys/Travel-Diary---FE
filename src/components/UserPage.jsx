@@ -2,23 +2,22 @@ import { useParams } from "react-router-dom";
 import {
    getFavouritesByUserId,
    getItinerariesByUserId,
-   getUserBioByUsername,
    getUserByUsername,
 } from "../api.js";
 import { ItineraryAccordion } from "./ItineraryAccordion.jsx";
 import { Button, ButtonGroup, Card } from "react-bootstrap";
-import { useContext, useState } from "react";
-import { UserContext } from "../context/User.jsx";
+import { useState } from "react";
 import { ItineraryCreationForm } from "./ItineraryCreationForm.jsx";
+import { editEnabled } from "../utils/utils.js";
 
 export const UserPage = () => {
-   const { loggedInUser } = useContext(UserContext);
-   const { user_id, username, bio, profile_pic_url } = getUserByUsername(useParams().username);
-   const userItineraries = getItinerariesByUserId(user_id)
+   const { user_id, username, bio, profile_pic_url } = getUserByUsername(
+      useParams().username
+   );
+   const userItineraries = getItinerariesByUserId(user_id);
    const favouriteItineraries = getFavouritesByUserId(user_id);
    const [modalShow, setModalShow] = useState(false);
    const [showUserMade, setShowUserMade] = useState(true);
-   const editenabled = loggedInUser === username;
 
    const handleItineraryList = (event) => {
       setShowUserMade(Boolean(event.target.value));
@@ -48,7 +47,7 @@ export const UserPage = () => {
                         showUserMade ? userItineraries : favouriteItineraries
                      }
                   />
-                  {showUserMade && editenabled && (
+                  {showUserMade && editEnabled(user_id) && (
                      <Button onClick={() => setModalShow(true)}>
                         Create new itinerary
                      </Button>
