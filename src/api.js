@@ -10,6 +10,10 @@ export const getUserByUsername = (requestUsername) => {
    return users.find(({ username }) => username === requestUsername);
 };
 
+export const getUserByUserId = (userId) => {
+   return users.find(({ user_id }) => user_id === userId);
+}
+
 export const getItinerariesByUserId = (requestId) => {
    return itineraries.filter(({ user_id }) => user_id === requestId);
 };
