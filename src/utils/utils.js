@@ -31,6 +31,10 @@ export const dateFormatter = (date) => {
 
 export const editEnabled = (userId) => {
   const { loggedInUser } = useContext(UserContext);
-  const {user_id: loggedInUserId} = getUserByUsername(loggedInUser);
-  return loggedInUserId === userId;
+  const user = getUserByUsername(loggedInUser);
+  if (user) {
+    const {loggedInUserId} = user.user_id;
+    return loggedInUserId === userId;
+  }
+  return false;
 }

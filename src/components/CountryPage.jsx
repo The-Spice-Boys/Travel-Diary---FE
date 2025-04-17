@@ -1,12 +1,13 @@
 import { useParams } from "react-router-dom";
 import { ItineraryAccordion } from "./ItineraryAccordion";
+import { Error } from "./Error";
 import { Card } from "react-bootstrap";
 import { getCountryByName, getItinerariesByCountry } from "../api";
 
 export const CountryPage = () => {
-   const { countryName, description, countryPicUrl } = getCountryByName(
-      useParams().country
-   );
+   const country = getCountryByName(useParams().country);
+   if (!country) return <Error error={404} />;
+   const { countryName, description, countryPicUrl } = country;
    const itineraries = getItinerariesByCountry(countryName);
 
    return (

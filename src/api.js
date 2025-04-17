@@ -7,10 +7,9 @@ import countries from "./dummy_data/countries.json";
 import favourites from "./dummy_data/favourites.json";
 
 export const getUserByUsername = (requestUsername) => {
-   const { user_id, username, bio, profile_pic_url } = users.find(
+   return users.find(
       ({ username }) => username === requestUsername
    );
-   return { user_id, username, bio, profile_pic_url };
 };
 
 export const getUserByUserId = (userId) => {

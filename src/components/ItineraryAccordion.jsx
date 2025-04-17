@@ -7,7 +7,6 @@ import { UserContext } from "../context/User.jsx";
 import { FaHeart } from "react-icons/fa";
 import {
    getCountryById,
-   getCountryByName,
    getFavouritesByUserId,
    getUserByUserId,
    getUserByUsername,
@@ -16,8 +15,9 @@ import { editEnabled } from "../utils/utils.js";
 
 const Favourite = ({ itineraryId }) => {
    const { loggedInUser } = useContext(UserContext);
-   const { user_id } = getUserByUsername(loggedInUser);
-   const favourites = getFavouritesByUserId(user_id);
+   const user = getUserByUsername(loggedInUser);
+   if (!user) return null;
+   const favourites = getFavouritesByUserId(user.user_id);
 
    const handleFavourite = () => setIsFavourited(!isFavourited);
    const returnColour = () => (isFavourited ? "btn-danger" : "btn-secondary");
