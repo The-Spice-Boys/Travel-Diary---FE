@@ -9,20 +9,21 @@ import { SearchBar } from "./SearchBar";
 
 export const CountryPage = () => {
   const {country} = useParams();
-  const countryData = countries.find(({name}) => name === country)
-  const {name, photo, description} = countryData || {};
-  const pageId = countryData ? countryData.country_id : null;
+  const countryData = countries.find(({countryName}) => countryName === country)
+  const {countryName, countryPicUrl, description} = countryData || {};
+  const pageId = countryData ? countryData.countryId : null;
 
   const countryItineraries = itineraries.filter(({ country_id }) => country_id === pageId);
 
+  console.log(countryData)
   if (pageId) {
     return (
       <>
       <div >
       <Card style={{ width: '100%' }}>
-          <Card.Img variant="top" src={photo} alt={name} style={{objectFit: 'cover', height: '200px'}}/>
+          <Card.Img variant="top" src={countryPicUrl} alt={countryName} style={{objectFit: 'cover', height: '200px'}}/>
               <Card.Body>
-                  <Card.Title className="mt-3 display-5">{name}</Card.Title>
+                  <Card.Title className="mt-3 display-5">{countryName}</Card.Title>
                   <Card.Text className="my-3">{description}</Card.Text>
                   <ItineraryAccordion itineraries={countryItineraries}/>
               </Card.Body>

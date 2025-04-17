@@ -39,6 +39,8 @@ export const ItineraryAccordion = ({ itineraries }) => {
    const { username } = useParams();
    const editenabled = loggedInUser === username;
 
+   console.log(itineraries)
+
    const accordionItems = itineraries.map(({ itinerary_id, title }) => {
       return (
           <div key={itinerary_id} className="mb-3 border border-2 border-dark rounded p-3 flex-grow-1 mx-2" id="accordion-item">
