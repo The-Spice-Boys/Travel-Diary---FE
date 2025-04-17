@@ -138,5 +138,12 @@
     "description": "Historic cities and stunning coastline.",
     "countryPicUrl": "https://example.com/portugal.jpg",
     "itineraries": []
+  },
+  {
+    "countryId": 21,
+    "countryName": "Japan",
+    "description": "Historic cities and stunning coastline.",
+    "countryPicUrl": "https://example.com/portugal.jpg",
+    "itineraries": []
   }
 ]

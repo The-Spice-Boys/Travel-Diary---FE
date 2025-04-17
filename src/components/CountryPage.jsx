@@ -15,7 +15,6 @@ export const CountryPage = () => {
 
   const countryItineraries = itineraries.filter(({ country_id }) => country_id === pageId);
 
-  console.log(countryData)
   if (pageId) {
     return (
       <>
