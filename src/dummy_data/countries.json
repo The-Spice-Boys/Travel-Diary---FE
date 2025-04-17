@@ -1,62 +1,142 @@
 [
   {
-    "country_id": 1,
-    "name": "Japan",
-    "description": "Land of the Rising Sun",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 1,
+    "countryName": "Japan",
+    "description": "Land of the rising sun, sushi, and samurai.",
+    "countryPicUrl": "https://example.com/japan.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 2,
-    "name": "Italy",
-    "description": "Rich in art and history",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 2,
+    "countryName": "France",
+    "description": "Known for art, wine, and the Eiffel Tower.",
+    "countryPicUrl": "https://example.com/france.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 3,
-    "name": "Brazil",
-    "description": "Vibrant culture and festivals",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 3,
+    "countryName": "Brazil",
+    "description": "Home to Carnival, football, and the Amazon rainforest.",
+    "countryPicUrl": "https://example.com/brazil.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 4,
-    "name": "Canada",
-    "description": "Home to wilderness and mountains",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 4,
+    "countryName": "Canada",
+    "description": "A land of lakes, mountains, and maple syrup.",
+    "countryPicUrl": "https://example.com/canada.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 5,
-    "name": "Australia",
-    "description": "Outback adventures",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 5,
+    "countryName": "Kenya",
+    "description": "Rich in wildlife and stunning savannahs.",
+    "countryPicUrl": "https://example.com/kenya.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 6,
-    "name": "France",
-    "description": "Gourmet food and romance",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 6,
+    "countryName": "Italy",
+    "description": "Home of pasta, Roman ruins, and Renaissance art.",
+    "countryPicUrl": "https://example.com/italy.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 7,
-    "name": "Thailand",
-    "description": "Land of Smiles",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 7,
+    "countryName": "Spain",
+    "description": "Famous for flamenco, siestas, and tapas.",
+    "countryPicUrl": "https://example.com/spain.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 8,
-    "name": "Iceland",
-    "description": "Fire and Ice",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 8,
+    "countryName": "Australia",
+    "description": "Outback adventures and great barrier reefs.",
+    "countryPicUrl": "https://example.com/australia.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 9,
-    "name": "Morocco",
-    "description": "Colorful markets and deserts",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 9,
+    "countryName": "India",
+    "description": "Diverse culture, spicy food, and ancient temples.",
+    "countryPicUrl": "https://example.com/india.jpg",
+    "itineraries": []
   },
   {
-    "country_id": 10,
-    "name": "United States of America",
-    "description": "Diverse landscapes and cities",
-    "photo": "https://picsum.photos/id/237/200/300"
+    "countryId": 10,
+    "countryName": "Egypt",
+    "description": "Land of pyramids, pharaohs, and the Nile.",
+    "countryPicUrl": "https://example.com/egypt.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 11,
+    "countryName": "Germany",
+    "description": "Engineering, Oktoberfest, and fairytale castles.",
+    "countryPicUrl": "https://example.com/germany.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 12,
+    "countryName": "China",
+    "description": "Great Wall, dynasties, and delicious dim sum.",
+    "countryPicUrl": "https://example.com/china.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 13,
+    "countryName": "Thailand",
+    "description": "Tropical beaches, spicy food, and temples.",
+    "countryPicUrl": "https://example.com/thailand.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 14,
+    "countryName": "Mexico",
+    "description": "Tacos, tequila, and vibrant traditions.",
+    "countryPicUrl": "https://example.com/mexico.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 15,
+    "countryName": "United Kingdom",
+    "description": "Castles, tea, and rich royal history.",
+    "countryPicUrl": "https://example.com/uk.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 16,
+    "countryName": "South Africa",
+    "description": "Safari adventures and coastal beauty.",
+    "countryPicUrl": "https://example.com/southafrica.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 17,
+    "countryName": "Greece",
+    "description": "Mythology, ruins, and island sunsets.",
+    "countryPicUrl": "https://example.com/greece.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 18,
+    "countryName": "Turkey",
+    "description": "A bridge between Europe and Asia.",
+    "countryPicUrl": "https://example.com/turkey.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 19,
+    "countryName": "Argentina",
+    "description": "Tango, steak, and Patagonia landscapes.",
+    "countryPicUrl": "https://example.com/argentina.jpg",
+    "itineraries": []
+  },
+  {
+    "countryId": 20,
+    "countryName": "Portugal",
+    "description": "Historic cities and stunning coastline.",
+    "countryPicUrl": "https://example.com/portugal.jpg",
+    "itineraries": []
   }
 ]
