@@ -14,7 +14,9 @@ export const getUserByUsername = (requestUsername) => {
 };
 
 export const getUserByUserId = (userId) => {
-   const { user_id, username, bio, profile_pic_url } = users.find(({ user_id }) => user_id === userId);
+   const { user_id, username, bio, profile_pic_url } = users.find(
+      ({ user_id }) => user_id === userId
+   );
 
    return { user_id, username, bio, profile_pic_url };
 };
@@ -50,6 +52,10 @@ export const getCountryByName = (countryName) => {
       (country) =>
          country.countryName.toLowerCase() === countryName.toLowerCase()
    );
+};
+
+export const getCountryById = (countryId) => {
+   return countries.find((country) => country.countryId === countryId);
 };
 
 export const getItinerariesByCountry = (countryName) => {

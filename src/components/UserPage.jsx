@@ -34,14 +34,17 @@ export const UserPage = () => {
                   style={{ objectFit: "cover", height: "200px" }}
                />
                <Card.Body>
-                  <Card.Title className="mt-3">Profile</Card.Title>
+                  <Card.Title className="mt-3">{username}</Card.Title>
                   <Card.Text className="my-5">{bio}</Card.Text>
 
                   <ButtonGroup onClick={handleItineraryList}>
-                     <Button value={true}>My itineraries</Button>
-                     <Button value={null}>My favourites</Button>
+                     <Button value={true} className={showUserMade ? "btn-primary" : "btn-secondary"}>
+                        Itineraries
+                     </Button>
+                     <Button value={null} className={showUserMade ? "btn-secondary" : "btn-primary"}>
+                        Favourites
+                     </Button>
                   </ButtonGroup>
-                  <h2>{showUserMade ? "My itineraries" : "My favourites"}</h2>
                   <ItineraryAccordion
                      itineraries={
                         showUserMade ? userItineraries : favouriteItineraries
