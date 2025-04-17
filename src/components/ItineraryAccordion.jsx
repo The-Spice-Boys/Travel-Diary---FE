@@ -41,8 +41,8 @@ export const ItineraryAccordion = ({ itineraries }) => {
 
    const accordionItems = itineraries.map(({ itinerary_id, title }) => {
       return (
-          <div className="mb-3 border border-2 border-dark rounded p-3 flex-grow-1 mx-2" id="accordion-item">
-              <Accordion.Item key={itinerary_id} eventKey={itinerary_id}>
+          <div key={itinerary_id} className="mb-3 border border-2 border-dark rounded p-3 flex-grow-1 mx-2" id="accordion-item">
+              <Accordion.Item eventKey={itinerary_id}>
                   <div className="d-flex">
                       <Accordion.Header className="flex-fill">
                           {title}
@@ -55,6 +55,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   </div>
                   <Accordion.Body>
                       <Itinerary
+                          key = {itinerary_id}
                           itineraryId={itinerary_id}
                           editenabled={editenabled.toString()}
                       />
@@ -68,7 +69,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
        <div className="d-flex  my-5 border border-2 border-dark rounded py-5 w-100">
                <Accordion className="d-flex flex-row flex-wrap gap-3">
                    {accordionItems}
-               </Accordion>)
+               </Accordion>
        </div>
    )
 };

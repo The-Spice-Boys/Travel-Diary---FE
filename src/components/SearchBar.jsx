@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 
-export const SearchBar = () => {
+export const SearchBar = ({ variant = "home" }) => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState("");
 
@@ -12,12 +12,21 @@ export const SearchBar = () => {
     navigate(`/countries/${inputValue}`);
   };
 
+  const inputGroupStyle = {
+    maxWidth: variant === "nav" ? "250px" : "500px",
+    height: variant === "nav" ? "38px" : "auto",
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="container mt-5">
-      <div
-        className="input-group input-group-lg mx-auto"
-        style={{ maxWidth: "500px" }}
-      >
+    <form
+      onSubmit={handleSubmit}
+      className={
+        variant === "nav"
+          ? "d-flex align-items-center m-0"
+          : "container mt-5 d-flex justify-content-center"
+      }
+    >
+      <div className="input-group" style={inputGroupStyle}>
         <button type="submit" className="input-group-text">
           <CiSearch />
         </button>
