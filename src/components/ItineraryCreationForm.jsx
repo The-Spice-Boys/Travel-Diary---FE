@@ -1,16 +1,9 @@
 import { Button, Form, Modal } from "react-bootstrap";
-import countries from "../dummy_data/countries.json";
 import { useState } from "react";
+import { getCountries } from "../api";
 
 export const ItineraryCreationForm = (props) => {
-   //Mock API call
-   const countryOptions = countries.map(({ country_id, name }) => (
-      <option key={country_id} value={{ name, country_id }}>
-         {name}
-      </option>
-   ));
-   //Mock API call
-
+   const countries = getCountries();
    const [activities, setActivities] = useState([]);
    const [newActivityInput, setNewActivityInput] = useState("");
 
@@ -30,7 +23,7 @@ export const ItineraryCreationForm = (props) => {
    };
 
    const handleSubmit = (event) => {
-    // API call and optimistic rendering
+      // API call and optimistic rendering
    };
 
    return (
@@ -44,11 +37,19 @@ export const ItineraryCreationForm = (props) => {
                   Select a country:
                </Form.Label>
                <Form.Select id="country-select" aria-label="Select a country">
-                  {countryOptions}
+                  {countries.map(({ countryId, countryName }) => (
+                     <option key={countryId} value={{ countryName, countryId }}>
+                        {countryName}
+                     </option>
+                  ))}
                </Form.Select>
 
                <Form.Label htmlFor="itinerary-name">Itinerary name:</Form.Label>
-               <Form.Control id="itinerary-name" type="text" required></Form.Control>
+               <Form.Control
+                  id="itinerary-name"
+                  type="text"
+                  required
+               ></Form.Control>
 
                {activities.map((activity, index) => {
                   return (

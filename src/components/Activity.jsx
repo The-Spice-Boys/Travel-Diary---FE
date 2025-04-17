@@ -2,12 +2,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Photo } from "./Photo";
 import { Note } from "./Note";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import { MenuPopover } from "./MenuPopover";
 import { getNotesByActivityId, getPhotosByActivityId } from "../api";
-import { UserContext } from "../context/User";
-import { useParams } from "react-router-dom";
 
 import { MdAddAPhoto } from "react-icons/md";
 import { LuNotebookPen } from "react-icons/lu";

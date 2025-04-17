@@ -1,40 +1,24 @@
 import { useParams } from "react-router-dom";
 import {
+   getFavouritesByUserId,
    getItinerariesByUserId,
    getUserBioByUsername,
    getUserByUsername,
 } from "../api.js";
 import { ItineraryAccordion } from "./ItineraryAccordion.jsx";
-import Card from "react-bootstrap/Card";
-
-import itineraries from "../dummy_data/itineraries.json";
-import favourites from "../dummy_data/favourites.json";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Card } from "react-bootstrap";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/User.jsx";
 import { ItineraryCreationForm } from "./ItineraryCreationForm.jsx";
 
 export const UserPage = () => {
-   const { username } = useParams();
-   const { user_id } = getUserByUsername(username);
-   const { bio, profile_pic_url } = getUserBioByUsername(username)[0];
-   const [modalShow, setModalShow] = useState(false);
-
    const { loggedInUser } = useContext(UserContext);
-   const editenabled = loggedInUser === username;
-
-   //MOCK API CALLS
-   const userItineraries = getItinerariesByUserId(user_id);
-   const favouriteItineraries = favourites
-      .filter((fave) => fave.user_id === user_id)
-      .map((fave) =>
-         itineraries.find(
-            ({ itinerary_id }) => itinerary_id === fave.itinerary_id
-         )
-      );
-   //MOCK API CALLS
-
+   const { user_id, username, bio, profile_pic_url } = getUserByUsername(useParams().username);
+   const userItineraries = getItinerariesByUserId(user_id)
+   const favouriteItineraries = getFavouritesByUserId(user_id);
+   const [modalShow, setModalShow] = useState(false);
    const [showUserMade, setShowUserMade] = useState(true);
+   const editenabled = loggedInUser === username;
 
    const handleItineraryList = (event) => {
       setShowUserMade(Boolean(event.target.value));
