@@ -1,3 +1,7 @@
+import { useContext } from "react";
+import { UserContext } from "../context/User";
+import { getUserByUsername } from "../api";
+
 export const dateFormatter = (date) => {
   const timeElapsed = (Date.now() - date.getTime()) / 1000;
 
@@ -24,3 +28,9 @@ export const dateFormatter = (date) => {
   }
   return `${value} ${unit} ago`;
 };
+
+export const editEnabled = (userId) => {
+  const { loggedInUser } = useContext(UserContext);
+  const {user_id: loggedInUserId} = getUserByUsername(loggedInUser);
+  return loggedInUserId === userId;
+}
