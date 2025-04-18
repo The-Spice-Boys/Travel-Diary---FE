@@ -29,6 +29,13 @@ export const dateFormatter = (date) => {
   return `${value} ${unit} ago`;
 };
 
+
+export const themeToggle = (currentTheme) => {
+  if (document.documentElement.getAttribute("data-bs-theme") === "dark"){
+    document.documentElement.setAttribute("data-bs-theme", "light")
+  }else document.documentElement.setAttribute("data-bs-theme", "dark")
+}
+
 export const editEnabled = (userId) => {
   const { loggedInUser } = useContext(UserContext);
   const user = getUserByUsername(loggedInUser);
@@ -38,3 +45,4 @@ export const editEnabled = (userId) => {
   }
   return false;
 }
+
