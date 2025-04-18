@@ -55,7 +55,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
       return (
         <div
           key={itinerary_id}
-          className="mb-3 rounded p-3 flex-grow-1 mx-2"
+          className="rounded ps-3 pe-3 flex-grow-1 mx-2"
           id="accordion-item"
         >
           <Accordion.Item eventKey={itinerary_id}>
@@ -63,16 +63,16 @@ export const ItineraryAccordion = ({ itineraries }) => {
               <Accordion.Header className="w-100">
                 <div className="d-flex justify-content-between align-items-center w-100">
                   <div className="d-flex flex-column">
-                    <p className="fs-5 mb-0">
-                      {title} - {countryName}
-                    </p>
                     <Link
                       to={`/users/${username}`}
-                      className="text-muted fs-6 mb-0"
+                      className="text-muted fs-6 mb-2"
                       onClick={(e) => e.stopPropagation()}
                     >
                       {username}
                     </Link>
+                    <p className="fs-5 mb-0">
+                      {title} - {countryName}
+                    </p>
                   </div>
                   <div className="ms-2">
                     {editEnabled(user_id) ? (
