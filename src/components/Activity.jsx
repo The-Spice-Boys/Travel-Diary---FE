@@ -2,25 +2,22 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { Photo } from "./Photo";
 import { Note } from "./Note";
-import { useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { ListGroup } from "react-bootstrap";
 import { MenuPopover } from "./MenuPopover";
 import { getNotesByActivityId, getPhotosByActivityId } from "../api";
-import { UserContext } from "../context/User";
-import { useParams } from "react-router-dom";
 
 import { MdAddAPhoto } from "react-icons/md";
 import { LuNotebookPen } from "react-icons/lu";
 import { MdOutlineCheckBox } from "react-icons/md";
 import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import { editEnabled } from "../utils/utils";
 
 const MyVerticallyCenteredModal = (props) => {
-   let { editenabled } = props;
-   editenabled = editenabled === "true";
-
    const {
       activity: { activity_id, title },
       show,
+      userId,
    } = props;
 
    const photos = getPhotosByActivityId(activity_id);
@@ -35,17 +32,12 @@ const MyVerticallyCenteredModal = (props) => {
 
    const photoArray = photos.map(({ photo_id, caption, url }) => {
       return (
-         <Photo
-            key={photo_id}
-            url={url}
-            caption={caption}
-            editenabled={editenabled.toString()}
-         />
+         <Photo key={photo_id} url={url} caption={caption} userId={userId} />
       );
    });
 
    const noteArray = notes.map(({ note_id, text }) => {
-      return <Note key={note_id} text={text} editenabled={editenabled.toString()} />;
+      return <Note key={note_id} text={text} userId={userId} />;
    });
 
    function handleAddPhoto() {
@@ -70,7 +62,7 @@ const MyVerticallyCenteredModal = (props) => {
                {title}
             </Modal.Title>
          </Modal.Header>
-         <Modal.Body >
+         <Modal.Body>
             <div className="d-flex justify-content-center align-items-center flex-column">
                {photoArray}
             </div>
@@ -96,7 +88,7 @@ const MyVerticallyCenteredModal = (props) => {
             )}
          </Modal.Body>
 
-         {editenabled && (
+         {editEnabled(userId) && (
             <Modal.Footer>
                <Button onClick={handleAddPhoto}>
                   <MdAddAPhoto />
@@ -110,8 +102,8 @@ const MyVerticallyCenteredModal = (props) => {
    );
 };
 
-export const Activity = ({ activity, editenabled }) => {
-   editenabled = editenabled === "true";
+export const Activity = ({ activity, userId }) => {
+   const canEdit = editEnabled(userId);
    const [modalShow, setModalShow] = useState(false);
    const [isActivityComplete, setIsActivityComplete] = useState(
       activity.completion_status
@@ -123,7 +115,7 @@ export const Activity = ({ activity, editenabled }) => {
 
    const handleToggleCompletion = (event) => {
       event.stopPropagation();
-      if (editenabled) setIsActivityComplete(!isActivityComplete);
+      canEdit && setIsActivityComplete(!isActivityComplete);
    };
 
    return (
@@ -136,21 +128,27 @@ export const Activity = ({ activity, editenabled }) => {
          >
             <div className="d-flex align-items-center">
                <p className="m-2">{activity.title}</p>
-                  {isActivityComplete ? (
-                     <MdOutlineCheckBox size={30} onClick={handleToggleCompletion}/>
-                  ) : (
-                     <MdOutlineCheckBoxOutlineBlank size={30} onClick={handleToggleCompletion}/>
-                  )}
+               {isActivityComplete ? (
+                  <MdOutlineCheckBox
+                     size={30}
+                     onClick={handleToggleCompletion}
+                  />
+               ) : (
+                  <MdOutlineCheckBoxOutlineBlank
+                     size={30}
+                     onClick={handleToggleCompletion}
+                  />
+               )}
             </div>
 
-            {editenabled && <MenuPopover icon="dots" />}
+            {canEdit && <MenuPopover icon="dots" />}
          </ListGroup.Item>
 
          <MyVerticallyCenteredModal
-            editenabled={editenabled.toString()}
             activity={activity}
             show={modalShow}
             onHide={() => setModalShow(false)}
+            userId={userId}
          />
       </div>
    );

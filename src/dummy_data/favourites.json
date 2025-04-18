@@ -1,22 +1,102 @@
 [
-  { "favouriteId": 1, "user": { "userId": 1 }, "itinerary": { "itineraryId": 2 } },
-  { "favouriteId": 2, "user": { "userId": 2 }, "itinerary": { "itineraryId": 5 } },
-  { "favouriteId": 3, "user": { "userId": 3 }, "itinerary": { "itineraryId": 1 } },
-  { "favouriteId": 4, "user": { "userId": 4 }, "itinerary": { "itineraryId": 4 } },
-  { "favouriteId": 5, "user": { "userId": 5 }, "itinerary": { "itineraryId": 3 } },
-  { "favouriteId": 6, "user": { "userId": 6 }, "itinerary": { "itineraryId": 7 } },
-  { "favouriteId": 7, "user": { "userId": 7 }, "itinerary": { "itineraryId": 6 } },
-  { "favouriteId": 8, "user": { "userId": 8 }, "itinerary": { "itineraryId": 9 } },
-  { "favouriteId": 9, "user": { "userId": 9 }, "itinerary": { "itineraryId": 8 } },
-  { "favouriteId": 10, "user": { "userId": 10 }, "itinerary": { "itineraryId": 10 } },
-  { "favouriteId": 11, "user": { "userId": 1 }, "itinerary": { "itineraryId": 4 } },
-  { "favouriteId": 12, "user": { "userId": 2 }, "itinerary": { "itineraryId": 3 } },
-  { "favouriteId": 13, "user": { "userId": 3 }, "itinerary": { "itineraryId": 6 } },
-  { "favouriteId": 14, "user": { "userId": 4 }, "itinerary": { "itineraryId": 9 } },
-  { "favouriteId": 15, "user": { "userId": 5 }, "itinerary": { "itineraryId": 2 } },
-  { "favouriteId": 16, "user": { "userId": 6 }, "itinerary": { "itineraryId": 1 } },
-  { "favouriteId": 17, "user": { "userId": 7 }, "itinerary": { "itineraryId": 5 } },
-  { "favouriteId": 18, "user": { "userId": 8 }, "itinerary": { "itineraryId": 10 } },
-  { "favouriteId": 19, "user": { "userId": 9 }, "itinerary": { "itineraryId": 7 } },
-  { "favouriteId": 20, "user": { "userId": 10 }, "itinerary": { "itineraryId": 8 } }
+   {
+      "favouriteId": 1,
+      "user": { "userId": 1 },
+      "itinerary": { "itineraryId": 2 }
+   },
+   {
+      "favouriteId": 2,
+      "user": { "userId": 2 },
+      "itinerary": { "itineraryId": 5 }
+   },
+   {
+      "favouriteId": 3,
+      "user": { "userId": 3 },
+      "itinerary": { "itineraryId": 1 }
+   },
+   {
+      "favouriteId": 4,
+      "user": { "userId": 4 },
+      "itinerary": { "itineraryId": 4 }
+   },
+   {
+      "favouriteId": 5,
+      "user": { "userId": 5 },
+      "itinerary": { "itineraryId": 3 }
+   },
+   {
+      "favouriteId": 6,
+      "user": { "userId": 6 },
+      "itinerary": { "itineraryId": 7 }
+   },
+   {
+      "favouriteId": 7,
+      "user": { "userId": 7 },
+      "itinerary": { "itineraryId": 6 }
+   },
+   {
+      "favouriteId": 8,
+      "user": { "userId": 8 },
+      "itinerary": { "itineraryId": 9 }
+   },
+   {
+      "favouriteId": 9,
+      "user": { "userId": 9 },
+      "itinerary": { "itineraryId": 8 }
+   },
+   {
+      "favouriteId": 10,
+      "user": { "userId": 10 },
+      "itinerary": { "itineraryId": 10 }
+   },
+   {
+      "favouriteId": 11,
+      "user": { "userId": 1 },
+      "itinerary": { "itineraryId": 4 }
+   },
+   {
+      "favouriteId": 12,
+      "user": { "userId": 2 },
+      "itinerary": { "itineraryId": 3 }
+   },
+   {
+      "favouriteId": 13,
+      "user": { "userId": 3 },
+      "itinerary": { "itineraryId": 6 }
+   },
+   {
+      "favouriteId": 14,
+      "user": { "userId": 4 },
+      "itinerary": { "itineraryId": 9 }
+   },
+   {
+      "favouriteId": 15,
+      "user": { "userId": 5 },
+      "itinerary": { "itineraryId": 2 }
+   },
+   {
+      "favouriteId": 16,
+      "user": { "userId": 6 },
+      "itinerary": { "itineraryId": 1 }
+   },
+   {
+      "favouriteId": 17,
+      "user": { "userId": 7 },
+      "itinerary": { "itineraryId": 5 }
+   },
+   {
+      "favouriteId": 18,
+      "user": { "userId": 8 },
+      "itinerary": { "itineraryId": 10 }
+   },
+   {
+      "favouriteId": 19,
+      "user": { "userId": 9 },
+      "itinerary": { "itineraryId": 7 }
+   },
+   {
+      "favouriteId": 20,
+      "user": { "userId": 10 },
+      "itinerary": { "itineraryId": 8 }
+   }
 ]

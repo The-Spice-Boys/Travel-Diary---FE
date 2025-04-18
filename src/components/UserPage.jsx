@@ -1,39 +1,22 @@
 import { useParams } from "react-router-dom";
 import {
+   getFavouritesByUserId,
    getItinerariesByUserId,
-   getUserBioByUsername,
    getUserByUsername,
 } from "../api.js";
 import { ItineraryAccordion } from "./ItineraryAccordion.jsx";
-import Card from "react-bootstrap/Card";
-
-import itineraries from "../dummy_data/itineraries.json";
-import favourites from "../dummy_data/favourites.json";
-import { Button, ButtonGroup } from "react-bootstrap";
-import { useContext, useState } from "react";
-import { UserContext } from "../context/User.jsx";
+import { Button, ButtonGroup, Card } from "react-bootstrap";
+import { useState } from "react";
 import { ItineraryCreationForm } from "./ItineraryCreationForm.jsx";
+import { editEnabled } from "../utils/utils.js";
 
 export const UserPage = () => {
-   const { username } = useParams();
-   const { user_id } = getUserByUsername(username);
-   const { bio, profile_pic_url } = getUserBioByUsername(username)[0];
-   const [modalShow, setModalShow] = useState(false);
-
-   const { loggedInUser } = useContext(UserContext);
-   const editenabled = loggedInUser === username;
-
-   //MOCK API CALLS
+   const { user_id, username, bio, profile_pic_url } = getUserByUsername(
+      useParams().username
+   );
    const userItineraries = getItinerariesByUserId(user_id);
-   const favouriteItineraries = favourites
-      .filter((fave) => fave.user_id === user_id)
-      .map((fave) =>
-         itineraries.find(
-            ({ itinerary_id }) => itinerary_id === fave.itinerary_id
-         )
-      );
-   //MOCK API CALLS
-
+   const favouriteItineraries = getFavouritesByUserId(user_id);
+   const [modalShow, setModalShow] = useState(false);
    const [showUserMade, setShowUserMade] = useState(true);
 
    const handleItineraryList = (event) => {
@@ -51,20 +34,23 @@ export const UserPage = () => {
                   style={{ objectFit: "cover", height: "200px" }}
                />
                <Card.Body>
-                  <Card.Title className="mt-3">Profile</Card.Title>
+                  <Card.Title className="mt-3">{username}</Card.Title>
                   <Card.Text className="my-5">{bio}</Card.Text>
 
                   <ButtonGroup onClick={handleItineraryList}>
-                     <Button value={true}>My itineraries</Button>
-                     <Button value={null}>My favourites</Button>
+                     <Button value={true} className={showUserMade ? "btn-primary" : "btn-secondary"}>
+                        Itineraries
+                     </Button>
+                     <Button value={null} className={showUserMade ? "btn-secondary" : "btn-primary"}>
+                        Favourites
+                     </Button>
                   </ButtonGroup>
-                  <h2>{showUserMade ? "My itineraries" : "My favourites"}</h2>
                   <ItineraryAccordion
                      itineraries={
                         showUserMade ? userItineraries : favouriteItineraries
                      }
                   />
-                  {showUserMade && editenabled && (
+                  {showUserMade && editEnabled(user_id) && (
                      <Button onClick={() => setModalShow(true)}>
                         Create new itinerary
                      </Button>
