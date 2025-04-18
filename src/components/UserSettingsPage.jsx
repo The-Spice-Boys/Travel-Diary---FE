@@ -1,5 +1,6 @@
 import {useState, useEffect} from "react";
 import { FaUpload } from "react-icons/fa";
+import { themeToggle } from "../utils/utils";
 
 export const UserSettingsPage = () => {
   // const emailCheckRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/
@@ -9,15 +10,20 @@ export const UserSettingsPage = () => {
   const [lastName, setLastName] = useState("")
   const [newEmail, setNewEmail] = useState("")
   const [city, setCity] = useState("")
+  const [currentPassword, setCurrentPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
+  const [confirmNewPassword, setConfirmNewPassword] = useState("")
   const [privacy, setPrivacy]=useState(false)
   const [theme, setTheme]=useState(false)
-  
-  useEffect(()=>{
-    console.log(privacy,"this is the privacy")
-    console.log(theme,"this is the theme")
+  const [passwordMatch, setPasswordMatch] = useState(true)
 
-  },[privacy, theme])
+  const myPassword = "password123"
+  
+
+  useEffect(() => {
+    console.log("privacy settings>>", privacy)
+    setPasswordMatch(newPassword === confirmNewPassword && newPassword !== "");
+  }, [newPassword, confirmNewPassword, privacy, theme]);
 
 
   const handlePublicInfoSubmit = (event) => {
@@ -34,23 +40,19 @@ export const UserSettingsPage = () => {
     console.log(lastName)
     console.log(newEmail)
     console.log(city)
+    setFirstName("")
+    setLastName("")
+    setNewEmail("")
+    setCity("")
   }
-
+ 
   const handleChangePassword = (event) => {
-    event.preventDefault()
-    console.log(firstName)
-  }
-
-  const handlePrivacyChange =(event)=>{
     event.preventDefault();
-    console.log(privacy)
-    
-  }
+    console.log("New password >>", newPassword)
 
-  const handleThemeChange =(event)=>{
-    event.preventDefault();
-    console.log(theme)
-    
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
   }
 
   return (
@@ -107,10 +109,12 @@ export const UserSettingsPage = () => {
                                         <div class="text-center">
                                             <img alt="Andrew Jones" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="rounded-circle img-responsive mt-2" width="128" height="128"/>
                                             <div class="mt-2">
-                                                {/* <input class="form-control" type="file" id="formFileMultiple" multiple/>
-                                                <span class="btn btn-primary"><FaUpload /></span> */}
-                                                <span className="btn btn-primary" >
-                                                  <FaUpload />
+                            
+                                                <span>
+                                                  <label htmlFor="formFile" className="form-label">
+                                                  <FaUpload className="upload-button" type="file" size={20}/>
+                                                      </label>
+                                                      <input className="form-control" type="file" id="formFile" hidden/>
                                                     </span>
                                                 </div>
                                             
@@ -158,27 +162,65 @@ export const UserSettingsPage = () => {
                     </div>
                 </div>
 
-                <div class="tab-pane fade" id="password" role="tabpanel">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Password</h5>
-                            <form>
-                                <div class="form-group mt-3">
-                                    <label htmlFor="inputPasswordCurrent" className="mb-2">Current password</label>
-                                    <input type="password" class="form-control" id="inputPasswordCurrent"/>
-                                </div>
-                                <div class="form-group mt-3">
-                                    <label htmlFor="inputPasswordNew" className="mb-2">New password</label>
-                                    <input type="password" class="form-control" id="inputPasswordNew" />
-                                </div>
-                                <div class="form-group mt-3">
-                                    <label htmlFor="inputPasswordNew2" className="mb-2">Confirm new password</label>
-                                    <input type="password" class="form-control" id="inputPasswordNew2" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/>
-                                </div>
-                                <button type="submit" class="btn btn-primary mt-5" onClick={handleChangePassword}>Save changes</button>
-                            </form>
-                        </div>
+
+              <div class="tab-pane fade" id="password" role="tabpanel">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Password</h5>
+                    <form>
+                      <div class="form-group mt-3">
+                        <label htmlFor="inputPasswordCurrent" className="mb-2">Current password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="inputPasswordCurrent"
+                          value={currentPassword}
+                          onChange={(e) => setCurrentPassword(e.target.value)}
+                        />
+                        {currentPassword && currentPassword !== myPassword ? (
+                            <small style={{ color: "red" }}>Password is incorrect, please try again</small>)
+                          : null}
+                      </div>
+                      <div class="form-group mt-3">
+                        <label htmlFor="inputPasswordNew" className="mb-2">New password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="inputPasswordNew"
+                          value={newPassword}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                        />
+                      </div>
+                      <div class="form-group mt-3">
+                        <label htmlFor="inputPasswordNew2" className="mb-2">Confirm new password</label>
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="inputPasswordNew2"
+                          value={confirmNewPassword}
+                          onChange={(e) => setConfirmNewPassword(e.target.value)}
+                        />
+                        {newPassword && confirmNewPassword && newPassword !== confirmNewPassword ? (
+                          <small style={{ color: "red" }}>
+                            Passwords do not match
+                          </small>
+                        ) : null}
+                      </div>
+                      <button
+                        type="submit"
+                        class="btn btn-primary mt-5"
+                        onClick={handleChangePassword}
+                        disabled={
+                          currentPassword !== myPassword ||
+                          newPassword !== confirmNewPassword ||
+                          !currentPassword || !newPassword || !confirmNewPassword
+                        }
+                      >
+                        Save changes
+                      </button>
+                      </form>
                     </div>
+                  </div>
                 </div>
 
 
@@ -214,7 +256,9 @@ export const UserSettingsPage = () => {
                                     type="checkbox"
                                     id="flexSwitchCheckChecked"
                                     checked={theme}
-                                    onChange={(e) => setTheme(e.target.checked)}
+                                    onChange={(e) => {setTheme(e.target.checked)
+                                      themeToggle(theme)
+                                    }}
                                   />
                                 </div>
                               </div>

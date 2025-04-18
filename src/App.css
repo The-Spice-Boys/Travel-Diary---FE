@@ -11,9 +11,9 @@
     width: 40%;
 }
 
-body{
+/* body{
     background:white;
-}
+} */
 .card {
     margin-bottom: 1.5rem;
     box-shadow: 0 1px 15px 1px rgba(52,40,104,.08);
@@ -26,9 +26,9 @@ body{
     flex-direction: column;
     min-width: 0;
     word-wrap: break-word;
-    background-color: #fff;
+    /* background-color: #fff; */
     background-clip: border-box;
-    border: 1px solid #e5e9f2;
+    /* border: 1px solid #e5e9f2; */
     border-radius: .2rem;
 }
 .card-header:first-child {
@@ -41,9 +41,20 @@ body{
     padding: .75rem 1.25rem;
     margin-bottom: 0;
     color: inherit;
-    background-color: #fff;
-    border-bottom: 1px solid #e5e9f2;
+    /* background-color: #fff;
+    border-bottom: 1px solid #e5e9f2; */
 }
+
+.upload-button{
+    color: #9ca3af;
+    cursor: pointer;
+}
+
+.upload-button:hover{
+    color: hsla(218, 11%, 65%, 0.75);
+}
+
+
 
 @media (max-width: 768px) {
     #accordion-item {
