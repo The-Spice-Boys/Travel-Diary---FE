@@ -8,6 +8,11 @@
     cursor: pointer;
 }
 
+.accordion-button:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
 #accordion-item {
     width: 40%;
 }
@@ -61,5 +66,17 @@
     #accordion-item {
         width: 100%;
     }
+}
+
+.heart {
+    cursor: pointer;
+}
+
+.heart-unfav {
+    color: #9CA3AF;
+}
+
+.heart-fav {
+    color: #EF4444;
 }
 
