@@ -78,7 +78,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   </div>
                   <div className="ms-2">
                     {loggedInUser.user_id === user_id ? (
-                      <MenuPopover icon="dots" className="p-2" />
+                      <MenuOptions />
                     ) : (
                       <Favourite itineraryId={itinerary_id} />
                     )}
