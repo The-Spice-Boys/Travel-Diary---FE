@@ -6,37 +6,53 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 export const Note = ({ text, userId }) => {
   const { loggedInUser } = useContext(UserContext);
+  const [userInput, setUserInput] = useState(text);
   const [editClicked, setEditClicked] = useState(false);
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     setEditClicked(!editClicked);
   };
 
-  return (
-    <div className="d-flex gap-2 justify-content-center align-items-center">
-      {editClicked ? (
-        <Form>
-          <Form.Control placeholder={text}></Form.Control>
-        </Form>
-      ) : (
-        <p className="mb-0">{text}</p>
-      )}
+  const handleChange = (e) => {
+    setUserInput(e.target.value);
+  };
 
-      {loggedInUser.user_id === userId &&
-        (editClicked ? (
-          <FaCheckCircle
-            className="react-icon menu-options p-0"
-            onClick={handleClick}
-            size={15}
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setEditClicked(false);
+    console.log('submitted');
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <div className="d-flex gap-2 justify-content-center align-items-center">
+        {editClicked ? (
+          <Form.Control
+            defaultValue={userInput}
+            type="text"
+            onChange={handleChange}
+            className="m-0"
+            style={{ minWidth: '200px' }}
           />
         ) : (
-          <MdEdit
-            className="react-icon menu-options p-0"
-            onClick={handleClick}
-            size={15}
-          />
-        ))}
-    </div>
+          <p className="mb-0" style={{ lineHeight: '1.5', minWidth: '200px' }}>
+            {userInput}
+          </p>
+        )}
+
+        {loggedInUser.user_id === userId &&
+          (editClicked ? (
+            <button type="submit" className="btn p-0 border-0 bg-transparent">
+              <FaCheckCircle size={18} />
+            </button>
+          ) : (
+            <MdEdit
+              className="react-icon menu-options p-0"
+              onClick={handleClick}
+              size={18}
+            />
+          ))}
+      </div>
+    </Form>
   );
 };
