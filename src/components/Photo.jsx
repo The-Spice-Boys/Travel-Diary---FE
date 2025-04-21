@@ -1,6 +1,5 @@
 import { Figure } from 'react-bootstrap';
 import { MenuPopover } from './MenuPopover';
-import { editEnabled } from '../utils/utils';
 import { useContext } from 'react';
 import { UserContext } from '../context/User';
 

@@ -114,7 +114,8 @@ export const Activity = ({ activity, userId }) => {
 
   const handleToggleCompletion = (event) => {
     event.stopPropagation();
-    canEdit && setIsActivityComplete(!isActivityComplete);
+    loggedInUser.user_id === userId &&
+      setIsActivityComplete(!isActivityComplete);
   };
 
   return (
