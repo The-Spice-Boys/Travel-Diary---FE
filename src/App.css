@@ -84,3 +84,15 @@
     color: blue;
 }
 
+.menu-popover {
+    color: white;
+    background-color: #9CA3AF;
+    border-radius: 25%;
+    padding: 3px;
+}
+
+.menu-popover:hover {
+    background-color: hsla(218, 11%, 65%, 0.75);
+}
+
+

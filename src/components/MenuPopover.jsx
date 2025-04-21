@@ -1,35 +1,24 @@
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Popover from "react-bootstrap/Popover";
-import { IoMenu } from "react-icons/io5";
-import { FaEdit } from "react-icons/fa";
-import { BsThreeDots } from "react-icons/bs";
-import { Button } from "react-bootstrap";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import { BsThreeDots } from 'react-icons/bs';
+import { MenuOptions } from './MenuOptions';
 
-export const MenuPopover = ({icon, className = ""}) => {
-  const lookup = {
-    "menu": <IoMenu />,
-    "edit": <FaEdit />,
-    "dots": <BsThreeDots/>
-  }
-   const popover = (
-      <Popover id="popover-basic">
-         <Popover.Header as="h3">Popover right</Popover.Header>
-         <Popover.Body>
-            <input className="btn btn-primary" type="button" value="Edit" />
-            <input className="btn btn-primary" type="button" value="Delete" />
-         </Popover.Body>
-      </Popover>
-   );
+export const MenuPopover = ({ className }) => {
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Body>
+        <MenuOptions />
+      </Popover.Body>
+    </Popover>
+  );
 
-   return (
-      <Button className={className} onClick={(e) => e.stopPropagation()}>
-         <OverlayTrigger
-            trigger="click"
-            placement="left"
-            overlay={popover}
-         >
-          {lookup[icon]}
-         </OverlayTrigger>
-      </Button>
-   );
+  return (
+    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+      <BsThreeDots
+        className={`${className} menu-popover react-icon`}
+        onClick={(e) => e.stopPropagation()}
+        size={20}
+      />
+    </OverlayTrigger>
+  );
 };
