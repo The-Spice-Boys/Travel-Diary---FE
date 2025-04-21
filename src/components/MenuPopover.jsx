@@ -3,7 +3,7 @@ import Popover from 'react-bootstrap/Popover';
 import { BsThreeDots } from 'react-icons/bs';
 import { MenuOptions } from './MenuOptions';
 
-export const MenuPopover = ({ className }) => {
+export const MenuPopover = () => {
   const popover = (
     <Popover id="popover-basic">
       <Popover.Body>
@@ -13,9 +13,14 @@ export const MenuPopover = ({ className }) => {
   );
 
   return (
-    <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+    <OverlayTrigger
+      trigger="click"
+      placement="right"
+      overlay={popover}
+      rootClose
+    >
       <BsThreeDots
-        className={`${className} menu-popover react-icon`}
+        className={`position-absolute top-0 end-0 m-2 menu-popover react-icon`}
         onClick={(e) => e.stopPropagation()}
         size={20}
       />

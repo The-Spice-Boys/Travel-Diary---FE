@@ -9,9 +9,7 @@ export const Photo = ({ url, caption, userId }) => {
   return (
     <Figure className="position-relative d-inline-block">
       <Figure.Image src={url} className="rounded" />
-      {loggedInUser.user_id === userId && (
-        <MenuPopover className="position-absolute top-0 end-0 m-2" />
-      )}
+      {loggedInUser.user_id === userId && <MenuPopover />}
       <Figure.Caption>{caption}</Figure.Caption>
     </Figure>
   );
