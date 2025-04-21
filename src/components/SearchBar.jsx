@@ -13,7 +13,7 @@ export const SearchBar = ({ variant = "home" }) => {
   };
 
   const inputGroupStyle = {
-    maxWidth: variant === "nav" ? "250px" : "500px",
+    maxWidth: variant === "nav" ? "250px" : "350px",
     height: variant === "nav" ? "38px" : "auto",
   };
 
@@ -23,7 +23,7 @@ export const SearchBar = ({ variant = "home" }) => {
       className={
         variant === "nav"
           ? "d-flex align-items-center m-0"
-          : "container mt-5 d-flex justify-content-center"
+          : "container mt-0 d-flex justify-content-center"
       }
     >
       <div className="input-group" style={inputGroupStyle}>

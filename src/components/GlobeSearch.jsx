@@ -18,8 +18,8 @@ export const GlobeSearch = () => {
       .polygonStrokeColor(() => "#111")
       .polygonLabel((d) => `<b>${d.properties.name}</b>`)
       .polygonAltitude(0.01)
-      .width(500)
-      .height(500)
+      .width(600)
+      .height(600)
       .onPolygonHover((hoveredCountry) => {
         // console.log(hoveredCountry);
         // hoveredCountry = polygon object

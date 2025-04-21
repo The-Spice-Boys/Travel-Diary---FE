@@ -4,11 +4,9 @@ import { SearchBar } from './SearchBar.jsx';
 export const HomePage = () => {
 
   return (
-    <div>
+    <div className='flex flex-col gap-0'>
       <GlobeSearch />
-      <div className="my-2">
         <SearchBar variant="home" />
-      </div>
     </div>
   );
 };
