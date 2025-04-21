@@ -100,23 +100,8 @@ export const ItineraryAccordion = ({ itineraries }) => {
   );
 
   return (
-    <div className="d-flex  my-5 border border-2 border-dark rounded py-5 w-100">
-      <Accordion className="d-flex flex-row flex-wrap gap-3 align-items-center">
-        {accordionItems}
-      </Accordion>
-    </div>
+    <Accordion className="d-flex flex-row flex-wrap gap-3 align-items-center p-5">
+      {accordionItems}
+    </Accordion>
   );
 };
-
-{
-  /* <Breadcrumb className="mb-0 p-0">
-                  <Breadcrumb.Item href={`/users/${username}`}>
-                    {' '}
-                    {username}
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item href={`/countries/${countryName}`}>
-                    {countryName}
-                  </Breadcrumb.Item>
-                  <Breadcrumb.Item active>{title}</Breadcrumb.Item>
-                </Breadcrumb> */
-}

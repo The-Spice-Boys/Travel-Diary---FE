@@ -9,6 +9,7 @@ import { Button, ButtonGroup, Card } from 'react-bootstrap';
 import { useContext, useState } from 'react';
 import { ItineraryCreationForm } from './ItineraryCreationForm.jsx';
 import { UserContext } from '../context/User.jsx';
+import { MdFavoriteBorder } from 'react-icons/md';
 
 export const UserPage = () => {
   const { loggedInUser } = useContext(UserContext);
@@ -36,32 +37,39 @@ export const UserPage = () => {
           />
           <Card.Body>
             <Card.Title className="mt-3">{username}</Card.Title>
-            <Card.Text className="my-5">{bio}</Card.Text>
+            <div
+              className="d-flex justify-content-between align-items-center"
+              style={{ height: '60px', maxHeight: '100px' }}
+            >
+              <Card.Text className="my-5">{bio}</Card.Text>
+              <ButtonGroup onClick={handleItineraryList}>
+                <Button
+                  value={true}
+                  className={showUserMade ? 'btn-primary' : 'btn-secondary'}
+                >
+                  Itineraries
+                </Button>
+                <Button
+                  value={null}
+                  className={showUserMade ? 'btn-secondary' : 'btn-primary'}
+                >
+                  Favourites
+                </Button>
+              </ButtonGroup>
+            </div>
 
-            <ButtonGroup onClick={handleItineraryList}>
-              <Button
-                value={true}
-                className={showUserMade ? 'btn-primary' : 'btn-secondary'}
-              >
-                Itineraries
-              </Button>
-              <Button
-                value={null}
-                className={showUserMade ? 'btn-secondary' : 'btn-primary'}
-              >
-                Favourites
-              </Button>
-            </ButtonGroup>
             <ItineraryAccordion
               itineraries={
                 showUserMade ? userItineraries : favouriteItineraries
               }
             />
-            {showUserMade && loggedInUser.user_id === user_id && (
-              <Button onClick={() => setModalShow(true)}>
-                Create new itinerary
-              </Button>
-            )}
+            <div className="d-flex flex-column align-items-end h-100">
+              {showUserMade && loggedInUser.user_id === user_id && (
+                <Button className="mt-auto" onClick={() => setModalShow(true)}>
+                  Create new itinerary
+                </Button>
+              )}
+            </div>
           </Card.Body>
         </Card>
       </div>
