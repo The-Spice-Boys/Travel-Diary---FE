@@ -5,7 +5,7 @@ import { Note } from './Note';
 import { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../context/User';
 import { ListGroup } from 'react-bootstrap';
-import { MenuPopover } from './MenuPopover';
+import { MenuOptions } from './MenuOptions';
 import { getNotesByActivityId, getPhotosByActivityId } from '../api';
 
 import { MdAddAPhoto } from 'react-icons/md';
@@ -114,7 +114,8 @@ export const Activity = ({ activity, userId }) => {
 
   const handleToggleCompletion = (event) => {
     event.stopPropagation();
-    canEdit && setIsActivityComplete(!isActivityComplete);
+    loggedInUser.user_id === userId &&
+      setIsActivityComplete(!isActivityComplete);
   };
 
   return (
@@ -137,7 +138,7 @@ export const Activity = ({ activity, userId }) => {
           )}
         </div>
 
-        {loggedInUser.user_id === userId && <MenuPopover icon="dots" />}
+        {loggedInUser.user_id === userId && <MenuOptions />}
       </ListGroup.Item>
 
       <MyVerticallyCenteredModal

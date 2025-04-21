@@ -2,6 +2,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import { Link } from 'react-router-dom';
 import { Itinerary } from './Itinerary.jsx';
 import { MenuPopover } from './MenuPopover.jsx';
+import { MenuOptions } from './MenuOptions.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/User.jsx';
 import { IoMdHeart } from 'react-icons/io';
@@ -14,7 +15,7 @@ import {
 
 const Favourite = ({ itineraryId }) => {
   const { loggedInUser } = useContext(UserContext);
-  const user = getUserByUsername(loggedInUser);
+  const user = getUserByUsername(loggedInUser.username);
   if (!user) return null;
   const favourites = getFavouritesByUserId(user.user_id);
 
@@ -77,7 +78,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   </div>
                   <div className="ms-2">
                     {loggedInUser.user_id === user_id ? (
-                      <MenuPopover icon="dots" className="p-2" />
+                      <MenuOptions />
                     ) : (
                       <Favourite itineraryId={itinerary_id} />
                     )}
