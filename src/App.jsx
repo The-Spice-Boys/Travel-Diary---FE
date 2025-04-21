@@ -1,4 +1,4 @@
-import { UserProvider } from "./context/User";
+import { UserProvider, ThemeProvider } from "./context/User";
 import { Routes, Route } from "react-router-dom";
 import { HomePage } from "./components/HomePage";
 import { CountryPage } from "./components/CountryPage";
@@ -9,8 +9,10 @@ import { LoginPage } from "./components/LoginPage";
 import "./App.css";
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 
+
 function App() {
   return (
+    <ThemeProvider>
     <UserProvider>
       <NavBar />
       <Routes>
@@ -25,6 +27,7 @@ function App() {
         <Route path="*" element={<Error error={404} />} />
       </Routes>
     </UserProvider>
+    </ThemeProvider>
   );
 }
 

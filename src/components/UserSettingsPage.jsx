@@ -1,6 +1,7 @@
-import {useState, useEffect} from "react";
+import {useState, useEffect, useContext} from "react";
 import { FaUpload } from "react-icons/fa";
 import { themeToggle } from "../utils/utils";
+import { ThemeContext } from "../context/User";
 
 export const UserSettingsPage = () => {
   // const emailCheckRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/
@@ -14,8 +15,9 @@ export const UserSettingsPage = () => {
   const [newPassword, setNewPassword] = useState("")
   const [confirmNewPassword, setConfirmNewPassword] = useState("")
   const [privacy, setPrivacy]=useState(false)
-  const [theme, setTheme]=useState(false)
+  const [currentTheme, setCurrentTheme]=useState(false)
   const [passwordMatch, setPasswordMatch] = useState(true)
+  const {setTheme} = useContext(ThemeContext)
 
   const myPassword = "password123"
   
@@ -23,7 +25,7 @@ export const UserSettingsPage = () => {
   useEffect(() => {
     console.log("privacy settings>>", privacy)
     setPasswordMatch(newPassword === confirmNewPassword && newPassword !== "");
-  }, [newPassword, confirmNewPassword, privacy, theme]);
+  }, [newPassword, confirmNewPassword, privacy, currentTheme]);
 
 
   const handlePublicInfoSubmit = (event) => {
@@ -255,9 +257,10 @@ export const UserSettingsPage = () => {
                                     class="form-check-input"
                                     type="checkbox"
                                     id="flexSwitchCheckChecked"
-                                    checked={theme}
-                                    onChange={(e) => {setTheme(e.target.checked)
-                                      themeToggle(theme)
+                                    checked={currentTheme}
+                                    onChange={(e) => {setCurrentTheme(e.target.checked)
+                                      themeToggle(currentTheme)
+                                      setTheme("#212529")
                                     }}
                                   />
                                 </div>

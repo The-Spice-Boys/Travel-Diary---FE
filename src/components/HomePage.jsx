@@ -5,10 +5,10 @@ export const HomePage = () => {
 
   return (
     <div>
-      <div className="my-5">
+      <GlobeSearch />
+      <div className="my-2">
         <SearchBar variant="home" />
       </div>
-      <GlobeSearch />
     </div>
   );
 };

@@ -1,21 +1,25 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import Globe from "globe.gl";
 import * as topojson from "topojson-client";
 import { useNavigate } from "react-router-dom";
+import { ThemeContext } from "../context/User";
 
 export const GlobeSearch = () => {
   const globeEl = useRef();
   const navigate = useNavigate();
+  const {theme} = useContext(ThemeContext)
 
   useEffect(() => {
     const globe = Globe()(globeEl.current)
       .globeImageUrl("public/Solid_blue.svg.png")
-      .backgroundColor("#FFF")
+      .backgroundColor(theme)
       .polygonCapColor(() => "rgba(7, 163, 20, 0.99)")
       .polygonSideColor(() => "rgba(0, 100, 255, 0.05)")
       .polygonStrokeColor(() => "#111")
       .polygonLabel((d) => `<b>${d.properties.name}</b>`)
       .polygonAltitude(0.01)
+      .width(500)
+      .height(500)
       .onPolygonHover((hoveredCountry) => {
         // console.log(hoveredCountry);
         // hoveredCountry = polygon object
@@ -45,8 +49,17 @@ export const GlobeSearch = () => {
 
   return (
     <div
-      className="d-flex justify-content-center align-items-center"
+      className="globe d-flex justify-content-center align-items-center mb-0"
       ref={globeEl}
+      style={{
+        padding: '1px',       
+        borderRadius: '50%',     
+        overflow: 'hidden',     
+        // backgroundColor: 'red',  
+        // display: 'flex',   
+        // alignItems: 'center',
+        // justifyContent: 'center',
+       }}
     ></div>
   );
 };
