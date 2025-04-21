@@ -20,7 +20,6 @@ export const Note = ({ text, userId }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setEditClicked(false);
-    console.log('submitted');
   };
 
   return (
@@ -35,7 +34,7 @@ export const Note = ({ text, userId }) => {
             style={{ minWidth: '200px' }}
           />
         ) : (
-          <p className="mb-0" style={{ lineHeight: '1.5', minWidth: '200px' }}>
+          <p className="mb-0" style={{ lineHeight: '1.5' }}>
             {userInput}
           </p>
         )}
@@ -43,7 +42,7 @@ export const Note = ({ text, userId }) => {
         {loggedInUser.user_id === userId &&
           (editClicked ? (
             <button type="submit" className="btn p-0 border-0 bg-transparent">
-              <FaCheckCircle size={18} />
+              <FaCheckCircle size={18} className="menu-options" />
             </button>
           ) : (
             <MdEdit
