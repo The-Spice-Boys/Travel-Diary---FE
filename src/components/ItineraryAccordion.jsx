@@ -11,7 +11,6 @@ import {
   getUserByUserId,
   getUserByUsername,
 } from '../api.js';
-import { editEnabled } from '../utils/utils.js';
 
 const Favourite = ({ itineraryId }) => {
   const { loggedInUser } = useContext(UserContext);
@@ -48,6 +47,8 @@ const Favourite = ({ itineraryId }) => {
 };
 
 export const ItineraryAccordion = ({ itineraries }) => {
+  const { loggedInUser } = useContext(UserContext);
+
   const accordionItems = itineraries.map(
     ({ itinerary_id, title, user_id, country_id }) => {
       const { username } = getUserByUserId(user_id);
@@ -75,7 +76,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                     </p>
                   </div>
                   <div className="ms-2">
-                    {editEnabled(user_id) ? (
+                    {loggedInUser.user_id === user_id ? (
                       <MenuPopover icon="dots" className="p-2" />
                     ) : (
                       <Favourite itineraryId={itinerary_id} />
