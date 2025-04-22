@@ -132,5 +132,13 @@ export const getCountries = () => {
 };
 
 export const deleteItinerary = (id) => {
-  return api.delete(`/itineraries/${id}`).then(() => {});
+  return api.delete(`/itineraries/${id}`);
+};
+
+export const deleteActivity = (id) => {
+  return api.delete(`/activities/${id}`);
+};
+
+export const deletePhoto = (id) => {
+  return api.delete(`/photos/${id}`);
 };

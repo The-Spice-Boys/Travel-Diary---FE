@@ -1,30 +1,36 @@
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
-import { deleteItinerary } from '../api';
+import { deleteActivity, deleteItinerary, deletePhoto } from '../api';
 
 export const MenuOptions = ({
   id,
   componentName,
-  setIsDeleted,
   setDeletedIds,
+  setErrorId,
 }) => {
+  const apiFuncLookupDelete = {
+    activity: deleteActivity,
+    itinerary: deleteItinerary,
+    photo: deletePhoto,
+  };
+
   const handleEditClick = (e) => {
     e.stopPropagation();
   };
   const handleDeleteClick = (e) => {
     e.stopPropagation();
 
-    if (componentName === 'itinerary') {
-      setIsDeleted(true);
+    setDeletedIds((prevDeletedIds) => {
+      return [...prevDeletedIds, id];
+    });
+    apiFuncLookupDelete[componentName](id).catch((err) => {
       setDeletedIds((prevDeletedIds) => {
-        return [...prevDeletedIds, id];
+        prevDeletedIds.pop();
+        return [...prevDeletedIds];
       });
-      deleteItinerary(id)
-        .then(() => setIsDeleted(true))
-        .catch((err) => console.log(err));
-    } else if (componentName === 'activity') {
-    } else {
-    }
+      setErrorId(id);
+      setTimeout(() => setErrorId(null), 2000);
+    });
   };
 
   return (

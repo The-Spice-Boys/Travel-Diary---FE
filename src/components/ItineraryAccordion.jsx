@@ -1,21 +1,21 @@
-import Accordion from "react-bootstrap/Accordion";
-import { Link } from "react-router-dom";
-import { Itinerary } from "./Itinerary.jsx";
-import { MenuPopover } from "./MenuPopover.jsx";
-import { MenuOptions } from "./MenuOptions.jsx";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/User.jsx";
-import { IoMdHeart } from "react-icons/io";
+import Accordion from 'react-bootstrap/Accordion';
+import { Link } from 'react-router-dom';
+import { Itinerary } from './Itinerary.jsx';
+import { MenuPopover } from './MenuPopover.jsx';
+import { MenuOptions } from './MenuOptions.jsx';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../context/User.jsx';
+import { IoMdHeart } from 'react-icons/io';
 import {
   getCountryById,
   getFavouritesByUserId,
   getUserByUserId,
   getUserByUsername,
-} from "../api.js";
-import { Placeholder } from "react-bootstrap";
+} from '../api.js';
+import { Placeholder } from 'react-bootstrap';
 
 const Favourite = ({ itineraryId }) => {
-  const returnColour = () => (isFavourited ? "heart-fav" : "heart-unfav");
+  const returnColour = () => (isFavourited ? 'heart-fav' : 'heart-unfav');
 
   //! getFavouritesByUserId needs to be properly implemented in the back end
   const { loggedInUser } = useContext(UserContext);
@@ -54,8 +54,8 @@ const Favourite = ({ itineraryId }) => {
 
 export const ItineraryAccordion = ({ itineraries }) => {
   const { loggedInUser } = useContext(UserContext);
-  const [isDeleted, setIsDeleted] = useState(false);
   const [deletedIds, setDeletedIds] = useState([]);
+  const [errorId, setErrorId] = useState(null);
   //  console.log(itineraries, "<-- 58")
   const accordionItems = itineraries.map((itinerary) => {
     const { userId, username, title, itineraryId, isPrivate, modifiedAt } =
@@ -72,7 +72,11 @@ export const ItineraryAccordion = ({ itineraries }) => {
       >
         <Accordion.Item eventKey={itineraryId}>
           <div className="d-flex align-items-center">
-            <Accordion.Header className="w-100">
+            <Accordion.Header
+              className={`w-100 ${
+                deletedIds.includes(itineraryId) ? 'deleted-item' : ''
+              }`}
+            >
               <div className="d-flex justify-content-between align-items-center w-100">
                 <div className="d-flex flex-column">
                   <Link
@@ -84,22 +88,26 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   </Link>
 
                   <p className="fs-5 mb-0">
-                    {isDeleted && deletedIds.includes(itineraryId)
-                      ? "Deleted"
-                      : title}
+                    {deletedIds.includes(itineraryId) ? 'Deleted' : title}
                   </p>
+                  {errorId === itineraryId && (
+                    <p className="text-danger fs-6 mb-0 p-0">
+                      Failed to delete
+                    </p>
+                  )}
                 </div>
                 <div className="ms-2">
-                  {loggedInUser.userId === userId ? (
-                    <MenuOptions
-                      id={itineraryId}
-                      componentName={"itinerary"}
-                      setIsDeleted={setIsDeleted}
-                      setDeletedIds={setDeletedIds}
-                    />
-                  ) : (
-                    <Favourite itineraryId={itineraryId} />
-                  )}
+                  {!deletedIds.includes(itineraryId) &&
+                    (loggedInUser.userId === userId ? (
+                      <MenuOptions
+                        id={itineraryId}
+                        componentName={'itinerary'}
+                        setDeletedIds={setDeletedIds}
+                        setErrorId={setErrorId}
+                      />
+                    ) : (
+                      <Favourite itineraryId={itineraryId} />
+                    ))}
                 </div>
               </div>
             </Accordion.Header>
