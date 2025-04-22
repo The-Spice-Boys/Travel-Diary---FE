@@ -26,6 +26,7 @@ export const CountryPage = () => {
             return getItinerariesByCountry(name);
          })
          .then((itineraries) => {
+            console.log(itineraries);
             setItineraries(itineraries);
          })
          .catch((err) => setError(err))
@@ -43,7 +44,7 @@ export const CountryPage = () => {
                   variant="top"
                   src={countryPicUrl}
                   alt={countryName}
-                  style={{ objectFit: "cover", height: "200px" }}
+                  style={{ width: "300px", height: "200px",marginLeft: "20px",marginTop: "20px",border:"2px solid black",borderRadius:"10px" }}
                />
                <Card.Body>
                   <Card.Title className="mt-3 display-5">

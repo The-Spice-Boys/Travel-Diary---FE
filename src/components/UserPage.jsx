@@ -12,9 +12,10 @@ import { UserContext } from "../context/User.jsx";
 import { Error } from "./Error.jsx";
 import { Loading } from "./Loading.jsx";
 import { MdFavoriteBorder } from "react-icons/md";
+import {LoginPage} from "./LoginPage.jsx";
 
 export const UserPage = () => {
-  const { loggedInUser ,} = useContext(UserContext);
+  const { loggedInUser ,isLoggedIn} = useContext(UserContext);
   const usernameParam = useParams().username;
 
   const [user, setUser] = useState({});
@@ -26,9 +27,10 @@ export const UserPage = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log(usernameParam);
     setLoading(true);
     setError(null);
-    getUserByUsername(usernameParam)
+    getUserByUsername(loggedInUser.username)
       .then(async (user) => {
         setUser(user);
         setUserItineraries(await getItinerariesByUserId(user.userId));
@@ -45,9 +47,19 @@ export const UserPage = () => {
     setShowUserMade(Boolean(event.target.value));
   };
 
+
+
   if (loading) return <Loading />;
 
+  if(!isLoggedIn){
+    return (
+        <LoginPage />
+    )
+  }
+
   if (error) return <Error error={error.status} />;
+
+
 
   return (
     <>

@@ -17,6 +17,7 @@ export const LoginPage = () => {
     userLogin(username, password).then((data) => {
       setLoggedInUser(data);
       setIsLoggedIn(true);
+      console.log(data);
       navigate('/');
     }).catch((err) => {
       if(err.response.status === 401){
