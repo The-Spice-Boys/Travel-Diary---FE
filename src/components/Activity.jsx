@@ -130,7 +130,7 @@ export const Activity = ({ activity, userId }) => {
         onClick={handleDisplayModal}
         className={`d-flex justify-content-between align-items-center ${
           isActivityComplete && 'activity-completed'
-        }`}
+        } ${deletedIds.includes(activity.activityId) ? 'deleted-item' : ''}`}
       >
         <div className="d-flex align-items-center">
           <p className="m-2">
@@ -138,7 +138,7 @@ export const Activity = ({ activity, userId }) => {
               ? 'Deleted'
               : activity.title}
           </p>
-          {deletedIds.includes(activity.activityId) &&
+          {!deletedIds.includes(activity.activityId) &&
             (isActivityComplete ? (
               <MdOutlineCheckBox size={30} onClick={handleToggleCompletion} />
             ) : (
@@ -148,14 +148,14 @@ export const Activity = ({ activity, userId }) => {
               />
             ))}
         </div>
-
-        {loggedInUser.userId === userId && (
-          <MenuOptions
-            id={activity.activityId}
-            componentName={'activity'}
-            setDeletedIds={setDeletedIds}
-          />
-        )}
+        {!deletedIds.includes(activity.activityId) &&
+          loggedInUser.userId === userId && (
+            <MenuOptions
+              id={activity.activityId}
+              componentName={'activity'}
+              setDeletedIds={setDeletedIds}
+            />
+          )}
       </ListGroup.Item>
 
       <MyVerticallyCenteredModal
