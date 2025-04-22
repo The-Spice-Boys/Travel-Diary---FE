@@ -2,7 +2,12 @@ import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import { deleteActivity, deleteItinerary, deletePhoto } from '../api';
 
-export const MenuOptions = ({ id, componentName, setDeletedIds }) => {
+export const MenuOptions = ({
+  id,
+  componentName,
+  setDeletedIds,
+  setErrorId,
+}) => {
   const apiFuncLookupDelete = {
     activity: deleteActivity,
     itinerary: deleteItinerary,
@@ -23,7 +28,8 @@ export const MenuOptions = ({ id, componentName, setDeletedIds }) => {
         prevDeletedIds.pop();
         return [...prevDeletedIds];
       });
-      console.log(err);
+      setErrorId(id);
+      setTimeout(() => setErrorId(null), 2000);
     });
   };
 

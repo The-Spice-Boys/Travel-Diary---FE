@@ -55,6 +55,7 @@ const Favourite = ({ itineraryId }) => {
 export const ItineraryAccordion = ({ itineraries }) => {
   const { loggedInUser } = useContext(UserContext);
   const [deletedIds, setDeletedIds] = useState([]);
+  const [errorId, setErrorId] = useState(null);
   //  console.log(itineraries, "<-- 58")
   const accordionItems = itineraries.map((itinerary) => {
     const { userId, username, title, itineraryId, isPrivate, modifiedAt } =
@@ -89,6 +90,9 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   <p className="fs-5 mb-0">
                     {deletedIds.includes(itineraryId) ? 'Deleted' : title}
                   </p>
+                  {errorId === itineraryId && (
+                    <p className="text-danger fs-6 mb-0 p-0">error message</p>
+                  )}
                 </div>
                 <div className="ms-2">
                   {!deletedIds.includes(itineraryId) &&
@@ -97,6 +101,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
                         id={itineraryId}
                         componentName={'itinerary'}
                         setDeletedIds={setDeletedIds}
+                        setErrorId={setErrorId}
                       />
                     ) : (
                       <Favourite itineraryId={itineraryId} />
