@@ -11,8 +11,14 @@ export const userLogin = (username, password) => {
      });
 }
 
-export const loginStatus = () => {
+export const loginStatus = async () => {
     return api.get("/auth/check-auth").then((res) => {
+        return res.data;
+    })
+}
+
+export const userLogout = () => {
+    return api.get("/auth/logout").then((res) => {
         return res.data;
     })
 }
