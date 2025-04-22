@@ -1,115 +1,123 @@
-import Accordion from 'react-bootstrap/Accordion';
-import { Link } from 'react-router-dom';
-import { Itinerary } from './Itinerary.jsx';
-import { MenuPopover } from './MenuPopover.jsx';
-import { MenuOptions } from './MenuOptions.jsx';
-import { useContext, useEffect, useState } from 'react';
-import { UserContext } from '../context/User.jsx';
-import { IoMdHeart } from 'react-icons/io';
+import Accordion from "react-bootstrap/Accordion";
+import { Link } from "react-router-dom";
+import { Itinerary } from "./Itinerary.jsx";
+import { MenuPopover } from "./MenuPopover.jsx";
+import { MenuOptions } from "./MenuOptions.jsx";
+import { useContext, useEffect, useState } from "react";
+import { UserContext } from "../context/User.jsx";
+import { IoMdHeart } from "react-icons/io";
 import {
-  getCountryById,
-  getFavouritesByUserId,
-  getUserByUserId,
-  getUserByUsername,
-} from '../api.js';
+   getCountryById,
+   getFavouritesByUserId,
+   getUserByUserId,
+   getUserByUsername,
+} from "../api.js";
+import { Placeholder } from "react-bootstrap";
 
 const Favourite = ({ itineraryId }) => {
-  const { loggedInUser } = useContext(UserContext);
-  const user = getUserByUsername(loggedInUser.username);
-  if (!user) return null;
-  const favourites = getFavouritesByUserId(user.user_id);
+   const returnColour = () => (isFavourited ? "heart-fav" : "heart-unfav");
 
-  const handleFavourite = () => {
-    setIsFavourited(!isFavourited);
-  };
-  const returnColour = () => (isFavourited ? 'heart-fav' : 'heart-unfav');
+   //! getFavouritesByUserId needs to be properly implemented in the back end
+   const { loggedInUser } = useContext(UserContext);
+   const [favourites, setFavourites] = useState(
+      getFavouritesByUserId(loggedInUser.userId)
+   );
+   const [isFavourited, setIsFavourited] = useState(
+      favourites.some((fave) => {
+         return fave.itineraryId === itineraryId;
+      })
+   );
+   const [colour, setColour] = useState(returnColour());
 
-  const [isFavourited, setIsFavourited] = useState(
-    favourites.some((fave) => {
-      return fave.itinerary_id === itineraryId;
-    })
-  );
-  const [colour, setColour] = useState(returnColour());
+   const handleFavourite = () => {
+      setIsFavourited(!isFavourited);
+   };
 
-  useEffect(() => {
-    setColour(returnColour());
-  }, [isFavourited]);
+   useEffect(() => {
+      const faves = getFavouritesByUserId(loggedInUser.userId);
+      setFavourites(faves);
+      setColour(returnColour());
+   }, [isFavourited]);
+   //! --------------------------------------------------------------------
 
-  return (
-    <IoMdHeart
-      className={`heart ${colour} m-2`}
-      onClick={(e) => {
-        e.stopPropagation();
-        handleFavourite();
-      }}
-      size={25}
-    />
-  );
+   return (
+      <IoMdHeart
+         className={`heart ${colour} m-2`}
+         onClick={(e) => {
+            e.stopPropagation();
+            handleFavourite();
+         }}
+         size={25}
+      />
+   );
 };
 
 export const ItineraryAccordion = ({ itineraries }) => {
-  const { loggedInUser } = useContext(UserContext);
+   const { loggedInUser } = useContext(UserContext);
 
-  const accordionItems = itineraries.map(
-    ({ itinerary_id, title, user_id, country_id }) => {
-      const { username } = getUserByUserId(user_id);
-      const { countryName } = getCountryById(country_id);
+  //  console.log(itineraries, "<-- 58")
+   const accordionItems = itineraries.map((itinerary) => {
+      const { userId, username, title, itineraryId, isPrivate, modifiedAt } =
+         itinerary;
+
+      //! Itinerary DTO needs country id
+      // const { countryName } = getCountryById(country_id);
+
       return (
-        <div
-          key={itinerary_id}
-          className="rounded ps-3 pe-3 flex-grow-1 mx-2"
-          id="accordion-item"
-        >
-          <Accordion.Item eventKey={itinerary_id}>
-            <div className="d-flex align-items-center">
-              <Accordion.Header className="w-100">
-                <div className="d-flex justify-content-between align-items-center w-100">
-                  <div className="d-flex flex-column">
-                    <Link
-                      to={`/users/${username}`}
-                      className="text-muted fs-6 mb-2"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      {username}
-                    </Link>
-                    <p className="fs-5 mb-0">
-                      {title} - {countryName}
-                    </p>
-                  </div>
-                  <div className="ms-2">
-                    {loggedInUser.user_id === user_id ? (
-                      <MenuOptions />
-                    ) : (
-                      <Favourite itineraryId={itinerary_id} />
-                    )}
-                  </div>
-                </div>
-              </Accordion.Header>
-            </div>
-            <Accordion.Body>
-              <Itinerary
-                key={itinerary_id}
-                itineraryId={itinerary_id}
-                userId={user_id}
-              />
-            </Accordion.Body>
-          </Accordion.Item>
-        </div>
+         <div
+            key={itineraryId}
+            className="rounded ps-3 pe-3 flex-grow-1 mx-2"
+            id="accordion-item"
+         >
+            <Accordion.Item eventKey={itineraryId}>
+               <div className="d-flex align-items-center">
+                  <Accordion.Header className="w-100">
+                     <div className="d-flex justify-content-between align-items-center w-100">
+                        <div className="d-flex flex-column">
+                           <Link
+                              to={`/users/${username}`}
+                              className="text-muted fs-6 mb-2"
+                              onClick={(e) => e.stopPropagation()}
+                           >
+                              {username}
+                           </Link>
+                           <p className="fs-5 mb-0">
+                              {title} - {/*countryName*/}
+                           </p>
+                        </div>
+                        <div className="ms-2">
+                           {loggedInUser.userId === userId ? (
+                              <MenuOptions />
+                           ) : (
+                              <Favourite itineraryId={itineraryId} />
+                           )}
+                        </div>
+                     </div>
+                  </Accordion.Header>
+               </div>
+               <Accordion.Body>
+                  <Itinerary
+                     key={itineraryId}
+                     itineraryId={itineraryId}
+                     userId={userId}
+                  />
+               </Accordion.Body>
+            </Accordion.Item>
+         </div>
       );
-    }
-  );
+   });
 
-  return (
-    <div className="d-flex  my-5 border border-2 border-dark rounded py-5 w-100">
-      <Accordion className="d-flex flex-row flex-wrap gap-3 align-items-center">
-        {accordionItems}
-      </Accordion>
-    </div>
-  );
+   return (
+      <div className="d-flex  my-5 border border-2 border-dark rounded py-5 w-100">
+         <Accordion className="d-flex flex-row flex-wrap gap-3 align-items-center">
+            {accordionItems}
+         </Accordion>
+      </div>
+   );
 };
 
 {
-  /* <Breadcrumb className="mb-0 p-0">
+   /* <Breadcrumb className="mb-0 p-0">
                   <Breadcrumb.Item href={`/users/${username}`}>
                     {' '}
                     {username}
