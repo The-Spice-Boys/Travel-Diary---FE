@@ -91,7 +91,9 @@ export const ItineraryAccordion = ({ itineraries }) => {
                     {deletedIds.includes(itineraryId) ? 'Deleted' : title}
                   </p>
                   {errorId === itineraryId && (
-                    <p className="text-danger fs-6 mb-0 p-0">error message</p>
+                    <p className="text-danger fs-6 mb-0 p-0">
+                      Failed to delete
+                    </p>
                   )}
                 </div>
                 <div className="ms-2">
