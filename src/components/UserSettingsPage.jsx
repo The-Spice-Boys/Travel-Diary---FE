@@ -1,7 +1,9 @@
 import {useState, useEffect, useContext} from "react";
 import { FaUpload } from "react-icons/fa";
 import { themeToggle } from "../utils/utils";
-import { ThemeContext } from "../context/User";
+import {ThemeContext, UserContext} from "../context/User";
+import {LoginPage} from "./LoginPage.jsx";
+import {updateUser, updateUserPassword} from "../loginNSetting.js";
 
 export const UserSettingsPage = () => {
   // const emailCheckRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/
@@ -10,7 +12,6 @@ export const UserSettingsPage = () => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [newEmail, setNewEmail] = useState("")
-  const [city, setCity] = useState("")
   const [currentPassword, setCurrentPassword] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [confirmNewPassword, setConfirmNewPassword] = useState("")
@@ -18,56 +19,92 @@ export const UserSettingsPage = () => {
   const [currentTheme, setCurrentTheme]=useState(false)
   const [passwordMatch, setPasswordMatch] = useState(true)
   const {setTheme} = useContext(ThemeContext)
-
+    const { loggedInUser,isLoggedIn } = useContext(UserContext);
   const myPassword = "password123"
   
 
   useEffect(() => {
-    console.log("privacy settings>>", privacy)
-    setPasswordMatch(newPassword === confirmNewPassword && newPassword !== "");
-  }, [newPassword, confirmNewPassword, privacy, currentTheme]);
+      setUserName(loggedInUser.username || "");
+      setBiography(loggedInUser.bio || "");
+      setFirstName(loggedInUser.firstName || "");
+      setLastName(loggedInUser.lastName || "")
+      setNewEmail(loggedInUser.email || "")
+      setPrivacy(loggedInUser.isPrivate)
+      /*setPasswordMatch(newPassword === confirmNewPassword && newPassword !== "");*/
+  }, [newPassword, confirmNewPassword, currentTheme,loggedInUser]);
 
 
   const handlePublicInfoSubmit = (event) => {
     event.preventDefault()
-    console.log(userName)
-    console.log(biography)
+      const user = {
+        username: userName,
+        bio: biography,
+      }
+    updateUser(user).then((data) => {
+
+    })
     setUserName("")
     setBiography("")
   }
 
   const handlePrivateInfoSubmit = (event) => {
     event.preventDefault()
-    console.log(firstName)
-    console.log(lastName)
-    console.log(newEmail)
-    console.log(city)
+      const user = {
+          firstName: firstName,
+          lastName: lastName,
+          email: newEmail,
+      }
+      updateUser(user).then((data) => {
+
+      })
     setFirstName("")
     setLastName("")
     setNewEmail("")
-    setCity("")
   }
  
   const handleChangePassword = (event) => {
     event.preventDefault();
-    console.log("New password >>", newPassword)
-
+    if(newPassword === confirmNewPassword && newPassword !== ""){
+        const passwordMap ={
+            oldPassword: currentPassword,
+            newPassword: newPassword
+        }
+        updateUserPassword(passwordMap).then(() => {
+        }).catch((err) => {
+            console.log("Password update failed: ", err.response.data.message)
+        })
+    }
     setCurrentPassword("");
     setNewPassword("");
     setConfirmNewPassword("");
   }
+
+  const handlerChangePrivacy = (event) => {
+      const checked = event.target.checked;
+      setPrivacy(checked);
+      const user = {
+          isPrivate: checked
+      }
+      updateUser(user).then((data) => {
+
+      })
+  }
+
+    if(!isLoggedIn){
+        return (
+            <LoginPage />
+        )
+    }
 
   return (
     <div className="container p-0">
     <h1 className="h3 my-3">Settings</h1>
     <div className="row">
         <div className="col-md-5 col-xl-4">
-
             <div className="card">
                 <div className="card-header">
                     <h5 className="card-title my-1">Profile Settings</h5>
                 </div>
-
                 <div className="list-group list-group-flush" role="tablist">
                     <a className="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab">
                       Account
@@ -109,7 +146,7 @@ export const UserSettingsPage = () => {
                                     </div>
                                     <div className="col-md-4 my-1">
                                         <div className="text-center">
-                                            <img alt="Andrew Jones" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="rounded-circle img-responsive mt-2" width="128" height="128"/>
+                                            <img alt="Andrew Jones" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" className="rounded-circle img-responsive mt-2" width="128" height="128"/>
                                             <div className="mt-2">
                             
                                                 <span>
@@ -150,12 +187,6 @@ export const UserSettingsPage = () => {
                                 <div className="form-group mt-3">
                                     <label htmlFor="inputEmail4" className="mb-2">Change email</label>
                                     <input type="email" className="form-control" id="inputEmail4" placeholder="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
-                                </div>
-                                <div className="form-row mt-3">
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="inputCity" className="mb-2">City</label>
-                                        <input type="text" class="form-control" id="inputCity" placeholder="Enter your city" value={city} onChange={(e) => setCity(e.target.value)}/>
-                                    </div>
                                 </div>
                                 <button type="submit" className="btn btn-primary mt-5" onClick={handlePrivateInfoSubmit}>Save changes</button>
                             </form>
@@ -213,7 +244,6 @@ export const UserSettingsPage = () => {
                         className="btn btn-primary mt-5"
                         onClick={handleChangePassword}
                         disabled={
-                          currentPassword !== myPassword ||
                           newPassword !== confirmNewPassword ||
                           !currentPassword || !newPassword || !confirmNewPassword
                         }
@@ -238,7 +268,7 @@ export const UserSettingsPage = () => {
                               type="checkbox"
                               id="flexSwitchCheckChecked"
                               checked={privacy}
-                            onChange={(e) => setPrivacy(e.target.checked)}
+                            onChange={handlerChangePrivacy}
                             />
                           </div>
                           </div>

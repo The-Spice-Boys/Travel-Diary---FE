@@ -16,7 +16,6 @@ export const NavBar = () => {
   const navigate = useNavigate();
 
   function loginHandler(){
-    console.log(isLoggedIn);
     if(!isLoggedIn){
       navigate('/login')
     }else{
