@@ -72,12 +72,9 @@ export const ItineraryAccordion = ({ itineraries }) => {
         <Accordion.Item eventKey={itineraryId}>
           <div className="d-flex align-items-center">
             <Accordion.Header
-              className="w-100"
-              style={
-                deletedIds.includes(itineraryId)
-                  ? { cursor: 'not-allowed', pointerEvents: 'none' }
-                  : {}
-              }
+              className={`w-100 ${
+                deletedIds.includes(itineraryId) ? 'deleted-item' : ''
+              }`}
             >
               <div className="d-flex justify-content-between align-items-center w-100">
                 <div className="d-flex flex-column">

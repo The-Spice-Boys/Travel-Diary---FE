@@ -98,3 +98,9 @@ body {
 .menu-popover:hover {
     background-color: hsla(218, 11%, 65%, 0.75);
 }
+
+.deleted-item {
+    cursor: not-allowed;
+    pointer-events: none;
+    opacity: 0.6;
+}
