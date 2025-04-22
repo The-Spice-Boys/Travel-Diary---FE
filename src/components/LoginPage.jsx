@@ -7,19 +7,22 @@ export const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isValidate, setIsValidate] = useState(true);
 
-  const { setLoggedInUser } = useContext(UserContext);
+  const { setLoggedInUser,setIsLoggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     userLogin(username, password).then((data) => {
       setLoggedInUser(data);
-      loginStatus().then((data) => {
-        console.log(data);
-      });
+      setIsLoggedIn(true);
+      navigate('/');
+    }).catch((err) => {
+      if(err.response.status === 401){
+        setIsValidate(false);
+      }
     });
-    navigate('/');
   };
 
 //   const handleSubmit = (e) => {
@@ -73,7 +76,7 @@ export const LoginPage = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-
+          <div className={`mb-3 form-check text-danger-emphasis ${isValidate ? "d-none" : null}`}>Invalid Username Or Password</div>
           <button type="submit" className="btn btn-primary w-100">
             Log in!
           </button>

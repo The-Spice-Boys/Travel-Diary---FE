@@ -14,7 +14,7 @@ import { Loading } from "./Loading.jsx";
 import { MdFavoriteBorder } from "react-icons/md";
 
 export const UserPage = () => {
-  const { loggedInUser } = useContext(UserContext);
+  const { loggedInUser ,} = useContext(UserContext);
   const usernameParam = useParams().username;
 
   const [user, setUser] = useState({});

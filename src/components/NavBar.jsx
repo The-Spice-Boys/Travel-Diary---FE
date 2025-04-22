@@ -11,16 +11,18 @@ import { SearchBar } from './SearchBar';
 import {loginStatus, userLogout} from "../loginNSetting.js";
 
 export const NavBar = () => {
-  const { loggedInUser, setLoggedInUser } = useContext(UserContext);
-  const [isloggedIn, setIsLoggedIn ] = useState(false);
+  const { loggedInUser, setLoggedInUser,isLoggedIn, setIsLoggedIn} = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   function loginHandler(){
-    console.log(isloggedIn);
-    if(!isloggedIn){
-      console.log("login");
-      navigate('/login')}
+    console.log(isLoggedIn);
+    if(!isLoggedIn){
+      navigate('/login')
+    }else{
+      userLogout().then(()=> {}).catch(err => {throw err;});
+      setIsLoggedIn(false);
+    }
   }
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export const NavBar = () => {
     }).catch(err => {
       console.error("unable to get login status", err);
     });
-  },[isloggedIn]);
+  },[isLoggedIn]);
 
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -70,7 +72,7 @@ export const NavBar = () => {
                 style={{ maxWidth: '200px' }}
                 onClick={loginHandler}
               >
-                { isloggedIn ? "Log out" : "Log in"}
+                { isLoggedIn ? "Log out" : "Log in"}
               </Button>
             </div>
           )}

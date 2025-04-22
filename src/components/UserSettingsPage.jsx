@@ -58,27 +58,27 @@ export const UserSettingsPage = () => {
   }
 
   return (
-    <div class="container p-0">
-    <h1 class="h3 my-3">Settings</h1>
-    <div class="row">
-        <div class="col-md-5 col-xl-4">
+    <div className="container p-0">
+    <h1 className="h3 my-3">Settings</h1>
+    <div className="row">
+        <div className="col-md-5 col-xl-4">
 
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title my-1">Profile Settings</h5>
+            <div className="card">
+                <div className="card-header">
+                    <h5 className="card-title my-1">Profile Settings</h5>
                 </div>
 
-                <div class="list-group list-group-flush" role="tablist">
-                    <a class="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab">
+                <div className="list-group list-group-flush" role="tablist">
+                    <a className="list-group-item list-group-item-action active" data-bs-toggle="list" href="#account" role="tab">
                       Account
                     </a>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab">
+                    <a className="list-group-item list-group-item-action" data-bs-toggle="list" href="#password" role="tab">
                       Password
                     </a>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#privacy" role="tab">
+                    <a className="list-group-item list-group-item-action" data-bs-toggle="list" href="#privacy" role="tab">
                       Privacy and safety
                     </a>
-                    <a class="list-group-item list-group-item-action" data-bs-toggle="list" href="#theme" role="tab">
+                    <a className="list-group-item list-group-item-action" data-bs-toggle="list" href="#theme" role="tab">
                       Theme
                     </a>
                     
@@ -86,31 +86,31 @@ export const UserSettingsPage = () => {
             </div>
         </div>
 
-        <div class="col-md-7 col-xl-8">
-            <div class="tab-content">
-                <div class="tab-pane fade show active" id="account" role="tabpanel">
+        <div className="col-md-7 col-xl-8">
+            <div className="tab-content">
+                <div className="tab-pane fade show active" id="account" role="tabpanel">
 
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title my-1">Public info</h5>
+                    <div className="card">
+                        <div className="card-header">
+                            <h5 className="card-title my-1">Public info</h5>
                         </div>
-                        <div class="card-body">
+                        <div className="card-body">
                             <form>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <div class="form-group">
+                                <div className="row">
+                                    <div className="col-md-8">
+                                        <div className="form-group">
                                             <label htmlFor="inputUsername" className="mb-2">Username</label>
-                                            <input type="text" class="form-control" id="inputUsername" placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)}/>
+                                            <input type="text" className="form-control" id="inputUsername" placeholder="Username" value={userName} onChange={(e) => setUserName(e.target.value)}/>
                                         </div>
-                                        <div class="form-group mt-3">
+                                        <div className="form-group mt-3">
                                             <label htmlFor="inputUsername" className="mb-2">Biography</label>
-                                            <textarea rows="2" class="form-control" id="inputBio" placeholder="Write something about yourself" value={biography} onChange={(e) => setBiography(e.target.value)}></textarea>
+                                            <textarea rows="2" className="form-control" id="inputBio" placeholder="Write something about yourself" value={biography} onChange={(e) => setBiography(e.target.value)}></textarea>
                                         </div>
                                     </div>
-                                    <div class="col-md-4 my-1">
-                                        <div class="text-center">
+                                    <div className="col-md-4 my-1">
+                                        <div className="text-center">
                                             <img alt="Andrew Jones" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" class="rounded-circle img-responsive mt-2" width="128" height="128"/>
-                                            <div class="mt-2">
+                                            <div className="mt-2">
                             
                                                 <span>
                                                   <label htmlFor="formFile" className="form-label">
@@ -125,39 +125,39 @@ export const UserSettingsPage = () => {
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary" onClick={handlePublicInfoSubmit}>Save changes</button>
+                                <button type="submit" className="btn btn-primary" onClick={handlePublicInfoSubmit}>Save changes</button>
                             </form>
 
                         </div>
                     </div>
 
-                    <div class="card my-4">
-                        <div class="card-header">
-                            <h5 class="card-title my-1">Private info</h5>
+                    <div className="card my-4">
+                        <div className="card-header">
+                            <h5 className="card-title my-1">Private info</h5>
                         </div>
-                        <div class="card-body">
+                        <div className="card-body">
                             <form>
-                                <div class="form-row mt-3">
-                                    <div class="form-group col-md-6">
+                                <div className="form-row mt-3">
+                                    <div className="form-group col-md-6">
                                         <label htmlFor="inputFirstName" className="mb-2">First name</label>
-                                        <input type="text" class="form-control" id="inputFirstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
+                                        <input type="text" className="form-control" id="inputFirstName" placeholder="First name" value={firstName} onChange={(e) => setFirstName(e.target.value)}/>
                                     </div>
-                                    <div class="form-group col-md-6 mt-3">
+                                    <div className="form-group col-md-6 mt-3">
                                         <label htmlFor="inputLastName" className="mb-2">Last name</label>
-                                        <input type="text" class="form-control" id="inputLastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
+                                        <input type="text" className="form-control" id="inputLastName" placeholder="Last name" value={lastName} onChange={(e) => setLastName(e.target.value)}/>
                                     </div>
                                 </div>
-                                <div class="form-group mt-3">
+                                <div className="form-group mt-3">
                                     <label htmlFor="inputEmail4" className="mb-2">Change email</label>
-                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
+                                    <input type="email" className="form-control" id="inputEmail4" placeholder="Email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
                                 </div>
-                                <div class="form-row mt-3">
-                                    <div class="form-group col-md-6">
+                                <div className="form-row mt-3">
+                                    <div className="form-group col-md-6">
                                         <label htmlFor="inputCity" className="mb-2">City</label>
                                         <input type="text" class="form-control" id="inputCity" placeholder="Enter your city" value={city} onChange={(e) => setCity(e.target.value)}/>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary mt-5" onClick={handlePrivateInfoSubmit}>Save changes</button>
+                                <button type="submit" className="btn btn-primary mt-5" onClick={handlePrivateInfoSubmit}>Save changes</button>
                             </form>
 
                         </div>
@@ -165,16 +165,16 @@ export const UserSettingsPage = () => {
                 </div>
 
 
-              <div class="tab-pane fade" id="password" role="tabpanel">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Password</h5>
+              <div className="tab-pane fade" id="password" role="tabpanel">
+                <div className="card">
+                  <div className="card-body">
+                    <h5 className="card-title">Password</h5>
                     <form>
-                      <div class="form-group mt-3">
+                      <div className="form-group mt-3">
                         <label htmlFor="inputPasswordCurrent" className="mb-2">Current password</label>
                         <input
                           type="password"
-                          class="form-control"
+                          className="form-control"
                           id="inputPasswordCurrent"
                           value={currentPassword}
                           onChange={(e) => setCurrentPassword(e.target.value)}
@@ -183,21 +183,21 @@ export const UserSettingsPage = () => {
                             <small style={{ color: "red" }}>Password is incorrect, please try again</small>)
                           : null}
                       </div>
-                      <div class="form-group mt-3">
+                      <div className="form-group mt-3">
                         <label htmlFor="inputPasswordNew" className="mb-2">New password</label>
                         <input
                           type="password"
-                          class="form-control"
+                          className="form-control"
                           id="inputPasswordNew"
                           value={newPassword}
                           onChange={(e) => setNewPassword(e.target.value)}
                         />
                       </div>
-                      <div class="form-group mt-3">
+                      <div className="form-group mt-3">
                         <label htmlFor="inputPasswordNew2" className="mb-2">Confirm new password</label>
                         <input
                           type="password"
-                          class="form-control"
+                          className="form-control"
                           id="inputPasswordNew2"
                           value={confirmNewPassword}
                           onChange={(e) => setConfirmNewPassword(e.target.value)}
@@ -210,7 +210,7 @@ export const UserSettingsPage = () => {
                       </div>
                       <button
                         type="submit"
-                        class="btn btn-primary mt-5"
+                        className="btn btn-primary mt-5"
                         onClick={handleChangePassword}
                         disabled={
                           currentPassword !== myPassword ||
@@ -226,15 +226,15 @@ export const UserSettingsPage = () => {
                 </div>
 
 
-                <div class="tab-pane fade" id="privacy" role="tabpanel">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Privacy</h5>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <p class="text-muted mb-0">This will keep your photos and notes private only your itineraries will  remain public.</p>
-                          <div class="form-switch m-0">
+                <div className="tab-pane fade" id="privacy" role="tabpanel">
+                  <div className="card">
+                    <div className="card-body">
+                      <h5 className="card-title">Privacy</h5>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <p className="text-muted mb-0">This will keep your photos and notes private only your itineraries will  remain public.</p>
+                          <div className="form-switch m-0">
                             <input
-                              class="form-check-input"
+                              className="form-check-input"
                               type="checkbox"
                               id="flexSwitchCheckChecked"
                               checked={privacy}
@@ -246,15 +246,15 @@ export const UserSettingsPage = () => {
                      </div>
                     </div>
 
-                <div class="tab-pane fade" id="theme" role="tabpanel">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Choose your theme</h5>
-                            <div class="d-flex justify-content-between align-items-center">
-                              <p class="text-muted mb-0">Enable dark mode</p>
-                                <div class="form-check form-switch m-0">
+                <div className="tab-pane fade" id="theme" role="tabpanel">
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title">Choose your theme</h5>
+                            <div className="d-flex justify-content-between align-items-center">
+                              <p className="text-muted mb-0">Enable dark mode</p>
+                                <div className="form-check form-switch m-0">
                                   <input
-                                    class="form-check-input"
+                                    className="form-check-input"
                                     type="checkbox"
                                     id="flexSwitchCheckChecked"
                                     checked={currentTheme}
