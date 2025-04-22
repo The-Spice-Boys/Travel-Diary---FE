@@ -1,17 +1,28 @@
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-import { useContext } from 'react';
+import {useContext, useEffect, useState} from 'react';
 import { UserContext } from '../context/User';
 import { FaRegUser } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
+import {loginStatus} from "../loginNSetting.js";
 
 export const NavBar = () => {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
+  const [isloggedIn, setIsLoggedIn ] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    loginStatus().then(data => {
+      if(data.isLoggedIn){
+        setIsLoggedIn(true);
+      }
+    });
+  })
 
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -45,9 +56,9 @@ export const NavBar = () => {
               </Link>
               <Button
                 style={{ maxWidth: '200px' }}
-                onClick={() => setLoggedInUser('')}
+                onClick={()=>navigate('/login')}
               >
-                Log out
+                { isloggedIn ? "Log out" : "Log in"}
               </Button>
             </div>
           )}

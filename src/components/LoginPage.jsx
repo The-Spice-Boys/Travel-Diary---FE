@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/User";
+import {userLogin,loginStatus} from "../loginNSetting.js";
 
 export const LoginPage = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -12,8 +13,13 @@ export const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    userLogin(username, password).then((data) => {
+      setLoggedInUser(data);
+      loginStatus().then((data) => {
+        console.log(data);
+      });
+    });
     navigate('/');
-    setLoggedInUser("wanderer_joe");
   };
 
 //   const handleSubmit = (e) => {
@@ -24,7 +30,7 @@ export const LoginPage = () => {
 //             setLoggedInUser(data.[something])
 //             navigate("/")
 //         }).catch((err) => {
-//             setErrorMsg("Invalid email or password");
+//             setErrorMsg("Invalid username or password");
 //             console.error(err);
 //         });
 // };
@@ -41,16 +47,16 @@ export const LoginPage = () => {
           )}
 
           <div className="mb-3">
-            <label htmlFor="email" className="form-label">
-              Email:
+            <label htmlFor="username" className="form-label">
+              Username::
             </label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="username"
               className="form-control"
-              value={email}
+              value={username}
               required
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
