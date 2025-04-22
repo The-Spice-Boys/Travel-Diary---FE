@@ -71,7 +71,14 @@ export const ItineraryAccordion = ({ itineraries }) => {
       >
         <Accordion.Item eventKey={itineraryId}>
           <div className="d-flex align-items-center">
-            <Accordion.Header className="w-100">
+            <Accordion.Header
+              className="w-100"
+              style={
+                deletedIds.includes(itineraryId)
+                  ? { cursor: 'not-allowed', pointerEvents: 'none' }
+                  : {}
+              }
+            >
               <div className="d-flex justify-content-between align-items-center w-100">
                 <div className="d-flex flex-column">
                   <Link
@@ -87,15 +94,16 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   </p>
                 </div>
                 <div className="ms-2">
-                  {loggedInUser.userId === userId ? (
-                    <MenuOptions
-                      id={itineraryId}
-                      componentName={'itinerary'}
-                      setDeletedIds={setDeletedIds}
-                    />
-                  ) : (
-                    <Favourite itineraryId={itineraryId} />
-                  )}
+                  {!deletedIds.includes(itineraryId) &&
+                    (loggedInUser.userId === userId ? (
+                      <MenuOptions
+                        id={itineraryId}
+                        componentName={'itinerary'}
+                        setDeletedIds={setDeletedIds}
+                      />
+                    ) : (
+                      <Favourite itineraryId={itineraryId} />
+                    ))}
                 </div>
               </div>
             </Accordion.Header>
