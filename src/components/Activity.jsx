@@ -109,6 +109,7 @@ const MyVerticallyCenteredModal = (props) => {
 export const Activity = ({ activity, userId }) => {
   const { loggedInUser } = useContext(UserContext);
   const [deletedIds, setDeletedIds] = useState([]);
+  const [errorId, setErrorId] = useState(null);
   const [modalShow, setModalShow] = useState(false);
   const [isActivityComplete, setIsActivityComplete] = useState(
     activity.completionStatus
@@ -133,11 +134,19 @@ export const Activity = ({ activity, userId }) => {
         } ${deletedIds.includes(activity.activityId) ? 'deleted-item' : ''}`}
       >
         <div className="d-flex align-items-center">
-          <p className="m-2">
-            {deletedIds.includes(activity.activityId)
-              ? 'Deleted'
-              : activity.title}
-          </p>
+          <div className="d-flex flex-column gap-0">
+            <p className="m-2 mb-0">
+              {deletedIds.includes(activity.activityId)
+                ? 'Deleted'
+                : activity.title}
+            </p>
+            {errorId === activity.activityId && (
+              <p className="text-danger fs-6 m-2 mb-0 mt-0 p-0">
+                Failed to delete
+              </p>
+            )}
+          </div>
+
           {!deletedIds.includes(activity.activityId) &&
             (isActivityComplete ? (
               <MdOutlineCheckBox size={30} onClick={handleToggleCompletion} />
@@ -154,6 +163,7 @@ export const Activity = ({ activity, userId }) => {
               id={activity.activityId}
               componentName={'activity'}
               setDeletedIds={setDeletedIds}
+              setErrorId={setErrorId}
             />
           )}
       </ListGroup.Item>
