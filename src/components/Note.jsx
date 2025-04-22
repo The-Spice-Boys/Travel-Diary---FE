@@ -1,8 +1,8 @@
-import { useContext, useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import { UserContext } from '../context/User';
-import { MdEdit } from 'react-icons/md';
-import { FaCheckCircle } from 'react-icons/fa';
+import { useContext, useState } from "react";
+import Form from "react-bootstrap/Form";
+import { UserContext } from "../context/User";
+import { MdEdit } from "react-icons/md";
+import { FaCheckCircle } from "react-icons/fa";
 
 export const Note = ({ text, userId }) => {
   const { loggedInUser } = useContext(UserContext);
@@ -31,15 +31,15 @@ export const Note = ({ text, userId }) => {
             type="text"
             onChange={handleChange}
             className="m-0"
-            style={{ minWidth: '200px' }}
+            style={{ minWidth: "200px" }}
           />
         ) : (
-          <p className="mb-0" style={{ lineHeight: '1.5' }}>
+          <p className="mb-0" style={{ lineHeight: "1.5" }}>
             {userInput}
           </p>
         )}
 
-        {loggedInUser.user_id === userId &&
+        {loggedInUser.userId === userId &&
           (editClicked ? (
             <button type="submit" className="btn p-0 border-0 bg-transparent">
               <FaCheckCircle size={18} className="menu-options" />
