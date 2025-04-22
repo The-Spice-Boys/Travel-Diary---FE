@@ -1,242 +1,242 @@
 [
   {
-    "itinerary_id": 1,
-    "user_id": 1,
-    "country_id": 1,
+    "itineraryId": 1,
+    "userId": 1,
+    "countryId": 1,
     "private": false,
     "title": "Tokyo Adventure",
-    "modified_at": "2025-04-01T12:00:00Z"
+    "modifiedAt": "2025-04-01T12:00:00Z"
   },
   {
-    "itinerary_id": 2,
-    "user_id": 2,
-    "country_id": 2,
+    "itineraryId": 2,
+    "userId": 2,
+    "countryId": 2,
     "private": false,
     "title": "Italian Getaway",
-    "modified_at": "2025-03-15T08:30:00Z"
+    "modifiedAt": "2025-03-15T08:30:00Z"
   },
   {
-    "itinerary_id": 3,
-    "user_id": 1,
-    "country_id": 3,
+    "itineraryId": 3,
+    "userId": 1,
+    "countryId": 3,
     "private": true,
     "title": "Carnival Fun",
-    "modified_at": "2025-01-10T14:45:00Z"
+    "modifiedAt": "2025-01-10T14:45:00Z"
   },
   {
-    "itinerary_id": 4,
-    "user_id": 3,
-    "country_id": 4,
+    "itineraryId": 4,
+    "userId": 3,
+    "countryId": 4,
     "private": false,
     "title": "Rockies Trek",
-    "modified_at": "2024-12-20T10:00:00Z"
+    "modifiedAt": "2024-12-20T10:00:00Z"
   },
   {
-    "itinerary_id": 5,
-    "user_id": 4,
-    "country_id": 5,
+    "itineraryId": 5,
+    "userId": 4,
+    "countryId": 5,
     "private": false,
     "title": "Sydney Sights",
-    "modified_at": "2025-02-05T09:20:00Z"
+    "modifiedAt": "2025-02-05T09:20:00Z"
   },
   {
-    "itinerary_id": 6,
-    "user_id": 2,
-    "country_id": 6,
+    "itineraryId": 6,
+    "userId": 2,
+    "countryId": 6,
     "private": true,
     "title": "Paris in Spring",
-    "modified_at": "2025-03-01T15:00:00Z"
+    "modifiedAt": "2025-03-01T15:00:00Z"
   },
   {
-    "itinerary_id": 7,
-    "user_id": 3,
-    "country_id": 7,
+    "itineraryId": 7,
+    "userId": 3,
+    "countryId": 7,
     "private": false,
     "title": "Thai Temples Tour",
-    "modified_at": "2024-11-10T11:30:00Z"
+    "modifiedAt": "2024-11-10T11:30:00Z"
   },
   {
-    "itinerary_id": 8,
-    "user_id": 1,
-    "country_id": 8,
+    "itineraryId": 8,
+    "userId": 1,
+    "countryId": 8,
     "private": false,
     "title": "Iceland Ring Road",
-    "modified_at": "2025-01-18T07:50:00Z"
+    "modifiedAt": "2025-01-18T07:50:00Z"
   },
   {
-    "itinerary_id": 9,
-    "user_id": 4,
-    "country_id": 9,
+    "itineraryId": 9,
+    "userId": 4,
+    "countryId": 9,
     "private": true,
     "title": "Moroccan Markets",
-    "modified_at": "2025-02-27T12:00:00Z"
+    "modifiedAt": "2025-02-27T12:00:00Z"
   },
   {
-    "itinerary_id": 10,
-    "user_id": 4,
-    "country_id": 10,
+    "itineraryId": 10,
+    "userId": 4,
+    "countryId": 10,
     "private": false,
     "title": "California Dreamin'",
-    "modified_at": "2025-03-23T16:10:00Z"
+    "modifiedAt": "2025-03-23T16:10:00Z"
   },
   {
-    "itinerary_id": 11,
-    "user_id": 1,
-    "country_id": 2,
+    "itineraryId": 11,
+    "userId": 1,
+    "countryId": 2,
     "private": false,
     "title": "Venice Vibes",
-    "modified_at": "2025-04-01T13:00:00Z"
+    "modifiedAt": "2025-04-01T13:00:00Z"
   },
   {
-    "itinerary_id": 12,
-    "user_id": 2,
-    "country_id": 3,
+    "itineraryId": 12,
+    "userId": 2,
+    "countryId": 3,
     "private": false,
     "title": "Amazon Explorer",
-    "modified_at": "2025-04-02T10:00:00Z"
+    "modifiedAt": "2025-04-02T10:00:00Z"
   },
   {
-    "itinerary_id": 13,
-    "user_id": 3,
-    "country_id": 4,
+    "itineraryId": 13,
+    "userId": 3,
+    "countryId": 4,
     "private": true,
     "title": "Northern Lights",
-    "modified_at": "2025-03-12T20:00:00Z"
+    "modifiedAt": "2025-03-12T20:00:00Z"
   },
   {
-    "itinerary_id": 14,
-    "user_id": 4,
-    "country_id": 5,
+    "itineraryId": 14,
+    "userId": 4,
+    "countryId": 5,
     "private": false,
     "title": "Coastal Drive",
-    "modified_at": "2025-04-03T09:00:00Z"
+    "modifiedAt": "2025-04-03T09:00:00Z"
   },
   {
-    "itinerary_id": 15,
-    "user_id": 1,
-    "country_id": 6,
+    "itineraryId": 15,
+    "userId": 1,
+    "countryId": 6,
     "private": true,
     "title": "Château Visits",
-    "modified_at": "2025-03-30T12:30:00Z"
+    "modifiedAt": "2025-03-30T12:30:00Z"
   },
   {
-    "itinerary_id": 16,
-    "user_id": 2,
-    "country_id": 7,
+    "itineraryId": 16,
+    "userId": 2,
+    "countryId": 7,
     "private": false,
     "title": "Island Hopping",
-    "modified_at": "2025-02-25T08:45:00Z"
+    "modifiedAt": "2025-02-25T08:45:00Z"
   },
   {
-    "itinerary_id": 17,
-    "user_id": 3,
-    "country_id": 8,
+    "itineraryId": 17,
+    "userId": 3,
+    "countryId": 8,
     "private": false,
     "title": "Glacier Roadtrip",
-    "modified_at": "2025-03-05T17:00:00Z"
+    "modifiedAt": "2025-03-05T17:00:00Z"
   },
   {
-    "itinerary_id": 18,
-    "user_id": 4,
-    "country_id": 9,
+    "itineraryId": 18,
+    "userId": 4,
+    "countryId": 9,
     "private": true,
     "title": "Sahara Nights",
-    "modified_at": "2025-02-14T22:00:00Z"
+    "modifiedAt": "2025-02-14T22:00:00Z"
   },
   {
-    "itinerary_id": 19,
-    "user_id": 1,
-    "country_id": 10,
+    "itineraryId": 19,
+    "userId": 1,
+    "countryId": 10,
     "private": false,
     "title": "New York Vibes",
-    "modified_at": "2025-01-28T10:10:00Z"
+    "modifiedAt": "2025-01-28T10:10:00Z"
   },
   {
-    "itinerary_id": 20,
-    "user_id": 2,
-    "country_id": 1,
+    "itineraryId": 20,
+    "userId": 2,
+    "countryId": 1,
     "private": true,
     "title": "Kyoto Calm",
-    "modified_at": "2025-03-18T11:15:00Z"
+    "modifiedAt": "2025-03-18T11:15:00Z"
   },
   {
-    "itinerary_id": 21,
-    "user_id": 3,
-    "country_id": 5,
+    "itineraryId": 21,
+    "userId": 3,
+    "countryId": 5,
     "private": false,
     "title": "Rainforest Escape",
-    "modified_at": "2025-01-02T08:00:00Z"
+    "modifiedAt": "2025-01-02T08:00:00Z"
   },
   {
-    "itinerary_id": 22,
-    "user_id": 4,
-    "country_id": 2,
+    "itineraryId": 22,
+    "userId": 4,
+    "countryId": 2,
     "private": false,
     "title": "Roman Ruins",
-    "modified_at": "2025-04-04T15:45:00Z"
+    "modifiedAt": "2025-04-04T15:45:00Z"
   },
   {
-    "itinerary_id": 23,
-    "user_id": 1,
-    "country_id": 3,
+    "itineraryId": 23,
+    "userId": 1,
+    "countryId": 3,
     "private": false,
     "title": "Rio Revelations",
-    "modified_at": "2025-04-05T17:15:00Z"
+    "modifiedAt": "2025-04-05T17:15:00Z"
   },
   {
-    "itinerary_id": 24,
-    "user_id": 2,
-    "country_id": 4,
+    "itineraryId": 24,
+    "userId": 2,
+    "countryId": 4,
     "private": false,
     "title": "Toronto Tour",
-    "modified_at": "2025-04-06T11:25:00Z"
+    "modifiedAt": "2025-04-06T11:25:00Z"
   },
   {
-    "itinerary_id": 25,
-    "user_id": 3,
-    "country_id": 6,
+    "itineraryId": 25,
+    "userId": 3,
+    "countryId": 6,
     "private": true,
     "title": "Provence Peace",
-    "modified_at": "2025-03-20T13:40:00Z"
+    "modifiedAt": "2025-03-20T13:40:00Z"
   },
   {
-    "itinerary_id": 26,
-    "user_id": 4,
-    "country_id": 7,
+    "itineraryId": 26,
+    "userId": 4,
+    "countryId": 7,
     "private": false,
     "title": "Bangkok Buzz",
-    "modified_at": "2025-03-22T18:00:00Z"
+    "modifiedAt": "2025-03-22T18:00:00Z"
   },
   {
-    "itinerary_id": 27,
-    "user_id": 1,
-    "country_id": 8,
+    "itineraryId": 27,
+    "userId": 1,
+    "countryId": 8,
     "private": true,
     "title": "Frozen Fjords",
-    "modified_at": "2025-01-30T06:30:00Z"
+    "modifiedAt": "2025-01-30T06:30:00Z"
   },
   {
-    "itinerary_id": 28,
-    "user_id": 2,
-    "country_id": 9,
+    "itineraryId": 28,
+    "userId": 2,
+    "countryId": 9,
     "private": false,
     "title": "Fez & Beyond",
-    "modified_at": "2025-02-28T14:00:00Z"
+    "modifiedAt": "2025-02-28T14:00:00Z"
   },
   {
-    "itinerary_id": 29,
-    "user_id": 3,
-    "country_id": 10,
+    "itineraryId": 29,
+    "userId": 3,
+    "countryId": 10,
     "private": false,
     "title": "Route 66",
-    "modified_at": "2025-03-25T19:00:00Z"
+    "modifiedAt": "2025-03-25T19:00:00Z"
   },
   {
-    "itinerary_id": 30,
-    "user_id": 4,
-    "country_id": 1,
+    "itineraryId": 30,
+    "userId": 4,
+    "countryId": 1,
     "private": true,
     "title": "Osaka Eats",
-    "modified_at": "2025-04-07T12:20:00Z"
+    "modifiedAt": "2025-04-07T12:20:00Z"
   }
 ]

@@ -6,75 +6,106 @@ import notes from "./dummy_data/notes.json";
 import countries from "./dummy_data/countries.json";
 import favourites from "./dummy_data/favourites.json";
 
-export const getUserByUsername = (requestUsername) => {
-   return users.find(
-      ({ username }) => username === requestUsername
-   );
+import axios from "axios";
+
+// --- TEMP URL ---
+const api = axios.create({
+   baseURL: "https://travel-demo-p3bz.onrender.com/api",
+});
+// --- TEMP URL ---
+
+// Ideal path: /users/username/:username
+export const getUserByUsername = (username) => {
+   return api.get(`/users/username/${username}`).then(({ data }) => data);
 };
 
+// Ideal path: /users/userId/:userId
 export const getUserByUserId = (userId) => {
-   const { user_id, username, bio, profile_pic_url } = users.find(
-      ({ user_id }) => user_id === userId
-   );
-
-   return { user_id, username, bio, profile_pic_url };
+   return api
+      .get(`/users/user_id/${userId}`)
+      .then(({ data }) => data)
+      .catch((err) => err);
 };
 
-export const getItinerariesByUserId = (requestId) => {
-   return itineraries.filter(({ user_id }) => user_id === requestId);
+// Ideal path: /users/userId/:userId/itineraries
+export const getItinerariesByUserId = (userId) => {
+   let usernameToAssign;
+   return getUserByUserId(userId)
+      .then(({ username }) => {
+         usernameToAssign = username;
+         return api.get(`/itineraries/user/${username}`);
+      })
+      .then(({ data }) => {
+         data.content.forEach(
+            (itinerary) => (itinerary.username = usernameToAssign)
+         );
+         return data.content;
+      })
+      .catch((err) => err);
 };
 
-export const getActivitiesByItineraryId = (requestId) => {
-   return activities.filter(({ itinerary_id }) => itinerary_id === requestId);
+// Ideal path /itineraries/:itineraryId/activities
+export const getActivitiesByItineraryId = (itineraryId) => {
+   return api
+      .get(`/activities/itinerary/${itineraryId}`)
+      .then(({ data }) => data);
 };
 
-export const getPhotosByActivityId = (requestId) => {
-   return photos.filter(({ activity_id }) => activity_id === requestId);
+// Ideal path: /activities/:activityId/photos
+export const getPhotosByActivityId = (activityId) => {
+   return api.get(`/photos/activity/${activityId}`).then(({data}) => {
+      return data;
+   })
 };
 
-export const getNotesByActivityId = (requestId) => {
-   return notes.filter(({ activity_id }) => activity_id === requestId);
+// Ideal path: /activities/:activityId/notes
+export const getNotesByActivityId = (activityId) => {
+   return api.get(`notes/activity/${activityId}`).then(({data}) => {
+      return data;
+   })
 };
 
-export const getUserBioByUsername = (requestUsername) => {
-   return users.filter(({ username, bio }) =>
-      username === requestUsername ? bio : null
-   );
+// Ideal path: /countries/:countryName
+export const getCountryByName = (name) => {
+   return api.get(`/countries/${name}`).then(({ data }) => data);
 };
 
-export const getCountries = () => {
-   return countries;
-};
-
-export const getCountryByName = (countryName) => {
-   return countries.find(
-      (country) =>
-         country.countryName.toLowerCase() === countryName.toLowerCase()
-   );
-};
-
+//! Needed?
 export const getCountryById = (countryId) => {
    return countries.find((country) => country.countryId === countryId);
 };
 
-export const getItinerariesByCountry = (countryName) => {
-   const { countryId } = countries.find((country) => {
-      return country.countryName.toLowerCase() === countryName.toLowerCase();
-   });
+// Ideal path: /countries/:countryName/itineraries
+export const getItinerariesByCountry = (name) => {
+   return api.get(`/itineraries/country/${name}`).then(({ data }) => {
+      const itineraries = data.content.map((itinerary) => {
+         return getUserByUserId(itinerary.userId).then(({ username }) => {
+            itinerary.username = username;
+            return itinerary;
+         });
+      });
 
-   return itineraries.filter(({ country_id }) => {
-      return country_id === countryId;
+      return Promise.all(itineraries);
    });
 };
 
+//! Favourites endpoints need to be properly implemented in the back-end
 export const getFavouritesByUserId = (userId) => {
-   return favourites
+   const favouritesArray = favourites
       .filter((favourite) => favourite.user.userId === userId)
       .map(({ itinerary: { itineraryId } }) => {
          return itineraries.find(
-            ({ itinerary_id }) => itinerary_id === itineraryId
+            (itinerary) => itinerary.itineraryId === itineraryId
          );
       });
+
+   favouritesArray.forEach((fave) => {
+      getUserByUserId(fave.userId).then(({ username }) => {
+         fave.username = username;
+      });
+   });
+
+   return favouritesArray;
 };
 
 // export const postFavourite = ({ userId, itineraryId }) => {
@@ -89,3 +120,12 @@ export const getFavouritesByUserId = (userId) => {
 
 //    }
 // }
+
+export const getUserBioByUsername = (requestUsername) => {
+   return users.filter(({ username, bio }) =>
+      username === requestUsername ? bio : null
+   );
+};
+export const getCountries = () => {
+   return countries;
+};

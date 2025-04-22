@@ -1,14 +1,39 @@
 import { useParams } from "react-router-dom";
 import { ItineraryAccordion } from "./ItineraryAccordion";
+import { Loading } from "./Loading";
 import { Error } from "./Error";
 import { Card } from "react-bootstrap";
 import { getCountryByName, getItinerariesByCountry } from "../api";
+import { useEffect, useState } from "react";
 
 export const CountryPage = () => {
-   const country = getCountryByName(useParams().country);
-   if (!country) return <Error error={404} />;
+   const countryParam = useParams().country;
+   const [country, setCountry] = useState({});
    const { countryName, description, countryPicUrl } = country;
-   const itineraries = getItinerariesByCountry(countryName);
+   const [itineraries, setItineraries] = useState([]);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
+
+   useEffect(() => {
+      setLoading(true);
+      setError(null);
+      getCountryByName(countryParam)
+         .then((country) => {
+            setCountry(country);
+            return country.countryName;
+         })
+         .then((name) => {
+            return getItinerariesByCountry(name);
+         })
+         .then((itineraries) => {
+            setItineraries(itineraries);
+         })
+         .catch((err) => setError(err))
+         .finally(() => setLoading(false));
+   }, [countryParam]);
+
+   if (loading) return <Loading />;
+   if (error) return <Error error={error.status} />;
 
    return (
       <>
