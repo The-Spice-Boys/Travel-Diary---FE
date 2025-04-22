@@ -8,7 +8,7 @@ import { FaRegUser } from 'react-icons/fa';
 import { IoSettingsOutline } from 'react-icons/io5';
 import { useLocation } from 'react-router-dom';
 import { SearchBar } from './SearchBar';
-import {loginStatus} from "../loginNSetting.js";
+import {loginStatus, userLogout} from "../loginNSetting.js";
 
 export const NavBar = () => {
   const { loggedInUser, setLoggedInUser } = useContext(UserContext);
@@ -16,13 +16,25 @@ export const NavBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  function loginHandler(){
+    console.log(isloggedIn);
+    if(!isloggedIn){
+      console.log("login");
+      navigate('/login')}
+  }
+
   useEffect(() => {
     loginStatus().then(data => {
       if(data.isLoggedIn){
         setIsLoggedIn(true);
       }
+      else{
+        setIsLoggedIn(false);
+      }
+    }).catch(err => {
+      console.error("unable to get login status", err);
     });
-  })
+  },[isloggedIn]);
 
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -56,7 +68,7 @@ export const NavBar = () => {
               </Link>
               <Button
                 style={{ maxWidth: '200px' }}
-                onClick={()=>navigate('/login')}
+                onClick={loginHandler}
               >
                 { isloggedIn ? "Log out" : "Log in"}
               </Button>
