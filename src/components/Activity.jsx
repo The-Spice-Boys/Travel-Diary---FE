@@ -108,7 +108,7 @@ const MyVerticallyCenteredModal = (props) => {
 
 export const Activity = ({ activity, userId }) => {
   const { loggedInUser } = useContext(UserContext);
-
+  const [isDeleted, setIsDeleted] = useState(true);
   const [modalShow, setModalShow] = useState(false);
   const [isActivityComplete, setIsActivityComplete] = useState(
     activity.completionStatus
@@ -133,15 +133,16 @@ export const Activity = ({ activity, userId }) => {
         }`}
       >
         <div className="d-flex align-items-center">
-          <p className="m-2">{activity.title}</p>
-          {isActivityComplete ? (
-            <MdOutlineCheckBox size={30} onClick={handleToggleCompletion} />
-          ) : (
-            <MdOutlineCheckBoxOutlineBlank
-              size={30}
-              onClick={handleToggleCompletion}
-            />
-          )}
+          <p className="m-2">{isDeleted ? "Deleted" : activity.title}</p>
+          {!isDeleted &&
+            (isActivityComplete ? (
+              <MdOutlineCheckBox size={30} onClick={handleToggleCompletion} />
+            ) : (
+              <MdOutlineCheckBoxOutlineBlank
+                size={30}
+                onClick={handleToggleCompletion}
+              />
+            ))}
         </div>
 
         {loggedInUser.userId === userId && <MenuOptions />}

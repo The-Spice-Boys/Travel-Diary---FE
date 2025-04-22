@@ -10,102 +10,102 @@ import axios from "axios";
 
 // --- TEMP URL ---
 const api = axios.create({
-   baseURL: "https://travel-demo-p3bz.onrender.com/api",
+  baseURL: "https://travel-demo-p3bz.onrender.com/api",
 });
 // --- TEMP URL ---
 
 // Ideal path: /users/username/:username
 export const getUserByUsername = (username) => {
-   return api.get(`/users/username/${username}`).then(({ data }) => data);
+  return api.get(`/users/username/${username}`).then(({ data }) => data);
 };
 
 // Ideal path: /users/userId/:userId
 export const getUserByUserId = (userId) => {
-   return api
-      .get(`/users/user_id/${userId}`)
-      .then(({ data }) => data)
-      .catch((err) => err);
+  return api
+    .get(`/users/user_id/${userId}`)
+    .then(({ data }) => data)
+    .catch((err) => err);
 };
 
 // Ideal path: /users/userId/:userId/itineraries
 export const getItinerariesByUserId = (userId) => {
-   let usernameToAssign;
-   return getUserByUserId(userId)
-      .then(({ username }) => {
-         usernameToAssign = username;
-         return api.get(`/itineraries/user/${username}`);
-      })
-      .then(({ data }) => {
-         data.content.forEach(
-            (itinerary) => (itinerary.username = usernameToAssign)
-         );
-         return data.content;
-      })
-      .catch((err) => err);
+  let usernameToAssign;
+  return getUserByUserId(userId)
+    .then(({ username }) => {
+      usernameToAssign = username;
+      return api.get(`/itineraries/user/${username}`);
+    })
+    .then(({ data }) => {
+      data.content.forEach(
+        (itinerary) => (itinerary.username = usernameToAssign)
+      );
+      return data.content;
+    })
+    .catch((err) => err);
 };
 
 // Ideal path /itineraries/:itineraryId/activities
 export const getActivitiesByItineraryId = (itineraryId) => {
-   return api
-      .get(`/activities/itinerary/${itineraryId}`)
-      .then(({ data }) => data);
+  return api
+    .get(`/activities/itinerary/${itineraryId}`)
+    .then(({ data }) => data);
 };
 
 // Ideal path: /activities/:activityId/photos
 export const getPhotosByActivityId = (activityId) => {
-   return api.get(`/photos/activity/${activityId}`).then(({data}) => {
-      return data;
-   })
+  return api.get(`/photos/activity/${activityId}`).then(({ data }) => {
+    return data;
+  });
 };
 
 // Ideal path: /activities/:activityId/notes
 export const getNotesByActivityId = (activityId) => {
-   return api.get(`notes/activity/${activityId}`).then(({data}) => {
-      return data;
-   })
+  return api.get(`notes/activity/${activityId}`).then(({ data }) => {
+    return data;
+  });
 };
 
 // Ideal path: /countries/:countryName
 export const getCountryByName = (name) => {
-   return api.get(`/countries/${name}`).then(({ data }) => data);
+  return api.get(`/countries/${name}`).then(({ data }) => data);
 };
 
 //! Needed?
 export const getCountryById = (countryId) => {
-   return countries.find((country) => country.countryId === countryId);
+  return countries.find((country) => country.countryId === countryId);
 };
 
 // Ideal path: /countries/:countryName/itineraries
 export const getItinerariesByCountry = (name) => {
-   return api.get(`/itineraries/country/${name}`).then(({ data }) => {
-      const itineraries = data.content.map((itinerary) => {
-         return getUserByUserId(itinerary.userId).then(({ username }) => {
-            itinerary.username = username;
-            return itinerary;
-         });
+  return api.get(`/itineraries/country/${name}`).then(({ data }) => {
+    const itineraries = data.content.map((itinerary) => {
+      return getUserByUserId(itinerary.userId).then(({ username }) => {
+        itinerary.username = username;
+        return itinerary;
       });
+    });
 
-      return Promise.all(itineraries);
-   });
+    return Promise.all(itineraries);
+  });
 };
 
 //! Favourites endpoints need to be properly implemented in the back-end
 export const getFavouritesByUserId = (userId) => {
-   const favouritesArray = favourites
-      .filter((favourite) => favourite.user.userId === userId)
-      .map(({ itinerary: { itineraryId } }) => {
-         return itineraries.find(
-            (itinerary) => itinerary.itineraryId === itineraryId
-         );
-      });
+  const favouritesArray = favourites
+    .filter((favourite) => favourite.user.userId === userId)
+    .map(({ itinerary: { itineraryId } }) => {
+      return itineraries.find(
+        (itinerary) => itinerary.itineraryId === itineraryId
+      );
+    });
 
-   favouritesArray.forEach((fave) => {
-      getUserByUserId(fave.userId).then(({ username }) => {
-         fave.username = username;
-      });
-   });
+  favouritesArray.forEach((fave) => {
+    getUserByUserId(fave.userId).then(({ username }) => {
+      fave.username = username;
+    });
+  });
 
-   return favouritesArray;
+  return favouritesArray;
 };
 
 // export const postFavourite = ({ userId, itineraryId }) => {
@@ -122,10 +122,14 @@ export const getFavouritesByUserId = (userId) => {
 // }
 
 export const getUserBioByUsername = (requestUsername) => {
-   return users.filter(({ username, bio }) =>
-      username === requestUsername ? bio : null
-   );
+  return users.filter(({ username, bio }) =>
+    username === requestUsername ? bio : null
+  );
 };
 export const getCountries = () => {
-   return countries;
+  return countries;
+};
+
+export const deleteItinerary = async (id) => {
+  await api.delete(`/itineraries/${id}`);
 };
