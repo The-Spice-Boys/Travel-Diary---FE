@@ -22,3 +22,17 @@ export const userLogout = () => {
         return res.data;
     })
 }
+
+export const updateUser = (user) => {
+    return api.patch("/users", user).then((res) => {
+        return res.data;
+    })
+}
+
+export const updateUserPassword = (passwordMap) => {
+    return api.patch("/auth/password-update",passwordMap).then(
+        (res) => {
+            return res.data;
+        }
+    )
+}
