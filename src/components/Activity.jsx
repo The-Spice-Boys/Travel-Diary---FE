@@ -1,17 +1,17 @@
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
-import { Photo } from "./Photo";
-import { Note } from "./Note";
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../context/User";
-import { ListGroup } from "react-bootstrap";
-import { MenuOptions } from "./MenuOptions";
-import { getNotesByActivityId, getPhotosByActivityId } from "../api";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { Photo } from './Photo';
+import { Note } from './Note';
+import { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/User';
+import { ListGroup } from 'react-bootstrap';
+import { MenuOptions } from './MenuOptions';
+import { getNotesByActivityId, getPhotosByActivityId } from '../api';
 
-import { MdAddAPhoto } from "react-icons/md";
-import { LuNotebookPen } from "react-icons/lu";
-import { MdOutlineCheckBox } from "react-icons/md";
-import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
+import { MdAddAPhoto } from 'react-icons/md';
+import { LuNotebookPen } from 'react-icons/lu';
+import { MdOutlineCheckBox } from 'react-icons/md';
+import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
 
 const MyVerticallyCenteredModal = (props) => {
   const { loggedInUser } = useContext(UserContext);
@@ -108,7 +108,7 @@ const MyVerticallyCenteredModal = (props) => {
 
 export const Activity = ({ activity, userId }) => {
   const { loggedInUser } = useContext(UserContext);
-  const [isDeleted, setIsDeleted] = useState(true);
+  const [deletedIds, setDeletedIds] = useState([]);
   const [modalShow, setModalShow] = useState(false);
   const [isActivityComplete, setIsActivityComplete] = useState(
     activity.completionStatus
@@ -129,12 +129,16 @@ export const Activity = ({ activity, userId }) => {
       <ListGroup.Item
         onClick={handleDisplayModal}
         className={`d-flex justify-content-between align-items-center ${
-          isActivityComplete && "activity-completed"
+          isActivityComplete && 'activity-completed'
         }`}
       >
         <div className="d-flex align-items-center">
-          <p className="m-2">{isDeleted ? "Deleted" : activity.title}</p>
-          {!isDeleted &&
+          <p className="m-2">
+            {deletedIds.includes(activity.activityId)
+              ? 'Deleted'
+              : activity.title}
+          </p>
+          {deletedIds.includes(activity.activityId) &&
             (isActivityComplete ? (
               <MdOutlineCheckBox size={30} onClick={handleToggleCompletion} />
             ) : (
@@ -145,7 +149,13 @@ export const Activity = ({ activity, userId }) => {
             ))}
         </div>
 
-        {loggedInUser.userId === userId && <MenuOptions />}
+        {loggedInUser.userId === userId && (
+          <MenuOptions
+            id={activity.activityId}
+            componentName={'activity'}
+            setDeletedIds={setDeletedIds}
+          />
+        )}
       </ListGroup.Item>
 
       <MyVerticallyCenteredModal
