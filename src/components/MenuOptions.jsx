@@ -1,6 +1,6 @@
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { deleteItinerary } from "../api";
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { deleteItinerary } from '../api';
 
 export const MenuOptions = ({
   id,
@@ -14,8 +14,7 @@ export const MenuOptions = ({
   const handleDeleteClick = (e) => {
     e.stopPropagation();
 
-    if (componentName === "itinerary") {
-      console.log(id);
+    if (componentName === 'itinerary') {
       setIsDeleted(true);
       setDeletedIds((prevDeletedIds) => {
         return [...prevDeletedIds, id];
@@ -23,7 +22,7 @@ export const MenuOptions = ({
       deleteItinerary(id)
         .then(() => setIsDeleted(true))
         .catch((err) => console.log(err));
-    } else if (componentName === "activity") {
+    } else if (componentName === 'activity') {
     } else {
     }
   };

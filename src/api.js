@@ -1,16 +1,17 @@
-import itineraries from "./dummy_data/itineraries.json";
-import activities from "./dummy_data/activities.json";
-import users from "./dummy_data/users.json";
-import photos from "./dummy_data/photo.json";
-import notes from "./dummy_data/notes.json";
-import countries from "./dummy_data/countries.json";
-import favourites from "./dummy_data/favourites.json";
+import itineraries from './dummy_data/itineraries.json';
+import activities from './dummy_data/activities.json';
+import users from './dummy_data/users.json';
+import photos from './dummy_data/photo.json';
+import notes from './dummy_data/notes.json';
+import countries from './dummy_data/countries.json';
+import favourites from './dummy_data/favourites.json';
 
-import axios from "axios";
+import axios from 'axios';
 
 // --- TEMP URL ---
 const api = axios.create({
-  baseURL: "https://travel-demo-p3bz.onrender.com/api",
+  baseURL: 'https://travel-demo-p3bz.onrender.com/api',
+  withCredentials: true,
 });
 // --- TEMP URL ---
 
@@ -130,6 +131,6 @@ export const getCountries = () => {
   return countries;
 };
 
-export const deleteItinerary = async (id) => {
-  await api.delete(`/itineraries/${id}`);
+export const deleteItinerary = (id) => {
+  return api.delete(`/itineraries/${id}`).then(() => {});
 };
