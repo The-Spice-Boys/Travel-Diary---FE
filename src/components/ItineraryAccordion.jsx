@@ -1,21 +1,21 @@
-import Accordion from "react-bootstrap/Accordion";
-import { Link } from "react-router-dom";
-import { Itinerary } from "./Itinerary.jsx";
-import { MenuPopover } from "./MenuPopover.jsx";
-import { MenuOptions } from "./MenuOptions.jsx";
-import { useContext, useEffect, useState } from "react";
-import { UserContext } from "../context/User.jsx";
-import { IoMdHeart } from "react-icons/io";
+import Accordion from 'react-bootstrap/Accordion';
+import { Link } from 'react-router-dom';
+import { Itinerary } from './Itinerary.jsx';
+import { MenuPopover } from './MenuPopover.jsx';
+import { MenuOptions } from './MenuOptions.jsx';
+import { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../context/User.jsx';
+import { IoMdHeart } from 'react-icons/io';
 import {
   getCountryById,
   getFavouritesByUserId,
   getUserByUserId,
   getUserByUsername,
-} from "../api.js";
-import { Placeholder } from "react-bootstrap";
+} from '../api.js';
+import { Placeholder } from 'react-bootstrap';
 
 const Favourite = ({ itineraryId }) => {
-  const returnColour = () => (isFavourited ? "heart-fav" : "heart-unfav");
+  const returnColour = () => (isFavourited ? 'heart-fav' : 'heart-unfav');
 
   //! getFavouritesByUserId needs to be properly implemented in the back end
   const { loggedInUser } = useContext(UserContext);
@@ -54,7 +54,6 @@ const Favourite = ({ itineraryId }) => {
 
 export const ItineraryAccordion = ({ itineraries }) => {
   const { loggedInUser } = useContext(UserContext);
-  const [isDeleted, setIsDeleted] = useState(false);
   const [deletedIds, setDeletedIds] = useState([]);
   //  console.log(itineraries, "<-- 58")
   const accordionItems = itineraries.map((itinerary) => {
@@ -84,17 +83,14 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   </Link>
 
                   <p className="fs-5 mb-0">
-                    {isDeleted && deletedIds.includes(itineraryId)
-                      ? "Deleted"
-                      : title}
+                    {deletedIds.includes(itineraryId) ? 'Deleted' : title}
                   </p>
                 </div>
                 <div className="ms-2">
                   {loggedInUser.userId === userId ? (
                     <MenuOptions
                       id={itineraryId}
-                      componentName={"itinerary"}
-                      setIsDeleted={setIsDeleted}
+                      componentName={'itinerary'}
                       setDeletedIds={setDeletedIds}
                     />
                   ) : (
