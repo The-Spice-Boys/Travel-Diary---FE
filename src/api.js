@@ -142,3 +142,10 @@ export const deleteActivity = (id) => {
 export const deletePhoto = (id) => {
   return api.delete(`/photos/${id}`);
 };
+
+
+export const updateUser = (userId,user) => {
+  return api.patch(`/users/userId/${userId}`, user).then((res) => {
+    return res;
+  });
+};
