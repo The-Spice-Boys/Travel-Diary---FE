@@ -20,6 +20,7 @@ export const UserSettingsPage = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const { setTheme } = useContext(ThemeContext);
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
+
   const myPassword = "password123";
 
   useEffect(() => {
@@ -88,7 +89,7 @@ export const UserSettingsPage = () => {
   }
 
   return (
-    <div className="container p-0">
+    <div className="container my-3">
       <h1 className="h3 my-3">Settings</h1>
       <div className="row">
         <div className="col-md-5 col-xl-4">

@@ -59,8 +59,8 @@ const MyVerticallyCenteredModal = (props) => {
   return (
     <Modal
       {...props}
-      size="lg"
       aria-labelledby="contained-modal-title-vcenter"
+      className="responsive-modal"
       centered
     >
       <Modal.Header closeButton>

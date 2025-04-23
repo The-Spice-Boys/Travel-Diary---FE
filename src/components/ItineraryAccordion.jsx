@@ -65,11 +65,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
     // const { countryName } = getCountryById(country_id);
     console.log(deletedIds);
     return (
-      <div
-        key={itineraryId}
-        className="rounded ps-3 pe-3 flex-grow-1 mx-2"
-        id="accordion-item"
-      >
+      <div key={itineraryId} className="rounded ps-3 pe-3" id="accordion-item">
         <Accordion.Item eventKey={itineraryId}>
           <div className="d-flex align-items-center">
             <Accordion.Header
@@ -125,8 +121,10 @@ export const ItineraryAccordion = ({ itineraries }) => {
   });
 
   return (
-    <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
-      {accordionItems}
-    </Accordion>
+    <div className="d-flex justify-content-center p-1">
+      <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
+        {accordionItems}
+      </Accordion>
+    </div>
   );
 };
