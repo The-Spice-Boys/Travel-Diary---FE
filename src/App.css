@@ -7,8 +7,17 @@
 }
 
 body {
+    background-color: #ececec;
+  }
+
+p {
     font-family: "Lato", sans-serif;
-    background-color: #eee;
+  }
+
+h1, h2 {
+    font-family: "Special Gothic Expanded One", sans-serif;
+    font-weight: 1000;
+    font-style: normal;
   }
 
 .react-icon {
@@ -112,3 +121,54 @@ body {
     pointer-events: none;
     opacity: 0.6;
 }
+
+.icon-color {
+    color: rgba(222, 209, 203, 1) !important;
+    transition: all 0.3s ease;
+}
+
+.icon-color:hover {
+    color: #b91c1cb3 !important;
+}
+
+
+.custom-button {
+    color: white;
+    background-color: rgba(222, 209, 203, 1);
+    border: 2px solid rgba(222, 209, 203, 1);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .custom-button:hover {
+    color: #b91c1cb3;
+    border-color: #b91c1cb3;
+  }
+
+  .no-focus:focus {
+    outline: none !important;
+    box-shadow: none !important;
+   }
+
+   .hero-heading {
+    margin-top: 2rem;
+    font-size: clamp(0.6rem, 80vw, 7rem);
+
+    /* font-size: 6rem; */
+    z-index: 1;
+    pointer-events: none;
+    color: rgb(177, 177, 177);
+  }
+
+  .sub-heading{
+    color: #b91c1cb3;
+    font-weight: 300;
+    font-size: 1rem;
+  }
+
+  .no-focus::placeholder {
+    color: rgba(0, 0, 0, 0.4); 
+
+  }

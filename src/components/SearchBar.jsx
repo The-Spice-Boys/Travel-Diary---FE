@@ -32,7 +32,7 @@ export const SearchBar = ({ variant = "home" }) => {
         </button>
         <input
           type="text"
-          className="form-control"
+          className="form-control no-focus"
           placeholder="Search by country..."
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
