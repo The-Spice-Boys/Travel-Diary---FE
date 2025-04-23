@@ -67,12 +67,12 @@ export const UserPage = () => {
         <Card style={{ width: "100%" }}>
           <Card.Img
             variant="top" //! Profile pic needs to be returned by DTO
-            //  src={profile_pic_url}
+            src={user.profilePicUrl}
             alt={username}
-            style={{ objectFit: "cover", height: "200px" }}
+            style={{ width:"300px", height: "300px" ,marginLeft: "20px",marginTop: "20px",border:"2px solid black",borderRadius:"10px" }}
           />
           <Card.Body>
-            //Bio needs to be returned by DTO
+            {loggedInUser.bio}
             <Card.Title className="mt-3">{username}</Card.Title>
             <div
               className="d-flex justify-content-between align-items-center"
