@@ -1,65 +1,75 @@
-import React, { useContext, useEffect, useRef } from "react";
-import Globe from "globe.gl";
-import * as topojson from "topojson-client";
-import { useNavigate } from "react-router-dom";
-import { ThemeContext } from "../context/User";
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import Globe from 'globe.gl';
+import * as topojson from 'topojson-client';
+import { useNavigate } from 'react-router-dom';
+import { ThemeContext } from '../context/User';
 
 export const GlobeSearch = () => {
-  const globeEl = useRef();
+  const containerRef = useRef();
+  const globeInstance = useRef();
   const navigate = useNavigate();
-  const {theme} = useContext(ThemeContext)
+  const { theme } = useContext(ThemeContext);
+  const [size, setSize] = useState({ width: 400, height: 400 });
 
   useEffect(() => {
-    const globe = Globe()(globeEl.current)
-      .globeImageUrl("public/Solid_blue.svg.png")
-      .backgroundColor(theme)
-      .polygonCapColor(() => "rgba(7, 163, 20, 0.99)")
-      .polygonSideColor(() => "rgba(0, 100, 255, 0.05)")
-      .polygonStrokeColor(() => "#111")
-      .polygonLabel((d) => `<b>${d.properties.name}</b>`)
-      .polygonAltitude(0.01)
-      .width(600)
-      .height(600)
-      .onPolygonHover((hoveredCountry) => {
-        // console.log(hoveredCountry);
-        // hoveredCountry = polygon object
-        globe.polygonCapColor((country) => {
-          // updates polygon colour dynamically according to current polygon being hovered, then back to no update when not hovered
-          return country === hoveredCountry
-            ? "rgba(255, 0, 0, 0.7)"
-            : "rgba(7, 163, 20, 0.99)";
-        });
-      })
-      .onPolygonClick(({ properties: { name } }, evt) => {
-        navigate(`/countries/${name}`);
-      });
+    const updateSize = () => {
+      if (containerRef.current) {
+        const width = containerRef.current.offsetWidth;
+        setSize({ width, height: width });
+      }
+    };
 
-    // Fetch country shape data, simplified low-res border data in topojson format (a way to encode borders?)
-    fetch("https://unpkg.com/world-atlas@2/countries-110m.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const countries = topojson.feature(
-          data,
-          data.objects.countries
-        ).features;
-        // countries is an array of geoJSON (easier to work with)objects converted from topojson, .countries can be replaced with other things such as land, and .features is the array of geoJSON country objects
-        globe.polygonsData(countries); // uses country objects to render the shapes on the globe
-      });
+    updateSize();
+    window.addEventListener('resize', updateSize);
+    return () => window.removeEventListener('resize', updateSize);
   }, []);
+
+  useEffect(() => {
+    if (!globeInstance.current) {
+      globeInstance.current = Globe()(containerRef.current)
+        .globeImageUrl('public/globe-background.svg')
+        .backgroundColor('#eee')
+        .polygonCapColor(() => '#b4c2c5')
+        .polygonSideColor(() => '#fff')
+        .polygonStrokeColor(() => '#fff')
+        .polygonLabel((d) => `<b>${d.properties.name}</b>`)
+        .polygonAltitude(0.01)
+        .onPolygonHover((hoveredCountry) => {
+          globeInstance.current.polygonCapColor((country) =>
+            country === hoveredCountry ? 'rgba(210, 18, 92, 0.7)' : '#b4c2c5'
+          );
+        })
+        .onPolygonClick(({ properties: { name } }) => {
+          navigate(`/countries/${name}`);
+        });
+
+      globeInstance.current.controls().enableZoom = false;
+
+      fetch('https://unpkg.com/world-atlas@2/countries-110m.json')
+        .then((res) => res.json())
+        .then((data) => {
+          const countries = topojson.feature(
+            data,
+            data.objects.countries
+          ).features;
+          globeInstance.current.polygonsData(countries);
+        });
+    }
+
+    globeInstance.current.width(size.width);
+    globeInstance.current.height(size.height);
+  }, [size, theme, navigate]);
 
   return (
     <div
-      className="globe d-flex justify-content-center align-items-center mb-0"
-      ref={globeEl}
+      ref={containerRef}
+      className="mx-auto w-100"
       style={{
-        padding: '1px',       
-        borderRadius: '50%',     
-        overflow: 'hidden',     
-        // backgroundColor: 'red',  
-        // display: 'flex',   
-        // alignItems: 'center',
-        // justifyContent: 'center',
-       }}
-    ></div>
+        maxWidth: '600px',
+        aspectRatio: '1 / 1',
+        borderRadius: '50%',
+        overflow: 'hidden',
+      }}
+    />
   );
 };
