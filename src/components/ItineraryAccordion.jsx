@@ -67,7 +67,7 @@ const Favourite = ({ itineraryId, favourites }) => {
 };
 
 export const ItineraryAccordion = ({ itineraries }) => {
-   const { loggedInUser } = useContext(UserContext);
+   const { loggedInUser, isLoggedIn } = useContext(UserContext);
    const [deletedIds, setDeletedIds] = useState([]);
    const [errorId, setErrorId] = useState(null);
    const [favourites, setFavourites] = useState([]);
@@ -130,22 +130,24 @@ export const ItineraryAccordion = ({ itineraries }) => {
                               </p>
                            )}
                         </div>
-                        <div className="ms-2">
-                           {!deletedIds.includes(itineraryId) &&
-                              (loggedInUser.userId === userId ? (
-                                 <MenuOptions
-                                    id={itineraryId}
-                                    componentName={"itinerary"}
-                                    setDeletedIds={setDeletedIds}
-                                    setErrorId={setErrorId}
-                                 />
-                              ) : (
-                                 <Favourite
-                                    itineraryId={itineraryId}
-                                    favourites={favourites}
-                                 />
-                              ))}
-                        </div>
+                        {isLoggedIn && (
+                           <div className="ms-2">
+                              {!deletedIds.includes(itineraryId) &&
+                                 (loggedInUser.userId === userId ? (
+                                    <MenuOptions
+                                       id={itineraryId}
+                                       componentName={"itinerary"}
+                                       setDeletedIds={setDeletedIds}
+                                       setErrorId={setErrorId}
+                                    />
+                                 ) : (
+                                    <Favourite
+                                       itineraryId={itineraryId}
+                                       favourites={favourites}
+                                    />
+                                 ))}
+                           </div>
+                        )}
                      </div>
                   </Accordion.Header>
                </div>

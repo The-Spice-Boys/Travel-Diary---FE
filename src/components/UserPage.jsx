@@ -24,6 +24,8 @@ export const UserPage = () => {
    const [favouriteItineraries, setFavouriteItineraries] = useState([]);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
+   const [modalShow, setModalShow] = useState(false);
+   const [showUserMade, setShowUserMade] = useState(true);
 
    useEffect(() => {
       setLoading(true);
@@ -40,13 +42,12 @@ export const UserPage = () => {
          .then((favourites) => {
           favourites = favourites.map(({itinerary}) => itinerary);
           setFavouriteItineraries(favourites)
+          setShowUserMade(true);
          })
          .catch((err) => setError(err))
          .finally(() => setLoading(false));
    }, [usernameParam]);
 
-   const [modalShow, setModalShow] = useState(false);
-   const [showUserMade, setShowUserMade] = useState(true);
 
    const handleItineraryList = (event) => {
       setShowUserMade(Boolean(event.target.value));
