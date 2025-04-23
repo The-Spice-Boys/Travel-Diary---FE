@@ -64,12 +64,12 @@ export const UserPage = () => {
             src={user.profilePicUrl}
             alt={username}
             style={{
-              width: '300px',
-              height: '300px',
+              width: '50%',
+              height: '50%',
               marginLeft: '20px',
               marginTop: '20px',
               border: '2px solid black',
-              borderRadius: '10px',
+              borderRadius: '50%',
             }}
           />
           <Card.Body>
