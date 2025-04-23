@@ -1,17 +1,16 @@
-import itineraries from './dummy_data/itineraries.json';
-import activities from './dummy_data/activities.json';
-import users from './dummy_data/users.json';
-import photos from './dummy_data/photo.json';
-import notes from './dummy_data/notes.json';
-import countries from './dummy_data/countries.json';
-import favourites from './dummy_data/favourites.json';
+import itineraries from "./dummy_data/itineraries.json";
+import activities from "./dummy_data/activities.json";
+import users from "./dummy_data/users.json";
+import photos from "./dummy_data/photo.json";
+import notes from "./dummy_data/notes.json";
+import countries from "./dummy_data/countries.json";
+import favourites from "./dummy_data/favourites.json";
 
-import axios from 'axios';
+import axios from "axios";
 
 // --- TEMP URL ---
 const api = axios.create({
-  baseURL: 'https://travel-demo-p3bz.onrender.com/api',
-  withCredentials: true,
+  baseURL: "https://travel-diary-be-jfxt.onrender.com/api",
 });
 // --- TEMP URL ---
 
@@ -23,7 +22,7 @@ export const getUserByUsername = (username) => {
 // Ideal path: /users/userId/:userId
 export const getUserByUserId = (userId) => {
   return api
-    .get(`/users/user_id/${userId}`)
+    .get(`/users/userId/${userId}`)
     .then(({ data }) => data)
     .catch((err) => err);
 };
@@ -34,7 +33,7 @@ export const getItinerariesByUserId = (userId) => {
   return getUserByUserId(userId)
     .then(({ username }) => {
       usernameToAssign = username;
-      return api.get(`/itineraries/user/${username}`);
+      return api.get(`/users/userId/${userId}/itineraries`);
     })
     .then(({ data }) => {
       data.content.forEach(
@@ -48,20 +47,20 @@ export const getItinerariesByUserId = (userId) => {
 // Ideal path /itineraries/:itineraryId/activities
 export const getActivitiesByItineraryId = (itineraryId) => {
   return api
-    .get(`/activities/itinerary/${itineraryId}`)
+    .get(`/itineraries/${itineraryId}/activities`)
     .then(({ data }) => data);
 };
 
 // Ideal path: /activities/:activityId/photos
 export const getPhotosByActivityId = (activityId) => {
-  return api.get(`/photos/activity/${activityId}`).then(({ data }) => {
+  return api.get(`/activities/${activityId}/photos`).then(({ data }) => {
     return data;
   });
 };
 
 // Ideal path: /activities/:activityId/notes
 export const getNotesByActivityId = (activityId) => {
-  return api.get(`notes/activity/${activityId}`).then(({ data }) => {
+  return api.get(`/activities/${activityId}/notes`).then(({ data }) => {
     return data;
   });
 };
@@ -78,7 +77,8 @@ export const getCountryById = (countryId) => {
 
 // Ideal path: /countries/:countryName/itineraries
 export const getItinerariesByCountry = (name) => {
-  return api.get(`/itineraries/country/${name}`).then(({ data }) => {
+  return api.get(`/countries/${name}/itineraries`).then(({ data }) => {
+    console.log(data);
     const itineraries = data.content.map((itinerary) => {
       return getUserByUserId(itinerary.userId).then(({ username }) => {
         itinerary.username = username;
