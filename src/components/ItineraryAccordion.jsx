@@ -125,7 +125,7 @@ export const ItineraryAccordion = ({ itineraries }) => {
   });
 
   return (
-    <Accordion className="d-flex flex-row flex-wrap gap-3 align-items-center p-5">
+    <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
       {accordionItems}
     </Accordion>
   );
