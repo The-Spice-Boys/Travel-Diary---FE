@@ -12,10 +12,10 @@ import { UserContext } from "../context/User.jsx";
 import { Error } from "./Error.jsx";
 import { Loading } from "./Loading.jsx";
 import { MdFavoriteBorder } from "react-icons/md";
-import {LoginPage} from "./LoginPage.jsx";
+// import {LoginPage} from "./LoginPage.jsx";
 
 export const UserPage = () => {
-  const { loggedInUser ,isLoggedIn} = useContext(UserContext);
+  const { loggedInUser, isLoggedIn } = useContext(UserContext);
   const usernameParam = useParams().username;
 
   const [user, setUser] = useState({});
@@ -47,19 +47,13 @@ export const UserPage = () => {
     setShowUserMade(Boolean(event.target.value));
   };
 
-
-
   if (loading) return <Loading />;
 
-  if(!isLoggedIn){
-    return (
-        <LoginPage />
-    )
+  if (!isLoggedIn) {
+    return <LoginPage />;
   }
 
   if (error) return <Error error={error.status} />;
-
-
 
   return (
     <>
@@ -69,7 +63,14 @@ export const UserPage = () => {
             variant="top" //! Profile pic needs to be returned by DTO
             src={user.profilePicUrl}
             alt={username}
-            style={{ width:"300px", height: "300px" ,marginLeft: "20px",marginTop: "20px",border:"2px solid black",borderRadius:"10px" }}
+            style={{
+              width: "300px",
+              height: "300px",
+              marginLeft: "20px",
+              marginTop: "20px",
+              border: "2px solid black",
+              borderRadius: "10px",
+            }}
           />
           <Card.Body>
             {loggedInUser.bio}
