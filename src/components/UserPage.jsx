@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import {
   getFavouritesByUserId,
   getItinerariesByUserId,
@@ -58,18 +58,18 @@ export const UserPage = () => {
   return (
     <>
       <div className="d-flex justify-content-center align-items-center p-3">
-        <Card style={{ width: "100%" }}>
+        <Card style={{ width: '100%' }}>
           <Card.Img
             variant="top" //! Profile pic needs to be returned by DTO
             src={user.profilePicUrl}
             alt={username}
             style={{
-              width: "300px",
-              height: "300px",
-              marginLeft: "20px",
-              marginTop: "20px",
-              border: "2px solid black",
-              borderRadius: "10px",
+              width: '300px',
+              height: '300px',
+              marginLeft: '20px',
+              marginTop: '20px',
+              border: '2px solid black',
+              borderRadius: '10px',
             }}
           />
           <Card.Body>
@@ -77,19 +77,19 @@ export const UserPage = () => {
             <Card.Title className="mt-3">{username}</Card.Title>
             <div
               className="d-flex justify-content-between align-items-center"
-              style={{ height: "60px", maxHeight: "100px" }}
+              style={{ height: '60px', maxHeight: '100px' }}
             >
               {/* <Card.Text className="my-5">{bio}</Card.Text> */}
               <ButtonGroup onClick={handleItineraryList}>
                 <Button
                   value={true}
-                  className={showUserMade ? "btn-primary" : "btn-secondary"}
+                  className={showUserMade ? 'btn-primary' : 'btn-secondary'}
                 >
                   Itineraries
                 </Button>
                 <Button
                   value={null}
-                  className={showUserMade ? "btn-secondary" : "btn-primary"}
+                  className={showUserMade ? 'btn-secondary' : 'btn-primary'}
                 >
                   Favourites
                 </Button>
