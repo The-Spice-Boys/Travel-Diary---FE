@@ -155,7 +155,7 @@ export const getNotesByActivityId = (activityId) => {
    });
 };
 
-export const postNote = (activityId, text) => {
+export const postNote = ({activityId, text}) => {
    const unixTimestamp = Date.now();
    const isoTimestamp = new Date(unixTimestamp).toISOString();
    return api
@@ -191,7 +191,7 @@ export const getPhotosByActivityId = (activityId) => {
    });
 };
 
-export const postPhoto = (file, caption, activityId) => {
+export const postPhoto = ({file, caption, activityId}) => {
    const photoObj = caption
       ? { file, caption, activityId }
       : { file, activityId };
