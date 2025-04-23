@@ -1,17 +1,21 @@
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import { Photo } from './Photo';
-import { Note } from './Note';
-import { useState, useEffect, useContext } from 'react';
-import { UserContext } from '../context/User';
-import { ListGroup } from 'react-bootstrap';
-import { MenuOptions } from './MenuOptions';
-import { getNotesByActivityId, getPhotosByActivityId } from '../api';
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { Photo } from "./Photo";
+import { Note } from "./Note";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../context/User";
+import { ListGroup } from "react-bootstrap";
+import { MenuOptions } from "./MenuOptions";
+import {
+  getNotesByActivityId,
+  getPhotosByActivityId,
+  patchActivity,
+} from "../api";
 
-import { MdAddAPhoto } from 'react-icons/md';
-import { LuNotebookPen } from 'react-icons/lu';
-import { MdOutlineCheckBox } from 'react-icons/md';
-import { MdOutlineCheckBoxOutlineBlank } from 'react-icons/md';
+import { MdAddAPhoto } from "react-icons/md";
+import { LuNotebookPen } from "react-icons/lu";
+import { MdOutlineCheckBox } from "react-icons/md";
+import { MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 
 const MyVerticallyCenteredModal = (props) => {
   const { loggedInUser } = useContext(UserContext);
@@ -121,8 +125,14 @@ export const Activity = ({ activity, userId }) => {
 
   const handleToggleCompletion = (event) => {
     event.stopPropagation();
-    loggedInUser.userId === userId &&
+    if (loggedInUser.userId === userId) {
       setIsActivityComplete(!isActivityComplete);
+      patchActivity(activity.activityId, {
+        completionStatus: !isActivityComplete,
+      }).catch((err) => {
+        setIsActivityComplete(isActivityComplete);
+      });
+    }
   };
 
   return (
@@ -130,14 +140,14 @@ export const Activity = ({ activity, userId }) => {
       <ListGroup.Item
         onClick={handleDisplayModal}
         className={`d-flex justify-content-between align-items-center ${
-          isActivityComplete && 'activity-completed'
-        } ${deletedIds.includes(activity.activityId) ? 'deleted-item' : ''}`}
+          isActivityComplete && "activity-completed"
+        } ${deletedIds.includes(activity.activityId) ? "deleted-item" : ""}`}
       >
         <div className="d-flex align-items-center">
           <div className="d-flex flex-column gap-0">
             <p className="m-2 mb-0">
               {deletedIds.includes(activity.activityId)
-                ? 'Deleted'
+                ? "Deleted"
                 : activity.title}
             </p>
             {errorId === activity.activityId && (
@@ -161,7 +171,7 @@ export const Activity = ({ activity, userId }) => {
           loggedInUser.userId === userId && (
             <MenuOptions
               id={activity.activityId}
-              componentName={'activity'}
+              componentName={"activity"}
               setDeletedIds={setDeletedIds}
               setErrorId={setErrorId}
             />
