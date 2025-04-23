@@ -1,151 +1,232 @@
-import itineraries from "./dummy_data/itineraries.json";
-import activities from "./dummy_data/activities.json";
-import users from "./dummy_data/users.json";
-import photos from "./dummy_data/photo.json";
-import notes from "./dummy_data/notes.json";
-import countries from "./dummy_data/countries.json";
-import favourites from "./dummy_data/favourites.json";
-
 import axios from "axios";
 
-// --- TEMP URL ---
 const api = axios.create({
-  baseURL: "https://travel-diary-be-jfxt.onrender.com/api",
+   baseURL: "https://travel-diary-be-jfxt.onrender.com/api",
 });
-// --- TEMP URL ---
 
-// Ideal path: /users/username/:username
-export const getUserByUsername = (username) => {
-  return api.get(`/users/username/${username}`).then(({ data }) => data);
-};
-
-// Ideal path: /users/userId/:userId
-export const getUserByUserId = (userId) => {
-  return api
-    .get(`/users/userId/${userId}`)
-    .then(({ data }) => data)
-    .catch((err) => err);
-};
-
-// Ideal path: /users/userId/:userId/itineraries
-export const getItinerariesByUserId = (userId) => {
-  let usernameToAssign;
-  return getUserByUserId(userId)
-    .then(({ username }) => {
-      usernameToAssign = username;
-      return api.get(`/users/userId/${userId}/itineraries`);
-    })
-    .then(({ data }) => {
-      data.content.forEach(
-        (itinerary) => (itinerary.username = usernameToAssign)
-      );
-      return data.content;
-    })
-    .catch((err) => err);
-};
-
-// Ideal path /itineraries/:itineraryId/activities
+// Activities endpoints
 export const getActivitiesByItineraryId = (itineraryId) => {
-  return api
-    .get(`/itineraries/${itineraryId}/activities`)
-    .then(({ data }) => data);
+   return api
+      .get(`/itineraries/${itineraryId}/activities`)
+      .then(({ data }) => data);
 };
 
-// Ideal path: /activities/:activityId/photos
-export const getPhotosByActivityId = (activityId) => {
-  return api.get(`/activities/${activityId}/photos`).then(({ data }) => {
-    return data;
-  });
+export const postActivity = ({ title, itineraryId }) => {
+   const activity = {
+      title,
+      completionStatus: false,
+      itinerary: { itineraryId },
+   };
+
+   return api.post("/activities", activity).then(({ data }) => {
+      return data;
+   });
 };
 
-// Ideal path: /activities/:activityId/notes
-export const getNotesByActivityId = (activityId) => {
-  return api.get(`/activities/${activityId}/notes`).then(({ data }) => {
-    return data;
-  });
-};
+export const patchActivity = (activityId, { title, completionStatus }) => {
+   const activityPatch = {};
+   if (title) {
+      activityPatch.title = title;
+   }
+   if (completionStatus !== null) {
+      activityPatch.completionStatus = completionStatus;
+   }
 
-// Ideal path: /countries/:countryName
-export const getCountryByName = (name) => {
-  return api.get(`/countries/${name}`).then(({ data }) => data);
-};
-
-//! Needed?
-export const getCountryById = (countryId) => {
-  return countries.find((country) => country.countryId === countryId);
-};
-
-// Ideal path: /countries/:countryName/itineraries
-export const getItinerariesByCountry = (name) => {
-  return api.get(`/countries/${name}/itineraries`).then(({ data }) => {
-    console.log(data);
-    const itineraries = data.content.map((itinerary) => {
-      return getUserByUserId(itinerary.userId).then(({ username }) => {
-        itinerary.username = username;
-        return itinerary;
+   return api
+      .patch(`/activities/${activityId}`, activityPatch)
+      .then(({ data }) => {
+         return data;
       });
-    });
-
-    return Promise.all(itineraries);
-  });
 };
 
-//! Favourites endpoints need to be properly implemented in the back-end
+export const deleteActivity = (activityId) => {
+   return api.delete(`/activities/${activityId}`).then(({ data }) => {
+      return data;
+   });
+};
+
+// Countries endpoints
+export const getCountryByName = (name) => {
+   return api.get(`/countries/${name}`).then(({ data }) => data);
+};
+
+
+// Favourites endpoints
 export const getFavouritesByUserId = (userId) => {
-  const favouritesArray = favourites
-    .filter((favourite) => favourite.user.userId === userId)
-    .map(({ itinerary: { itineraryId } }) => {
-      return itineraries.find(
-        (itinerary) => itinerary.itineraryId === itineraryId
-      );
-    });
-
-  favouritesArray.forEach((fave) => {
-    getUserByUserId(fave.userId).then(({ username }) => {
-      fave.username = username;
-    });
-  });
-
-  return favouritesArray;
+   return api.get(`/users/userId/${userId}/favourites`).then(({ data }) => {
+      console.log(data);
+      return data;
+   });
 };
 
-// export const postFavourite = ({ userId, itineraryId }) => {
-//    const user = users.find((user) => user.user_id === userId);
-//    const itinerary = itineraries.find((itinerary) => itinerary.itinerary_id === itineraryId);
-
-//    if (!user || !itinerary) {
-//       throw new Error("User or Itinerary not found");
-//    }
-
-//    const newFavourite = {
-
-//    }
-// }
-
-export const getUserBioByUsername = (requestUsername) => {
-  return users.filter(({ username, bio }) =>
-    username === requestUsername ? bio : null
-  );
+export const getFavouritesByUsername = (username) => {
+   return api.get(`/users/username/${username}/favourites`).then(({ data }) => {
+      console.log(data);
+      return data;
+   });
 };
-export const getCountries = () => {
-  return countries;
+
+export const postFavourite = ({ userId, itineraryId }) => {
+   const favourite = {
+      user: { userId },
+      itinerary: { itineraryId },
+   };
+
+   return api.post("/favourites", favourite).then(({ data }) => {
+      console.log(data);
+      return data;
+   });
+};
+
+// Itineraries endpoints
+export const getItinerariesByUsername = (username) => {
+   return api
+      .get(`/users/username/${username}/itineraries`)
+      .then(({ data }) => {
+         console.log(data);
+         return data;
+      });
+};
+
+export const getItinerariesByUserId = (userId) => {
+   let usernameToAssign;
+   return getUserByUserId(userId)
+      .then(({ username }) => {
+         usernameToAssign = username;
+         return api.get(`/users/userId/${userId}/itineraries`);
+      })
+      .then(({ data }) => {
+         data.content.forEach(
+            (itinerary) => (itinerary.username = usernameToAssign)
+         );
+         return data.content;
+      })
+      .catch((err) => err);
+};
+
+export const getItinerariesByCountryName = (countryName) => {
+   return api.get(`/countries/${countryName}/itineraries`).then(({ data }) => {
+      console.log(data);
+      return data;
+   });
+};
+
+export const postItinerary = ({ title, userId, countryId, isPrivate }) => {
+   const itinerary = {
+      itineraryTitle: title,
+      user: { userId },
+      country: { countryId },
+      isPrivate,
+      modifiedAt: new Date(),
+   };
+   return api.post("/itineraries", itinerary).then(({ data }) => {
+      console.log(data);
+      return data;
+   });
+};
+
+export const patchItinerary = (itineraryID, { title, isPrivate }) => {
+   const itineraryPatch = {
+      modifiedAt: new Date(),
+   };
+   if (title) {
+      itineraryPatch.itineraryTitle = title;
+   }
+   if (isPrivate !== null) {
+      itineraryPatch.isPrivate = isPrivate;
+   }
+
+   return api
+      .patch(`/itineraries/${itineraryID}`, itineraryPatch)
+      .then(({ data }) => {
+         console.log(data);
+         return data;
+      });
 };
 
 export const deleteItinerary = (id) => {
-  return api.delete(`/itineraries/${id}`);
+   return api.delete(`/itineraries/${id}`);
 };
 
-export const deleteActivity = (id) => {
-  return api.delete(`/activities/${id}`);
+// Notes endpoints
+export const getNotesByActivityId = (activityId) => {
+   return api.get(`/activities/${activityId}/notes`).then(({ data }) => {
+      return data;
+   });
+};
+
+export const postNote = (activityId, text) => {
+   const unixTimestamp = Date.now();
+   const isoTimestamp = new Date(unixTimestamp).toISOString();
+   return api
+      .post(`/notes`, {
+         activity: { activityId },
+         text,
+         modifiedAt: isoTimestamp,
+      })
+      .then((res) => res)
+      .catch((err) => err);
+};
+
+export const updateNote = (noteId, text) => {
+   const unixTimestamp = Date.now();
+   const isoTimestamp = new Date(unixTimestamp).toISOString();
+   return api
+      .patch(`/notes/${noteId}`, {
+         text,
+         modifiedAt: isoTimestamp,
+      })
+      .then((res) => res)
+      .catch((err) => err);
+};
+
+export const deleteNote = (noteId) => {
+   return api.delete(`/notes/${noteId}`);
+}
+
+// Photo endpoints
+export const getPhotosByActivityId = (activityId) => {
+   return api.get(`/activities/${activityId}/photos`).then(({ data }) => {
+      return data;
+   });
+};
+
+export const postPhoto = (file, caption, activityId) => {
+   const photoObj = caption
+      ? { file, caption, activityId }
+      : { file, activityId };
+   return api
+      .post(`/photos`, photoObj)
+      .then((res) => res)
+      .catch((err) => err);
+};
+
+export const updatePhoto = (photoId, file) => {
+   return api
+      .patch(`/photos/${photoId}`, { photoId, file })
+      .then((res) => res)
+      .catch((err) => err);
 };
 
 export const deletePhoto = (id) => {
-  return api.delete(`/photos/${id}`);
+   return api.delete(`/photos/${id}`);
 };
 
+// User endpoints
+export const getUserByUsername = (username) => {
+   return api.get(`/users/username/${username}`).then(({ data }) => data);
+};
 
-export const updateUser = (userId,user) => {
-  return api.patch(`/users/userId/${userId}`, user).then((res) => {
-    return res;
-  });
+export const getUserByUserId = (userId) => {
+   return api
+      .get(`/users/userId/${userId}`)
+      .then(({ data }) => data)
+      .catch((err) => err);
+};
+
+export const updateUserById = (userId, updatedUser) => {
+  return api
+    .patch(`/users/userId/${userId}`, updatedUser)
+    .then((res) => res)
+    .catch((err) => err);
 };
