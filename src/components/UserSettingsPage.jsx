@@ -1,33 +1,34 @@
-import { useState, useEffect, useContext } from 'react';
-import { FaUpload } from 'react-icons/fa';
-import { themeToggle } from '../utils/utils';
-import { ThemeContext, UserContext } from '../context/User';
-import { LoginPage } from './LoginPage.jsx';
-import { updateUser, updateUserPassword } from '../loginNSetting.js';
+import { useState, useEffect, useContext } from "react";
+import { FaUpload } from "react-icons/fa";
+import { themeToggle } from "../utils/utils";
+import { ThemeContext, UserContext } from "../context/User";
+// import {LoginPage} from "./LoginPage.jsx";
+// import { updateUser, updateUserPassword } from "../loginNSetting.js";
 
 export const UserSettingsPage = () => {
   // const emailCheckRegex =/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/
-  const [userName, setUserName] = useState('');
-  const [biography, setBiography] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [newEmail, setNewEmail] = useState('');
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [userName, setUserName] = useState("");
+  const [biography, setBiography] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [privacy, setPrivacy] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(false);
   const [passwordMatch, setPasswordMatch] = useState(true);
   const { setTheme } = useContext(ThemeContext);
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
-  const myPassword = 'password123';
+
+  const myPassword = "password123";
 
   useEffect(() => {
-    setUserName(loggedInUser.username || '');
-    setBiography(loggedInUser.bio || '');
-    setFirstName(loggedInUser.firstName || '');
-    setLastName(loggedInUser.lastName || '');
-    setNewEmail(loggedInUser.email || '');
+    setUserName(loggedInUser.username || "");
+    setBiography(loggedInUser.bio || "");
+    setFirstName(loggedInUser.firstName || "");
+    setLastName(loggedInUser.lastName || "");
+    setNewEmail(loggedInUser.email || "");
     setPrivacy(loggedInUser.isPrivate);
     /*setPasswordMatch(newPassword === confirmNewPassword && newPassword !== "");*/
   }, [newPassword, confirmNewPassword, currentTheme, loggedInUser]);
@@ -39,8 +40,8 @@ export const UserSettingsPage = () => {
       bio: biography,
     };
     updateUser(user).then((data) => {});
-    setUserName('');
-    setBiography('');
+    setUserName("");
+    setBiography("");
   };
 
   const handlePrivateInfoSubmit = (event) => {
@@ -51,14 +52,14 @@ export const UserSettingsPage = () => {
       email: newEmail,
     };
     updateUser(user).then((data) => {});
-    setFirstName('');
-    setLastName('');
-    setNewEmail('');
+    setFirstName("");
+    setLastName("");
+    setNewEmail("");
   };
 
   const handleChangePassword = (event) => {
     event.preventDefault();
-    if (newPassword === confirmNewPassword && newPassword !== '') {
+    if (newPassword === confirmNewPassword && newPassword !== "") {
       const passwordMap = {
         oldPassword: currentPassword,
         newPassword: newPassword,
@@ -66,12 +67,12 @@ export const UserSettingsPage = () => {
       updateUserPassword(passwordMap)
         .then(() => {})
         .catch((err) => {
-          console.log('Password update failed: ', err.response.data.message);
+          console.log("Password update failed: ", err.response.data.message);
         });
     }
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmNewPassword('');
+    setCurrentPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
   };
 
   const handlerChangePrivacy = (event) => {
@@ -297,7 +298,7 @@ export const UserSettingsPage = () => {
                         onChange={(e) => setCurrentPassword(e.target.value)}
                       />
                       {currentPassword && currentPassword !== myPassword ? (
-                        <small style={{ color: 'red' }}>
+                        <small style={{ color: "red" }}>
                           Password is incorrect, please try again
                         </small>
                       ) : null}
@@ -328,7 +329,7 @@ export const UserSettingsPage = () => {
                       {newPassword &&
                       confirmNewPassword &&
                       newPassword !== confirmNewPassword ? (
-                        <small style={{ color: 'red' }}>
+                        <small style={{ color: "red" }}>
                           Passwords do not match
                         </small>
                       ) : null}
@@ -389,7 +390,7 @@ export const UserSettingsPage = () => {
                         onChange={(e) => {
                           setCurrentTheme(e.target.checked);
                           themeToggle(currentTheme);
-                          setTheme('#212529');
+                          setTheme("#212529");
                         }}
                       />
                     </div>
