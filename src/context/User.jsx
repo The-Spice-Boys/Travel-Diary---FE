@@ -4,6 +4,12 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [loggedInUser, setLoggedInUser] = useState({
+    username: "wanderer_joe",
+    password: "password123",
+    userId: 1,
+    firstName: "Joe",
+    lastName: "Wanderer",
+    email: "joe@example.com",
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (

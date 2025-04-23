@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { FaUpload } from "react-icons/fa";
 import { themeToggle } from "../utils/utils";
 import { ThemeContext, UserContext } from "../context/User";
+import {updateUser} from "../api.js";
+import {LoginPage} from "./LoginPage.jsx";
 // import {LoginPage} from "./LoginPage.jsx";
 // import { updateUser, updateUserPassword } from "../loginNSetting.js";
 
@@ -20,7 +22,12 @@ export const UserSettingsPage = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
   const { setTheme } = useContext(ThemeContext);
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
-  const myPassword = "password123";
+  const myPassword = loggedInUser.password || "";
+  const [publicDetailsUpdateStatus, setPublicDetailsUpdateStatus] = useState(false);
+  const [publicDetailsUpdateError, setPublicDetailsUpdateError] = useState(false);
+  const [privateDetailsUpdateStatus, setPrivateDetailsUpdateStatus] = useState(false);
+  const [privateDetailsUpdateError, setPrivateDetailsUpdateError] = useState(false);
+  const [passwordUpdateStatus, setPasswordUpdateStatus] = useState(false);
 
   useEffect(() => {
     setUserName(loggedInUser.username || "");
@@ -34,40 +41,61 @@ export const UserSettingsPage = () => {
 
   const handlePublicInfoSubmit = (event) => {
     event.preventDefault();
-    const user = {
-      username: userName,
-      bio: biography,
-    };
-    updateUser(user).then((data) => {});
-    setUserName("");
-    setBiography("");
+    if(userName !== "" && biography !== "")
+    {
+      const user = {
+        username: userName,
+        bio: biography,
+      };
+      updateUser(loggedInUser.userId,user).then(() => {});
+      setUserName("");
+      setBiography("");
+      setPublicDetailsUpdateStatus(true);
+      setPublicDetailsUpdateError(false);
+    }
+    else
+    {
+      setPublicDetailsUpdateStatus(false);
+      setPublicDetailsUpdateError(true);
+    }
   };
 
   const handlePrivateInfoSubmit = (event) => {
     event.preventDefault();
-    const user = {
-      firstName: firstName,
-      lastName: lastName,
-      email: newEmail,
-    };
-    updateUser(user).then((data) => {});
-    setFirstName("");
-    setLastName("");
-    setNewEmail("");
+    if(firstName !== "" && lastName !== "" && newEmail !== "")
+    {
+      const user = {
+        firstName: firstName,
+        lastName: lastName,
+        email: newEmail,
+      };
+      updateUser(loggedInUser.userId,user).then((res) => {
+        console.log(res.status);
+      });
+      setFirstName("");
+      setLastName("");
+      setNewEmail("");
+      setPrivateDetailsUpdateStatus(true);
+      setPrivateDetailsUpdateError(false);
+    }else{
+      setPrivateDetailsUpdateStatus(false);
+      setPrivateDetailsUpdateError(true);
+    }
+
   };
 
   const handleChangePassword = (event) => {
     event.preventDefault();
-    if (newPassword === confirmNewPassword && newPassword !== "") {
+    if (newPassword === confirmNewPassword && newPassword !== "" && currentPassword === myPassword && currentPassword !== "") {
       const passwordMap = {
-        oldPassword: currentPassword,
-        newPassword: newPassword,
+        password: newPassword,
       };
-      updateUserPassword(passwordMap)
+      updateUser(loggedInUser.userId,passwordMap)
         .then(() => {})
         .catch((err) => {
           console.log("Password update failed: ", err.response.data.message);
         });
+      setPasswordUpdateStatus(true);
     }
     setCurrentPassword("");
     setNewPassword("");
@@ -78,9 +106,9 @@ export const UserSettingsPage = () => {
     const checked = event.target.checked;
     setPrivacy(checked);
     const user = {
-      isPrivate: checked,
+      private: checked,
     };
-    updateUser(user).then((data) => {});
+    updateUser(loggedInUser.userId,user).then(() => {});
   };
 
   if (!isLoggedIn) {
@@ -159,7 +187,7 @@ export const UserSettingsPage = () => {
                             placeholder="Username"
                             value={userName}
                             onChange={(e) => setUserName(e.target.value)}
-                          />
+                            required />
                         </div>
                         <div className="form-group mt-3">
                           <label htmlFor="inputUsername" className="mb-2">
@@ -172,7 +200,7 @@ export const UserSettingsPage = () => {
                             placeholder="Write something about yourself"
                             value={biography}
                             onChange={(e) => setBiography(e.target.value)}
-                          ></textarea>
+                          required></textarea>
                         </div>
                       </div>
                       <div className="col-md-4 my-1">
@@ -218,6 +246,8 @@ export const UserSettingsPage = () => {
                       Save changes
                     </button>
                   </form>
+                  <div className={`d-flex justify-content-between align-items-center mt-3 text-danger-emphasis ${publicDetailsUpdateError ? "":"d-none"}`}>Please do not leave username or bio blank!</div>
+                  <div className={`d-flex justify-content-between align-items-center mt-3 text-success-emphasis ${publicDetailsUpdateStatus ? "":"d-none"}`}>Your details have been updated successfully!</div>
                 </div>
               </div>
 
@@ -276,6 +306,8 @@ export const UserSettingsPage = () => {
                       Save changes
                     </button>
                   </form>
+                  <div className={`d-flex justify-content-between align-items-center mt-3 text-danger-emphasis ${privateDetailsUpdateError ? "":"d-none"}`}>Please fill all necessary fields!</div>
+                  <div className={`d-flex justify-content-between align-items-center mt-3 text-success-emphasis ${privateDetailsUpdateStatus ? "":"d-none"}`}>Your details have been updated successfully!</div>
                 </div>
               </div>
             </div>
@@ -347,6 +379,7 @@ export const UserSettingsPage = () => {
                       Save changes
                     </button>
                   </form>
+                  <div className={`d-flex justify-content-between align-items-center mt-3 text-success-emphasis ${passwordUpdateStatus ? "":"d-none"}`}>Your details have been updated successfully!</div>
                 </div>
               </div>
             </div>

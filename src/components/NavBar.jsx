@@ -17,31 +17,13 @@ export const NavBar = () => {
   const navigate = useNavigate();
 
   function loginHandler() {
-    if (!isLoggedIn) {
+    if (!isLoggedIn)
       navigate("/login");
-    } else {
-      userLogout()
-        .then(() => {})
-        .catch((err) => {
-          throw err;
-        });
-      setIsLoggedIn(false);
-    }
   }
 
-  // useEffect(() => {
-  //   loginStatus()
-  //     .then((data) => {
-  //       if (data.isLoggedIn) {
-  //         setIsLoggedIn(true);
-  //       } else {
-  //         setIsLoggedIn(false);
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       console.error("unable to get login status", err);
-  //     });
-  // }, [isLoggedIn]);
+  useEffect(() => {
+
+  }, []);
 
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">

@@ -5,7 +5,7 @@ import { CountryPage } from "./components/CountryPage";
 import { UserPage } from "./components/UserPage";
 import { UserSettingsPage } from "./components/UserSettingsPage";
 import { NavBar } from "./components/NavBar";
-// import { LoginPage } from "./components/LoginPage";
+import { LoginPage } from "./components/LoginPage";
 import "./App.css";
 import "bootstrap/dist/js/bootstrap.bundle.min";
 
@@ -15,7 +15,7 @@ function App() {
       <UserProvider>
         <NavBar />
         <Routes>
-          {/* <Route path="/login" element={<LoginPage />} /> */}
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<HomePage />} />
           <Route path="/countries/:country" element={<CountryPage />} />
           <Route path="/users/:username" element={<UserPage />} />
