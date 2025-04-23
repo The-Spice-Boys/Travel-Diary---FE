@@ -3,16 +3,16 @@ import {
   getFavouritesByUserId,
   getItinerariesByUserId,
   getUserByUsername,
-} from '../api.js';
-import { ItineraryAccordion } from './ItineraryAccordion.jsx';
-import { Button, ButtonGroup, Card, Spinner } from 'react-bootstrap';
-import { useContext, useEffect, useState } from 'react';
-import { ItineraryCreationForm } from './ItineraryCreationForm.jsx';
-import { UserContext } from '../context/User.jsx';
-import { Error } from './Error.jsx';
-import { Loading } from './Loading.jsx';
-import { MdFavoriteBorder } from 'react-icons/md';
-import { LoginPage } from './LoginPage.jsx';
+} from "../api.js";
+import { ItineraryAccordion } from "./ItineraryAccordion.jsx";
+import { Button, ButtonGroup, Card, Spinner } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { ItineraryCreationForm } from "./ItineraryCreationForm.jsx";
+import { UserContext } from "../context/User.jsx";
+import { Error } from "./Error.jsx";
+import { Loading } from "./Loading.jsx";
+import { MdFavoriteBorder } from "react-icons/md";
+// import {LoginPage} from "./LoginPage.jsx";
 
 export const UserPage = () => {
   const { loggedInUser, isLoggedIn } = useContext(UserContext);
