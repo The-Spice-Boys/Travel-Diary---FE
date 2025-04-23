@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { FaUpload } from "react-icons/fa";
 import { themeToggle } from "../utils/utils";
 import { ThemeContext, UserContext } from "../context/User";
-import {updateUser} from "../api.js";
+import {patchUserById} from "../api.js";
 import {LoginPage} from "./LoginPage.jsx";
 // import {LoginPage} from "./LoginPage.jsx";
 // import { updateUser, updateUserPassword } from "../loginNSetting.js";

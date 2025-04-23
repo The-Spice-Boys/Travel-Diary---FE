@@ -1,11 +1,17 @@
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getCountries } from '../api';
 
 export const ItineraryCreationForm = (props) => {
-  const countries = getCountries();
+  const [countries, setCountries] = useState([]);
   const [activities, setActivities] = useState([]);
   const [newActivityInput, setNewActivityInput] = useState('');
+
+  useEffect(() => {
+    getCountries().then((countries) => {
+      setCountries(countries);
+    })
+  }, [])
 
   const handleNewActivityInput = (event) => {
     setNewActivityInput(event.target.value);
@@ -25,6 +31,8 @@ export const ItineraryCreationForm = (props) => {
   const handleSubmit = (event) => {
     // API call and optimistic rendering
   };
+
+  console.log(countries);
 
   return (
     <Modal {...props}>

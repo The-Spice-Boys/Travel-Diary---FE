@@ -30,7 +30,7 @@ export const UserPage = () => {
     console.log(usernameParam);
     setLoading(true);
     setError(null);
-    getUserByUsername(loggedInUser.username)
+    getUserByUsername(usernameParam)
       .then(async (user) => {
         setUser(user);
         setUserItineraries(await getItinerariesByUserId(user.userId));
@@ -48,11 +48,6 @@ export const UserPage = () => {
   };
 
   if (loading) return <Loading />;
-
-  if (!isLoggedIn) {
-    return <LoginPage />;
-  }
-
   if (error) return <Error error={error.status} />;
 
   return (

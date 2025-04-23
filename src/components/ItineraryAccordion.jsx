@@ -1,32 +1,21 @@
 import Accordion from 'react-bootstrap/Accordion';
 import { Link } from 'react-router-dom';
 import { Itinerary } from './Itinerary.jsx';
-import { MenuPopover } from './MenuPopover.jsx';
 import { MenuOptions } from './MenuOptions.jsx';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../context/User.jsx';
 import { IoMdHeart } from 'react-icons/io';
 import {
-  getCountryById,
   getFavouritesByUserId,
-  getUserByUserId,
-  getUserByUsername,
 } from '../api.js';
-import { Placeholder } from 'react-bootstrap';
 
 const Favourite = ({ itineraryId }) => {
   const returnColour = () => (isFavourited ? 'heart-fav' : 'heart-unfav');
 
   //! getFavouritesByUserId needs to be properly implemented in the back end
   const { loggedInUser } = useContext(UserContext);
-  const [favourites, setFavourites] = useState(
-    getFavouritesByUserId(loggedInUser.userId)
-  );
-  const [isFavourited, setIsFavourited] = useState(
-    favourites.some((fave) => {
-      return fave.itineraryId === itineraryId;
-    })
-  );
+  const [favourites, setFavourites] = useState([]);
+  const [isFavourited, setIsFavourited] = useState(false);
   const [colour, setColour] = useState(returnColour());
 
   const handleFavourite = () => {

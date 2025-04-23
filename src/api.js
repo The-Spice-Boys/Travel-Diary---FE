@@ -46,6 +46,10 @@ export const deleteActivity = (activityId) => {
 };
 
 // Countries endpoints
+export const getCountries = () => {
+   return api.get("/countries").then(({data}) => data);
+}
+
 export const getCountryByName = (name) => {
    return api.get(`/countries/${name}`).then(({ data }) => data);
 };
@@ -54,7 +58,6 @@ export const getCountryByName = (name) => {
 // Favourites endpoints
 export const getFavouritesByUserId = (userId) => {
    return api.get(`/users/userId/${userId}/favourites`).then(({ data }) => {
-      console.log(data);
       return data;
    });
 };
@@ -96,10 +99,10 @@ export const getItinerariesByUserId = (userId) => {
          return api.get(`/users/userId/${userId}/itineraries`);
       })
       .then(({ data }) => {
-         data.content.forEach(
+         data.forEach(
             (itinerary) => (itinerary.username = usernameToAssign)
          );
-         return data.content;
+         return data;
       })
       .catch((err) => err);
 };
@@ -224,7 +227,7 @@ export const getUserByUserId = (userId) => {
       .catch((err) => err);
 };
 
-export const updateUserById = (userId, updatedUser) => {
+export const patchUserById = (userId, updatedUser) => {
   return api
     .patch(`/users/userId/${userId}`, updatedUser)
     .then((res) => res)

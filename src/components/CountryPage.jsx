@@ -3,7 +3,7 @@ import { ItineraryAccordion } from './ItineraryAccordion';
 import { Loading } from './Loading';
 import { Error } from './Error';
 import { Card } from 'react-bootstrap';
-import { getCountryByName, getItinerariesByCountry } from '../api';
+import { getCountryByName, getItinerariesByCountryName } from '../api';
 import { useEffect, useState } from 'react';
 
 export const CountryPage = () => {
@@ -23,7 +23,7 @@ export const CountryPage = () => {
         return country.countryName;
       })
       .then((name) => {
-        return getItinerariesByCountry(name);
+        return getItinerariesByCountryName(name);
       })
       .then((itineraries) => {
         console.log(itineraries);
