@@ -58,9 +58,13 @@ export const UserPage = () => {
   return (
     <>
       <div className="d-flex justify-content-center align-items-center p-3">
-        <Card style={{ width: '100%' }}>
+        <Card
+          className="border-0"
+          style={{ width: '100%', backgroundColor: '#F8F9FA' }}
+        >
           <Card.Body>
             <div className="d-flex flex-column align-items-center justify-content-center">
+              <h2 className="mt-3">{username}</h2>
               {!isPrivate && (
                 <Card.Img
                   variant="top"
@@ -72,12 +76,11 @@ export const UserPage = () => {
                     marginLeft: '20px',
                     marginRight: '40px',
                     marginTop: '20px',
-                    border: '2px solid black',
                     borderRadius: '50%',
                   }}
                 />
               )}
-              <Card.Title className="mt-3">{username}</Card.Title>
+
               <Card.Text>{bio}</Card.Text>
             </div>
             <div
