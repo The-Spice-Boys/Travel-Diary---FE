@@ -6,7 +6,12 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../context/User";
 import { ListGroup } from "react-bootstrap";
 import { MenuOptions } from "./MenuOptions";
-import { getNotesByActivityId, getPhotosByActivityId } from "../api";
+import {
+  getNotesByActivityId,
+  getPhotosByActivityId,
+  patchActivity,
+} from "../api";
+
 
 import { MdAddAPhoto } from "react-icons/md";
 import { LuNotebookPen } from "react-icons/lu";
@@ -122,8 +127,15 @@ export const Activity = ({ activity, userId }) => {
 
   const handleToggleCompletion = (event) => {
     event.stopPropagation();
-    loggedInUser.userId === userId &&
+    
+    if (loggedInUser.userId === userId) {
       setIsActivityComplete(!isActivityComplete);
+      patchActivity(activity.activityId, {
+        completionStatus: !isActivityComplete,
+      }).catch((err) => {
+        setIsActivityComplete(isActivityComplete);
+      });
+    }
   };
 
   return (
