@@ -169,9 +169,7 @@ h1, h2 {
 
    .hero-heading {
     margin-top: 2rem;
-    font-size: clamp(0.6rem, 80vw, 7rem);
-
-    /* font-size: 6rem; */
+    font-size: clamp(2.5rem, 10vw, 7rem);
     z-index: 1;
     pointer-events: none;
     color: rgb(177, 177, 177);
@@ -179,8 +177,8 @@ h1, h2 {
 
   .sub-heading{
     color: #b91c1cb3;
-    font-weight: 300;
-    font-size: 1rem;
+    font-weight: 400; 
+    font-size: clamp(0.7rem, 2vw, 1rem);
   }
 
   .no-focus::placeholder {
