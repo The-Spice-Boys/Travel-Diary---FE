@@ -24,6 +24,14 @@ h1, h2 {
     cursor: pointer;
 }   
 
+.custom-acc-header button {
+    background-color: #eff4f3 !important;
+  }
+
+  .custom-acc-header button:hover {
+    background-color: #d0e7e5 !important;
+  }
+
 .activity-completed:hover {
     border: 1px solid grey;
     cursor: pointer;
