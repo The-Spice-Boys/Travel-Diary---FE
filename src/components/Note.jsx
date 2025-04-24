@@ -68,13 +68,13 @@ export const Note = ({ text, userId, noteId, onDelete }) => {
               size={18}
             />
           ))}
-        <button
+        {loggedInUser.userId === userId && <button
           type="submit"
           className="btn p-0 border-0 bg-transparent mb-3"
           onClick={handleDeleteNote}
         >
           <FaTrash size={18} className="icon-color react-icon" />
-        </button>
+        </button>}
       </div>
     </Form>
   );
