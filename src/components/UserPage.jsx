@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import {
-  getFavouritesByUserId,
-  getItinerariesByUserId,
-  getUserByUsername,
+   getFavouritesByUsername,
+   getItinerariesByUsername,
+   getUserByUsername,
 } from "../api.js";
 import { ItineraryAccordion } from "./ItineraryAccordion.jsx";
 import { Button, ButtonGroup, Card, Spinner } from "react-bootstrap";
@@ -11,41 +11,47 @@ import { ItineraryCreationForm } from "./ItineraryCreationForm.jsx";
 import { UserContext } from "../context/User.jsx";
 import { Error } from "./Error.jsx";
 import { Loading } from "./Loading.jsx";
-import { MdFavoriteBorder } from "react-icons/md";
 // import {LoginPage} from "./LoginPage.jsx";
 
 export const UserPage = () => {
-  const { loggedInUser, isLoggedIn } = useContext(UserContext);
-  const usernameParam = useParams().username;
+   const { loggedInUser, isLoggedIn } = useContext(UserContext);
+   const usernameParam = useParams().username;
 
-  const [user, setUser] = useState({});
-  const { userId, username } = user;
+   const [user, setUser] = useState({});
+   const { userId, username } = user;
 
-  const [userItineraries, setUserItineraries] = useState([]);
-  const [favouriteItineraries, setFavouriteItineraries] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+   const [userItineraries, setUserItineraries] = useState([]);
+   const [favouriteItineraries, setFavouriteItineraries] = useState([]);
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-    getUserByUsername(usernameParam)
-      .then(async (user) => {
-        setUser(user);
-        setUserItineraries(await getItinerariesByUserId(user.userId));
-        setFavouriteItineraries(await getFavouritesByUserId(user.userId));
-      })
-      .catch((err) => setError(err))
-      .finally(() => setLoading(false));
-  }, [usernameParam]);
-  console.log(favouriteItineraries);
-  const [modalShow, setModalShow] = useState(false);
-  const [showUserMade, setShowUserMade] = useState(true);
+   useEffect(() => {
+      setLoading(true);
+      setError(null);
+      getUserByUsername(usernameParam)
+         .then((user) => {
+            setUser(user);
+            return getItinerariesByUsername(usernameParam);
+         })
+         .then((itineraries) => {
+          setUserItineraries(itineraries);
+          return getFavouritesByUsername(usernameParam);
+         })
+         .then((favourites) => {
+          favourites = favourites.map(({itinerary}) => itinerary);
+          setFavouriteItineraries(favourites)
+         })
+         .catch((err) => setError(err))
+         .finally(() => setLoading(false));
+   }, [usernameParam]);
 
-  const handleItineraryList = (event) => {
-    setShowUserMade(Boolean(event.target.value));
-  };
+   const [modalShow, setModalShow] = useState(false);
+   const [showUserMade, setShowUserMade] = useState(true);
 
+   const handleItineraryList = (event) => {
+      setShowUserMade(Boolean(event.target.value));
+   };
+  
   if (loading) return <Loading />;
   if (error) return <Error error={error.status} />;
 

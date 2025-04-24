@@ -5,44 +5,81 @@ import { MenuOptions } from "./MenuOptions.jsx";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User.jsx";
 import { IoMdHeart } from "react-icons/io";
-import { getFavouritesByUserId } from "../api.js";
 
-const Favourite = ({ itineraryId }) => {
-  const returnColour = () => (isFavourited ? "heart-fav" : "heart-unfav");
+import {
+   deleteFavourite,
+   getFavouritesByUsername,
+   postFavourite,
+  getFavouritesByUserId 
+} from "../api.js";
 
-  //! getFavouritesByUserId needs to be properly implemented in the back end
-  const { loggedInUser } = useContext(UserContext);
-  const [favourites, setFavourites] = useState([]);
-  const [isFavourited, setIsFavourited] = useState(false);
-  const [colour, setColour] = useState(returnColour());
+const Favourite = ({ itineraryId, favourites }) => {
+   const { loggedInUser } = useContext(UserContext);
+   const returnColour = (fave) => (fave ? "heart-fav" : "heart-unfav");
+   const [isFavourited, setIsFavourited] = useState(false);
+   const [colour, setColour] = useState("heart-unfav");
+   const [favouriteId, setFavouriteId] = useState(null);
 
-  const handleFavourite = () => {
-    setIsFavourited(!isFavourited);
-  };
+   useEffect(() => {
+      const faveMatch =
+         favourites.find((fave) => {
+            const isFave = fave.itinerary.itineraryId === itineraryId;
+            return isFave;
+         }) ?? null;
 
-  useEffect(() => {
-    const faves = getFavouritesByUserId(loggedInUser.userId);
-    setFavourites(faves);
-    setColour(returnColour());
-  }, [isFavourited]);
-  //! --------------------------------------------------------------------
+      const newFaveState = faveMatch === null ? false : true;
+      setIsFavourited(newFaveState);
+      setColour(returnColour(newFaveState));
+      setFavouriteId(newFaveState ? faveMatch.favouriteId : null);
+   }, [favourites]);
 
-  return (
-    <IoMdHeart
-      className={`heart ${colour} m-2`}
-      onClick={(e) => {
-        e.stopPropagation();
-        handleFavourite();
-      }}
-      size={25}
-    />
-  );
+   const handleFavourite = () => {
+      const newFaveState = !isFavourited;
+      setColour(returnColour(newFaveState));
+      setIsFavourited(newFaveState);
+
+      if (newFaveState) {
+         postFavourite({ userId: loggedInUser.userId, itineraryId })
+            .then(({ favouriteId }) => {
+               setFavouriteId(favouriteId);
+            })
+            .catch((err) => {
+               setColour("heart-unfav");
+               setIsFavourited(false);
+            });
+      } else {
+         deleteFavourite(favouriteId).catch((err) => {
+            setColour("heart-fav");
+            setIsFavourited(true);
+         });
+      }
+   };
+
+   return (
+      <IoMdHeart
+         className={`heart ${colour} m-2`}
+         onClick={(e) => {
+            e.stopPropagation();
+            handleFavourite();
+         }}
+         size={25}
+      />
+   );
 };
 
 export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
   const { loggedInUser } = useContext(UserContext);
   const [deletedIds, setDeletedIds] = useState([]);
   const [errorId, setErrorId] = useState(null);
+     const [favourites, setFavourites] = useState([]);
+     
+     
+   useEffect(() => {
+      getFavouritesByUsername(loggedInUser.username).then((faves) => {
+         setFavourites(faves);
+      });
+   }, [itineraries]);
+
 
   const accordionItems = itineraries.map((itinerary) => {
     const {
@@ -104,7 +141,10 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
                         setErrorId={setErrorId}
                       />
                     ) : (
-                      <Favourite itineraryId={itineraryId} />
+                                 <Favourite
+                                    itineraryId={itineraryId}
+                                    favourites={favourites}
+                                 />
                     ))}
                 </div>
               </div>
@@ -126,11 +166,11 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
     );
   });
 
-  return (
-    <div className="d-flex justify-content-center p-1">
-      <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
-        {accordionItems}
-      </Accordion>
-    </div>
-  );
+   return (
+      <div className="d-flex justify-content-center p-1">
+         <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
+            {accordionItems}
+         </Accordion>
+      </div>
+   );
 };
