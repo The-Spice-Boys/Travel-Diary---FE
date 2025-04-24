@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { FaEdit } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
+import { ImCancelCircle } from 'react-icons/im';
+import { FaRegCircleCheck } from 'react-icons/fa6';
 import { TitleUpdateForm } from './TitleUpdateForm';
 import {
   deleteActivity,
@@ -19,6 +21,8 @@ export const MenuOptions = ({
   title,
 }) => {
   const [modalShow, setModalShow] = useState(false);
+  const [deleteClicked, setDeleteClicked] = useState(false);
+
   const apiFuncLookupDelete = {
     activity: deleteActivity,
     itinerary: deleteItinerary,
@@ -49,6 +53,11 @@ export const MenuOptions = ({
 
   const handleDeleteClick = (e) => {
     e.stopPropagation();
+    setDeleteClicked(!deleteClicked);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
 
     setDeletedIds((prevDeletedIds) => {
       return [...prevDeletedIds, id];
@@ -65,14 +74,30 @@ export const MenuOptions = ({
 
   return (
     <>
-      <div className="m-2">
-        <FaEdit size={20} onClick={handleEditClick} className="icon-color" />
-        <MdDelete
-          className="icon-color"
-          size={20}
-          onClick={handleDeleteClick}
-        />
-      </div>
+      {!deleteClicked ? (
+        <div className="m-2 d-flex gap-1 p-0">
+          <FaEdit size={20} onClick={handleEditClick} className="icon-color" />
+          <MdDelete
+            className="icon-color"
+            size={20}
+            onClick={handleDeleteClick}
+          />
+        </div>
+      ) : (
+        <div className="m-2 d-flex gap-1 p-0">
+          <FaRegCircleCheck
+            className="icon-color"
+            size={20}
+            onClick={handleDelete}
+          />
+          <ImCancelCircle
+            className="icon-color"
+            size={20}
+            onClick={handleDeleteClick}
+          />
+        </div>
+      )}
+
       {modalShow && (
         <TitleUpdateForm
           className="icon-color"
