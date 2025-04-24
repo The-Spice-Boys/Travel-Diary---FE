@@ -115,6 +115,7 @@ export const getItinerariesByCountryName = (countryName) => {
 };
 
 export const postItinerary = ({ title, userId, countryId, isPrivate }) => {
+   console.log(userId, countryId, isPrivate);
    const itinerary = {
       itineraryTitle: title,
       user: { userId },

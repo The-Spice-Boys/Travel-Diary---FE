@@ -45,8 +45,8 @@ export const CountryPage = () => {
             src={countryPicUrl}
             alt={countryName}
             style={{
-              width: '50%',
-              height: '50%',
+              width: '20%',
+              height: '20%',
               marginLeft: '20px',
               marginTop: '20px',
               border: '2px solid black',

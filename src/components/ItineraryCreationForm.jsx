@@ -1,11 +1,14 @@
 import { Button, Form, Modal } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
-import { getCountries } from '../api';
+import {useContext, useEffect, useState} from 'react';
+import {getCountries, postItinerary} from '../api';
+import { UserContext } from "../context/User";
 
 export const ItineraryCreationForm = (props) => {
   const [countries, setCountries] = useState([]);
-  const [activities, setActivities] = useState([]);
-  const [newActivityInput, setNewActivityInput] = useState('');
+  const [itineraryName, setItineraryName] = useState('');
+  const [privacySetting, setPrivacySetting] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(1);
+  const {loggedInUser} = useContext(UserContext);
 
   useEffect(() => {
     getCountries().then((countries) => {
@@ -13,79 +16,53 @@ export const ItineraryCreationForm = (props) => {
     })
   }, [])
 
-  const handleNewActivityInput = (event) => {
-    setNewActivityInput(event.target.value);
-  };
-
-  const handleActivitiesListAdd = (event) => {
-    const listCopy = [...activities, event.target.value];
-    setActivities(listCopy);
-  };
-
-  const handleActivitiesListRemove = (event) => {
-    const listCopy = [...activities];
-    listCopy.splice(event.target.value, 1);
-    setActivities(listCopy);
-  };
 
   const handleSubmit = (event) => {
-    // API call and optimistic rendering
+    event.preventDefault();
+    if (itineraryName !== '') {
+      const itinerary = {
+        title: itineraryName,
+        countryId: selectedCountry,
+        userId: loggedInUser.userId,
+        isPrivate: privacySetting,
+      }
+      postItinerary(itinerary).then((itinerary) => {
+        console.log(itinerary);
+      })
+    }
   };
 
-  console.log(countries);
-
   return (
-    <Modal {...props}>
-      <Modal.Header>
-        <Modal.Title>New itinerary</Modal.Title>
-      </Modal.Header>
-      <Form>
-        <Modal.Body>
-          <Form.Label htmlFor="country-select">Select a country:</Form.Label>
-          <Form.Select id="country-select" aria-label="Select a country">
-            {countries.map(({ countryId, countryName }) => (
-              <option key={countryId} value={{ countryName, countryId }}>
-                {countryName}
-              </option>
-            ))}
-          </Form.Select>
+      <Modal {...props}>
+        <Modal.Header>
+          <Modal.Title>New itinerary</Modal.Title>
+        </Modal.Header>
+        <Form>
+          <Modal.Body>
+            <Form.Label htmlFor="country-select">Select a country:</Form.Label>
+            <Form.Select id="country-select" aria-label="Select a country" onChange={(e)=>{setSelectedCountry(parseInt(e.target.value))}}>
+              {countries.map(({ countryId, countryName }) => (
+                  <option key={countryId} value={countryId}>
+                    {countryName}
+                  </option>
+              ))}
+            </Form.Select>
 
-          <Form.Label htmlFor="itinerary-name">Itinerary name:</Form.Label>
-          <Form.Control id="itinerary-name" type="text" required></Form.Control>
+            <Form.Label htmlFor="itinerary-name">Itinerary name:</Form.Label>
+            <Form.Control id="itinerary-name" type="text" onChange={(e)=>{setItineraryName(e.target.value)}} required></Form.Control>
 
-          {activities.map((activity, index) => {
-            return (
-              <div key={index} className="d-flex align-items-center">
-                <p className="m-2">{activity}</p>
-                <Button onClick={handleActivitiesListRemove} value={index}>
-                  Delete
-                </Button>
-              </div>
-            );
-          })}
-
-          <Form.Label htmlFor="new-activity">New activity:</Form.Label>
-          <Form.Control
-            id="new-activity"
-            type="text"
-            onInput={handleNewActivityInput}
-            value={newActivityInput}
-          ></Form.Control>
-          <Button
-            type="button"
-            value={newActivityInput}
-            onClick={handleActivitiesListAdd}
-            className="mt-3"
-          >
-            Add
-          </Button>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="submit" onClick={handleSubmit}>
-            Add new itinerary
-          </Button>
-        </Modal.Footer>
-      </Form>
-    </Modal>
+            <Form.Label htmlFor="privacy-select">Privacy Setting:</Form.Label>
+            <Form.Select id="privacy-select" aria-label="Select privacy" value={privacySetting.toString()} onChange={(e)=>{setPrivacySetting(e.target.value === 'true')}}>
+              <option key="public" value="false">Public</option>
+              <option key="private" value="true">Private</option>
+            </Form.Select>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="submit" onClick={handleSubmit}>
+              Add new itinerary
+            </Button>
+          </Modal.Footer>
+        </Form>
+      </Modal>
   );
 };
