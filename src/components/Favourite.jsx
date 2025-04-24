@@ -5,6 +5,7 @@ import { MenuOptions } from "./MenuOptions.jsx";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User.jsx";
 import { IoMdHeart } from "react-icons/io";
+import { deleteFavourite, postFavourite } from "../api.js";
 
 export const Favourite = ({ itineraryId, favourites }) => {
     const { loggedInUser } = useContext(UserContext);

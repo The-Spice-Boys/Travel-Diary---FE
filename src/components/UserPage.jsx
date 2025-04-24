@@ -107,7 +107,7 @@ export const UserPage = () => {
                 showUserMade ? userItineraries : favouriteItineraries
               }
             />
-            <div className="d-flex flex-column align-items-end h-100">
+            <div className="d-flex flex-column align-items-center h-100">
               {showUserMade && loggedInUser.userId === userId && (
                 <button
                   className="mt-auto custom-button"
