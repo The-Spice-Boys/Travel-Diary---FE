@@ -180,7 +180,7 @@ h1, h2 {
     font-size: clamp(2.5rem, 10vw, 7rem);
     z-index: 1;
     pointer-events: none;
-    color: rgb(177, 177, 177);
+    color: rgb(124, 123, 123);
   }
 
   .sub-heading{

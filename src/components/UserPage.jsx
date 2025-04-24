@@ -109,13 +109,12 @@ export const UserPage = () => {
             />
             <div className="d-flex flex-column align-items-center h-100">
               {showUserMade && loggedInUser.userId === userId && (
-                <Button
-                variant="custom"
-                  className="mt-auto"
+                <button
+                  className="mt-auto custom-button"
                   onClick={() => setModalShow(true)}
                 >
                   Create new itinerary
-                </Button>
+                </button>
               )}
             </div>
           </Card.Body>

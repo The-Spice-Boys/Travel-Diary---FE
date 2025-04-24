@@ -8,6 +8,7 @@ export const ItineraryCreationForm = (props) => {
   const [itineraryName, setItineraryName] = useState('');
   const [privacySetting, setPrivacySetting] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
   const { loggedInUser } = useContext(UserContext);
 
   useEffect(() => {
@@ -18,6 +19,8 @@ export const ItineraryCreationForm = (props) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    setSubmitted(true);
     if (itineraryName !== '') {
       const itinerary = {
         title: itineraryName,
@@ -25,9 +28,14 @@ export const ItineraryCreationForm = (props) => {
         userId: loggedInUser.userId,
         isPrivate: privacySetting,
       };
-      postItinerary(itinerary).then((itinerary) => {
-        console.log(itinerary);
-      });
+      postItinerary(itinerary)
+        .then((itinerary) => {
+          console.log(itinerary);
+          props.setModalShow(false);
+        })
+        .catch((err) => {
+          setSubmitted(false);
+        });
     }
   };
 
@@ -81,13 +89,14 @@ export const ItineraryCreationForm = (props) => {
           </Form.Select>
         </Modal.Body>
         <Modal.Footer>
-          <Button
+          <button
             type="submit"
             onClick={handleSubmit}
             className="custom-button"
+            disabled={submitted}
           >
             Add new itinerary
-          </Button>
+          </button>
         </Modal.Footer>
       </Form>
     </Modal>
