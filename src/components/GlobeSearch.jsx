@@ -43,6 +43,9 @@ export const GlobeSearch = () => {
           navigate(`/countries/${name}`);
         });
 
+      globeInstance.current.controls().autoRotate = true;
+      globeInstance.current.controls().autoRotateSpeed = 1.3;
+
       globeInstance.current.controls().enableZoom = false;
 
       fetch('https://unpkg.com/world-atlas@2/countries-110m.json')
