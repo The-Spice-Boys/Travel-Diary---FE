@@ -12,6 +12,7 @@ import {
   patchActivity,
 } from "../api";
 
+
 import { MdAddAPhoto } from "react-icons/md";
 import { LuNotebookPen } from "react-icons/lu";
 import { MdOutlineCheckBox } from "react-icons/md";
@@ -115,6 +116,7 @@ export const Activity = ({ activity, userId }) => {
   const [deletedIds, setDeletedIds] = useState([]);
   const [errorId, setErrorId] = useState(null);
   const [modalShow, setModalShow] = useState(false);
+  const [title, setTitle] = useState(activity.title);
   const [isActivityComplete, setIsActivityComplete] = useState(
     activity.completionStatus
   );
@@ -125,6 +127,7 @@ export const Activity = ({ activity, userId }) => {
 
   const handleToggleCompletion = (event) => {
     event.stopPropagation();
+    
     if (loggedInUser.userId === userId) {
       setIsActivityComplete(!isActivityComplete);
       patchActivity(activity.activityId, {
@@ -146,9 +149,7 @@ export const Activity = ({ activity, userId }) => {
         <div className="d-flex align-items-center">
           <div className="d-flex flex-column gap-0">
             <p className="m-2 mb-0">
-              {deletedIds.includes(activity.activityId)
-                ? "Deleted"
-                : activity.title}
+              {deletedIds.includes(activity.activityId) ? "Deleted" : title}
             </p>
             {errorId === activity.activityId && (
               <p className="text-danger fs-6 m-2 mb-0 mt-0 p-0">
@@ -174,6 +175,8 @@ export const Activity = ({ activity, userId }) => {
               componentName={"activity"}
               setDeletedIds={setDeletedIds}
               setErrorId={setErrorId}
+              title={title}
+              setTitle={setTitle}
             />
           )}
       </ListGroup.Item>

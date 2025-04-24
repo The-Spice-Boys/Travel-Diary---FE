@@ -188,9 +188,9 @@ export const deleteNote = (noteId) => {
 }
 
 // Photo endpoints
+//! Backend is currently /activity -> needs to be changed to /activities
 export const getPhotosByActivityId = (activityId) => {
-   return api.get(`/activities/${activityId}/photos`).then(({ data }) => {
-      console.log(data, "<-- photos in api")
+   return api.get(`/activity/${activityId}/photos`).then(({ data }) => {
       return data;
    });
 };

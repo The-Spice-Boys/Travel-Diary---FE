@@ -18,12 +18,14 @@ export const UserPage = () => {
    const usernameParam = useParams().username;
 
    const [user, setUser] = useState({});
-   const { userId, username } = user;
+   const { userId, username, bio, profilePicUrl, private: isPrivate } = user;
 
    const [userItineraries, setUserItineraries] = useState([]);
    const [favouriteItineraries, setFavouriteItineraries] = useState([]);
    const [loading, setLoading] = useState(false);
    const [error, setError] = useState(null);
+   const [modalShow, setModalShow] = useState(false);
+   const [showUserMade, setShowUserMade] = useState(true);
 
    useEffect(() => {
       setLoading(true);
@@ -34,93 +36,99 @@ export const UserPage = () => {
             return getItinerariesByUsername(usernameParam);
          })
          .then((itineraries) => {
-          setUserItineraries(itineraries);
-          return getFavouritesByUsername(usernameParam);
+            setUserItineraries(itineraries);
+            return getFavouritesByUsername(usernameParam);
          })
          .then((favourites) => {
-          favourites = favourites.map(({itinerary}) => itinerary);
-          setFavouriteItineraries(favourites)
+            favourites = favourites.map(({ itinerary }) => itinerary);
+            setFavouriteItineraries(favourites);
+            setShowUserMade(true);
          })
          .catch((err) => setError(err))
          .finally(() => setLoading(false));
    }, [usernameParam]);
 
-   const [modalShow, setModalShow] = useState(false);
-   const [showUserMade, setShowUserMade] = useState(true);
-
    const handleItineraryList = (event) => {
       setShowUserMade(Boolean(event.target.value));
    };
+  
+  if (loading) return <Loading />;
+  if (error) return <Error error={error.status} />;
 
-   if (loading) return <Loading />;
-   if (error) return <Error error={error.status} />;
-   
-   return (
-      <>
-         <div className="d-flex justify-content-center align-items-center p-3">
-            <Card style={{ width: "100%" }}>
-               <Card.Img
-                  variant="top" //! Profile pic needs to be returned by DTO
-                  src={user.profilePicUrl}
-                  alt={username}
-                  style={{
-                     width: "50%",
-                     height: "50%",
-                     marginLeft: "20px",
-                     marginTop: "20px",
-                     border: "2px solid black",
-                     borderRadius: "50%",
-                  }}
-               />
-               <Card.Body>
-                  {loggedInUser.bio}
-                  <Card.Title className="mt-3">{username}</Card.Title>
-                  <div
-                     className="d-flex justify-content-between align-items-center"
-                     style={{ height: "60px", maxHeight: "100px" }}
-                  >
-                     {/* <Card.Text className="my-5">{bio}</Card.Text> */}
-                     <ButtonGroup onClick={handleItineraryList}>
+  return (
+    <>
+      <div className="d-flex justify-content-center align-items-center p-3">
+        <Card style={{ width: "100%" }}>
+          <Card.Body>
+<div className="d-flex flex-column align-items-center justify-content-center">
+                     {!isPrivate && (
+                        <Card.Img
+                           variant="top"
+                           src={profilePicUrl}
+                           alt={username}
+                           style={{
+                              width: "256px",
+                              height: "256px",
+                              marginLeft: "20px",
+                              marginRight: "40px",
+                              marginTop: "20px",
+                              border: "2px solid black",
+                              borderRadius: "50%",
+                           }}
+                        />
+                     )}
+                     <Card.Title className="mt-3">{username}</Card.Title>
+                     <Card.Text>{bio}</Card.Text>
+                  </div>
+            <div
+              className="d-flex justify-content-between align-items-center"
+              style={{ height: "60px", maxHeight: "100px" }}
+            >
+
+                      <ButtonGroup
+                        className="m-auto"
+                        onClick={handleItineraryList}
+                     >
                         <Button
                            value={true}
-                           className={
-                              showUserMade ? "btn-primary" : "btn-secondary"
+                           variant={
+                              showUserMade ? "custom" : "secondary"
                            }
                         >
                            Itineraries
                         </Button>
                         <Button
                            value={null}
-                           className={
-                              showUserMade ? "btn-secondary" : "btn-primary"
+                           variant={
+                              showUserMade ? "secondary" : "custom"
                            }
                         >
                            Favourites
                         </Button>
                      </ButtonGroup>
-                  </div>
-                  <ItineraryAccordion
-                     itineraries={
-                        showUserMade ? userItineraries : favouriteItineraries
-                     }
-                  />
-                  <div className="d-flex flex-column align-items-end h-100">
-                     {showUserMade && loggedInUser.userId === userId && (
-                        <Button
-                           className="mt-auto"
-                           onClick={() => setModalShow(true)}
-                        >
-                           Create new itinerary
-                        </Button>
-                     )}
-                  </div>
-               </Card.Body>
-            </Card>
-         </div>
-         <ItineraryCreationForm
-            show={modalShow}
-            onHide={() => setModalShow(false)}
-         ></ItineraryCreationForm>
-      </>
-   );
+            </div>
+            <ItineraryAccordion
+              itineraries={
+                showUserMade ? userItineraries : favouriteItineraries
+              }
+              itinerariesMode={
+                showUserMade ? "userItineraries" : "favouriteItineraries"
+              }
+            />
+            <div className="d-flex flex-column align-items-end h-100">
+              {showUserMade && loggedInUser.userId === userId && (
+                <Button className="mt-auto" onClick={() => setModalShow(true)}>
+                  Create new itinerary
+                </Button>
+              )}
+            </div>
+          </Card.Body>
+        </Card>
+      </div>
+      <ItineraryCreationForm
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      ></ItineraryCreationForm>
+    </>
+  );
 };

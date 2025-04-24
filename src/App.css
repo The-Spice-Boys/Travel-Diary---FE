@@ -131,6 +131,21 @@ h1, h2 {
     color: #b91c1cb3 !important;
 }
 
+.btn-custom {
+    color: white;
+    background-color: rgba(222, 209, 203, 1);
+    border: 2px solid rgba(222, 209, 203, 1);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-custom:hover {
+    background-color: rgba(222, 209, 203, 1);
+    color: #b91c1cb3;
+    border-color: #b91c1cb3;
+}
 
 .custom-button {
     color: white;
