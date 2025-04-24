@@ -73,7 +73,7 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
   const [errorId, setErrorId] = useState(null);
      const [favourites, setFavourites] = useState([]);
      
-     
+    
    useEffect(() => {
       getFavouritesByUsername(loggedInUser.username).then((faves) => {
          setFavourites(faves);
@@ -93,7 +93,7 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
     } = itinerary;
     //! Itinerary DTO needs country id
     // const { countryName } = getCountryById(country_id);
-
+    
     return (
       <div key={itineraryId} className="rounded ps-3 pe-3" id="accordion-item">
         <Accordion.Item eventKey={itineraryId}>
@@ -122,49 +122,53 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
                   >
                     {countryName}
                   </Link>
-                  <p className="fs-5 mb-0">
-                    {deletedIds.includes(itineraryId) ? "Deleted" : title}
-                  </p>
-                  {errorId === itineraryId && (
-                    <p className="text-danger fs-6 mb-0 p-0">
-                      Failed to delete
-                    </p>
-                  )}
-                </div>
-                <div className="ms-2">
-                  {!deletedIds.includes(itineraryId) &&
-                    (loggedInUser.userId === userId ? (
-                      <MenuOptions
-                        id={itineraryId}
-                        componentName={"itinerary"}
-                        setDeletedIds={setDeletedIds}
-                        setErrorId={setErrorId}
-                      />
-                    ) : (
-                                 <Favourite
-                                    itineraryId={itineraryId}
-                                    favourites={favourites}
-                                 />
-                    ))}
-                </div>
-              </div>
-            </Accordion.Header>
-          </div>
-          <Accordion.Body>
-            <Itinerary
-              key={itineraryId}
-              itineraryId={itineraryId}
-              userId={userId}
-              addActivityStatus={
-                username === loggedInUser.username &&
-                itinerariesMode === "userItineraries"
-              }
-            />
-          </Accordion.Body>
-        </Accordion.Item>
-      </div>
-    );
-  });
+                           <p className="fs-5 mb-0">
+                              {deletedIds.includes(itineraryId)
+                                 ? "Deleted"
+                                 : title}
+                           </p>
+                           {errorId === itineraryId && (
+                              <p className="text-danger fs-6 mb-0 p-0">
+                                 Failed to delete
+                              </p>
+                           )}
+                        </div>
+                        {isLoggedIn && (
+                           <div className="ms-2">
+                              {!deletedIds.includes(itineraryId) &&
+                                 (loggedInUser.userId === userId ? (
+                                    <MenuOptions
+                                       id={itineraryId}
+                                       componentName={"itinerary"}
+                                       setDeletedIds={setDeletedIds}
+                                       setErrorId={setErrorId}
+                                    />
+                                 ) : (
+                                    <Favourite
+                                       itineraryId={itineraryId}
+                                       favourites={favourites}
+                                    />
+                                 ))}
+                           </div>
+                        )}
+                     </div>
+                  </Accordion.Header>
+               </div>
+               <Accordion.Body>
+                  <Itinerary
+                     key={itineraryId}
+                     itineraryId={itineraryId}
+                     userId={userId}
+                     addActivityStatus={
+                        username === loggedInUser.username &&
+                        itinerariesMode === "userItineraries"
+                    }
+                  />
+               </Accordion.Body>
+            </Accordion.Item>
+         </div>
+      );
+   });
 
    return (
       <div className="d-flex justify-content-center p-1">
