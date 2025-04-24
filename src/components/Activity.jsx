@@ -255,6 +255,7 @@ export const Activity = ({ activity, userId }) => {
         className={`d-flex justify-content-between align-items-center ${
           isActivityComplete && 'activity-completed'
         } ${deletedIds.includes(activity.activityId) ? 'deleted-item' : ''}`}
+        style={{ backgroundColor: '#ececec' }}
       >
         <div className="d-flex align-items-center">
           <div className="d-flex flex-column gap-0">

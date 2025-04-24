@@ -25,10 +25,14 @@ export const CustomAccordionItem = ({
 
   return (
     <div key={itineraryId} className="rounded ps-3 pe-3" id="accordion-item">
-      <Accordion.Item eventKey={itineraryId}>
+      <Accordion.Item
+        className="border-0 acc-hover"
+        eventKey={itineraryId}
+        style={{ backgroundColor: '#eff4f3' }}
+      >
         <div className="d-flex align-items-center">
           <Accordion.Header
-            className={`w-100 ${
+            className={`w-100 custom-acc-header ${
               deletedIds.includes(itineraryId) ? 'deleted-item' : ''
             }`}
           >
