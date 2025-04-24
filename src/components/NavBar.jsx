@@ -7,6 +7,7 @@ import { FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
 import { SearchBar } from "./SearchBar";
 import logo from "../../public/TD-logo-2.png";
+import { Button } from "react-bootstrap";
 // import {loginStatus, userLogout} from "../loginNSetting.js";
 
 export const NavBar = () => {
@@ -59,13 +60,13 @@ export const NavBar = () => {
                         </>
                      )}
 
-                     <button
-                        className="custom-button"
+                     <Button
+                        variant="custom"
                         style={{ maxWidth: "200px" }}
                         onClick={loginHandler}
                      >
                         {isLoggedIn ? "Log out" : "Log in"}
-                     </button>
+                     </Button>
                   </div>
                </Navbar.Collapse>
             </Container>
