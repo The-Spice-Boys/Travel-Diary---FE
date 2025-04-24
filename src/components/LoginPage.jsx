@@ -42,7 +42,7 @@ return (
         )}
         <div className="mb-3">
           <label htmlFor="username" className="form-label">
-            Username::
+            Username:
           </label>
           <input
             type="text"
