@@ -1,22 +1,52 @@
-import { FaEdit } from 'react-icons/fa';
-import { MdDelete } from 'react-icons/md';
-import { deleteActivity, deleteItinerary, deletePhoto } from '../api';
+import { useState } from "react";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
+import { TitleUpdateForm } from "./TitleUpdateForm";
+import {
+  deleteActivity,
+  deleteItinerary,
+  deletePhoto,
+  patchActivity,
+  patchItinerary,
+} from "../api";
 
 export const MenuOptions = ({
   id,
   componentName,
   setDeletedIds,
   setErrorId,
+  setTitle,
+  title,
 }) => {
+  const [modalShow, setModalShow] = useState(false);
   const apiFuncLookupDelete = {
     activity: deleteActivity,
     itinerary: deleteItinerary,
     photo: deletePhoto,
   };
 
+  const apiFuncLookupEdit = {
+    activity: patchActivity,
+    itinerary: patchItinerary,
+  };
+
+  const modalInfoLookup = {
+    itinerary: {
+      modalTitle: "Update itinerary title",
+      modalLabel: "New itinerary title:",
+    },
+    activity: {
+      modalTitle: "Update activity title",
+      modalLabel: "New activity title:",
+    },
+  };
+
   const handleEditClick = (e) => {
     e.stopPropagation();
+
+    setModalShow(true);
   };
+
   const handleDeleteClick = (e) => {
     e.stopPropagation();
 
@@ -34,13 +64,26 @@ export const MenuOptions = ({
   };
 
   return (
-    <div className="m-2">
-      <FaEdit size={20} onClick={handleEditClick} className="menu-options" />
-      <MdDelete
-        size={20}
-        onClick={handleDeleteClick}
-        className="menu-options"
-      />
-    </div>
+    <>
+      <div className="m-2">
+        <FaEdit size={20} onClick={handleEditClick} className="menu-options" />
+        <MdDelete
+          size={20}
+          onClick={handleDeleteClick}
+          className="menu-options"
+        />
+      </div>
+      {modalShow && (
+        <TitleUpdateForm
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          modalInfo={modalInfoLookup[componentName]}
+          apiFunction={apiFuncLookupEdit[componentName]}
+          elementId={id}
+          setTitle={setTitle}
+          title={title}
+        />
+      )}
+    </>
   );
 };
