@@ -31,7 +31,6 @@ export const ActivityCreationForm = ({
         });
       })
       .catch((err) => {
-        console.log(err);
         setIsPosting(false);
         setUserFeedback({
           message: `${err.message}. Unable to add activity`,
