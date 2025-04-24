@@ -117,15 +117,15 @@ export const UserSettingsPage = () => {
   }
 
   return (
-    <div className="container my-3">
+    <div className="container my-3" >
       <h1 className="h3 my-3">Settings</h1>
       <div className="row">
-        <div className="col-md-5 col-xl-4">
-          <div className="card">
+        <div className="col-md-5 col-xl-4" >
+          <div className="card border-0" style={{background: '#f8f9fa'}}>
             <div className="card-header">
               <h5 className="card-title my-1">Profile Settings</h5>
             </div>
-            <div className="list-group list-group-flush" role="tablist">
+            <div className="list-group list-group-flush" role="tablist" style={{background: '#f8f9fa'}}>
               <a
                 className="list-group-item list-group-item-action active"
                 data-bs-toggle="list"
@@ -150,26 +150,26 @@ export const UserSettingsPage = () => {
               >
                 Privacy and safety
               </a>
-              <a
+              {/* <a
                 className="list-group-item list-group-item-action"
                 data-bs-toggle="list"
                 href="#theme"
                 role="tab"
               >
                 Theme
-              </a>
+              </a> */}
             </div>
           </div>
         </div>
 
-        <div className="col-md-7 col-xl-8">
-          <div className="tab-content">
+        <div className="col-md-7 col-xl-8" >
+          <div className="tab-content" >
             <div
               className="tab-pane fade show active"
               id="account"
               role="tabpanel"
             >
-              <div className="card">
+              <div className="card border-0" style={{background: '#f8f9fa'}}>
                 <div className="card-header">
                   <h5 className="card-title my-1">Public info</h5>
                 </div>
@@ -217,7 +217,7 @@ export const UserSettingsPage = () => {
                             <span>
                               <label htmlFor="formFile" className="form-label">
                                 <FaUpload
-                                  className="upload-button"
+                                  className="react-icon icon-color"
                                   type="file"
                                   size={20}
                                 />
@@ -231,7 +231,7 @@ export const UserSettingsPage = () => {
                             </span>
                           </div>
 
-                          <small>
+                          <small style = {{color: 'rgb(177, 177, 177)'}}>
                             For best results, use an image at least 128px by
                             128px in .jpg format
                           </small>
@@ -241,7 +241,7 @@ export const UserSettingsPage = () => {
 
                     <button
                       type="submit"
-                      className="btn btn-primary"
+                      className="custom-button"
                       onClick={handlePublicInfoSubmit}
                     >
                       Save changes
@@ -252,7 +252,7 @@ export const UserSettingsPage = () => {
                 </div>
               </div>
 
-              <div className="card my-4">
+              <div className="card my-4 border-0" style={{background: '#f8f9fa'}}>
                 <div className="card-header">
                   <h5 className="card-title my-1">Private info</h5>
                 </div>
@@ -301,7 +301,7 @@ export const UserSettingsPage = () => {
                     </div>
                     <button
                       type="submit"
-                      className="btn btn-primary mt-5"
+                      className="custom-button mt-5"
                       onClick={handlePrivateInfoSubmit}
                     >
                       Save changes
@@ -314,7 +314,7 @@ export const UserSettingsPage = () => {
             </div>
 
             <div className="tab-pane fade" id="password" role="tabpanel">
-              <div className="card">
+              <div className="card border-0" style={{background: '#f8f9fa'}}>
                 <div className="card-body">
                   <h5 className="card-title">Password</h5>
                   <form>
@@ -368,7 +368,7 @@ export const UserSettingsPage = () => {
                     </div>
                     <button
                       type="submit"
-                      className="btn btn-primary mt-5"
+                      className="custom-button mt-5"
                       onClick={handleChangePassword}
                       disabled={
                         newPassword !== confirmNewPassword ||
@@ -386,7 +386,7 @@ export const UserSettingsPage = () => {
             </div>
 
             <div className="tab-pane fade" id="privacy" role="tabpanel">
-              <div className="card">
+              <div className="card border-0" style={{background: '#f8f9fa'}}>
                 <div className="card-body">
                   <h5 className="card-title">Privacy</h5>
                   <div className="d-flex justify-content-between align-items-center">
@@ -396,7 +396,7 @@ export const UserSettingsPage = () => {
                     </p>
                     <div className="form-switch m-0">
                       <input
-                        className="form-check-input"
+                        className="form-check-input icon-color"
                         type="checkbox"
                         id="flexSwitchCheckChecked"
                         checked={privacy}
@@ -408,7 +408,7 @@ export const UserSettingsPage = () => {
               </div>
             </div>
 
-            <div className="tab-pane fade" id="theme" role="tabpanel">
+            {/* <div className="tab-pane fade" id="theme" role="tabpanel">
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">Choose your theme</h5>
@@ -430,7 +430,7 @@ export const UserSettingsPage = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
