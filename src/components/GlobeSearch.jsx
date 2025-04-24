@@ -9,7 +9,7 @@ export const GlobeSearch = () => {
   const globeInstance = useRef();
   const navigate = useNavigate();
   const { theme } = useContext(ThemeContext);
-  const [size, setSize] = useState({ width: 400, height: 400 });
+  const [size, setSize] = useState({ width: 600, height: 600 });
 
   useEffect(() => {
     const updateSize = () => {
@@ -28,15 +28,15 @@ export const GlobeSearch = () => {
     if (!globeInstance.current) {
       globeInstance.current = Globe()(containerRef.current)
         .globeImageUrl('public/globe-background.svg')
-        .backgroundColor('#eee')
-        .polygonCapColor(() => '#b4c2c5')
+        .backgroundColor('#ececec')
+        .polygonCapColor(() => 'rgba(222, 209, 203, 1)')
         .polygonSideColor(() => '#fff')
         .polygonStrokeColor(() => '#fff')
         .polygonLabel((d) => `<b>${d.properties.name}</b>`)
         .polygonAltitude(0.01)
         .onPolygonHover((hoveredCountry) => {
           globeInstance.current.polygonCapColor((country) =>
-            country === hoveredCountry ? 'rgba(210, 18, 92, 0.7)' : '#b4c2c5'
+            country === hoveredCountry ? 'rgba(210, 18, 92, 0.7)' : 'rgba(222, 209, 203, 1)'
           );
         })
         .onPolygonClick(({ properties: { name } }) => {

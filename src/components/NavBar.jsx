@@ -1,67 +1,76 @@
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { UserContext } from "../context/User";
 import { FaRegUser } from "react-icons/fa";
 import { IoSettingsOutline } from "react-icons/io5";
-import { useLocation } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
+import logo from "../../public/TD-logo-2.png";
+import { Button } from "react-bootstrap";
 // import {loginStatus, userLogout} from "../loginNSetting.js";
 
 export const NavBar = () => {
-  const { loggedInUser, setLoggedInUser, isLoggedIn, setIsLoggedIn } =
-    useContext(UserContext);
-  const location = useLocation();
-  const navigate = useNavigate();
+   const { loggedInUser, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
+   const navigate = useNavigate();
 
-  function loginHandler() {
-    if (!isLoggedIn)
-      navigate("/login");
-  }
+   function loginHandler() {
+      setIsLoggedIn(!isLoggedIn);
+      navigate(isLoggedIn ? "/login" : "/");
+   }
 
-  useEffect(() => {
+   return (
+      <div className="px-3 mt-3 mb-0 rounded">
+         <Navbar
+            collapseOnSelect
+            expand="sm"
+            className="bg-body-tertiary my-2 rounded"
+         >
+            <Container fluid>
+               <Navbar.Brand as={Link} to="/" className="me-auto">
+                  <img
+                     src={logo}
+                     alt="TD-logo"
+                     style={{ width: "35px", height: "45px" }}
+                  />
+               </Navbar.Brand>
+               <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+               <Navbar.Collapse
+                  id="responsive-navbar-nav"
+                  className="justify-content-end"
+               >
+                  <div className="d-flex flex-sm-row flex-column align-items-sm-center align-items-end justify-content-sm-end gap-3 w-100 mt-sm-0 mt-3">
+                     <div className="d-flex align-items-center">
+                        <SearchBar />
+                     </div>
 
-  }, []);
+                     {isLoggedIn && (
+                        <>
+                           <Link to={`/users/${loggedInUser.username}`}>
+                              <FaRegUser size={24} className="icon-color" />
+                           </Link>
+                           <Link
+                              to={`/users/${loggedInUser.username}/settings`}
+                           >
+                              <IoSettingsOutline
+                                 size={24}
+                                 className="icon-color"
+                              />
+                           </Link>
+                        </>
+                     )}
 
-  return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-      <Container fluid>
-        <Navbar.Brand as={Link} to="/" className="me-auto">
-          Travel Diary
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse
-          id="responsive-navbar-nav"
-          className="justify-content-end"
-        >
-          {loggedInUser.username === "" ? (
-            <div className="d-flex flex-lg-row flex-column align-items-lg-center align-items-end justify-content-lg-end gap-3 w-100 mt-lg-0 mt-3">
-              <Button style={{ maxWidth: "200px" }} as={Link} to="/login">
-                Log in
-              </Button>
-            </div>
-          ) : (
-            <div className="d-flex flex-lg-row flex-column align-items-lg-center align-items-end justify-content-lg-end gap-3 w-100 mt-lg-0 mt-3">
-              {location.pathname.startsWith("/countries") ? (
-                <div className="d-flex align-items-center">
-                  <SearchBar variant="nav" />
-                </div>
-              ) : null}
-              <Link to={`/users/${loggedInUser.username}`}>
-                <FaRegUser size={24} />
-              </Link>
-              <Link to={`/users/${loggedInUser.username}/settings`}>
-                <IoSettingsOutline size={24} />
-              </Link>
-              <Button style={{ maxWidth: "200px" }} onClick={loginHandler}>
-                {isLoggedIn ? "Log out" : "Log in"}
-              </Button>
-            </div>
-          )}
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
+                     <Button
+                        variant="custom"
+                        style={{ maxWidth: "200px" }}
+                        onClick={loginHandler}
+                     >
+                        {isLoggedIn ? "Log out" : "Log in"}
+                     </Button>
+                  </div>
+               </Navbar.Collapse>
+            </Container>
+         </Navbar>
+      </div>
+   );
 };

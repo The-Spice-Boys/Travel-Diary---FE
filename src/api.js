@@ -64,7 +64,6 @@ export const getFavouritesByUserId = (userId) => {
 
 export const getFavouritesByUsername = (username) => {
    return api.get(`/users/username/${username}/favourites`).then(({ data }) => {
-      console.log(data);
       return data;
    });
 };
@@ -75,18 +74,20 @@ export const postFavourite = ({ userId, itineraryId }) => {
       itinerary: { itineraryId },
    };
 
-   return api.post("/favourites", favourite).then(({ data }) => {
-      console.log(data);
+   return api.post("/favourites", favourite).then(({data}) => {
       return data;
    });
 };
+
+export const deleteFavourite = (favouriteId) => {
+   return api.delete(`/favourites/${favouriteId}`);
+}
 
 // Itineraries endpoints
 export const getItinerariesByUsername = (username) => {
    return api
       .get(`/users/username/${username}/itineraries`)
       .then(({ data }) => {
-         console.log(data);
          return data;
       });
 };
@@ -109,7 +110,6 @@ export const getItinerariesByUserId = (userId) => {
 
 export const getItinerariesByCountryName = (countryName) => {
    return api.get(`/countries/${countryName}/itineraries`).then(({ data }) => {
-      console.log(data);
       return data;
    });
 };
@@ -189,8 +189,9 @@ export const deleteNote = (noteId) => {
 }
 
 // Photo endpoints
+//! Backend is currently /activity -> needs to be changed to /activities
 export const getPhotosByActivityId = (activityId) => {
-   return api.get(`/activities/${activityId}/photos`).then(({ data }) => {
+   return api.get(`/activity/${activityId}/photos`).then(({ data }) => {
       return data;
    });
 };
