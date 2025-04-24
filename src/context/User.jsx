@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
     lastName: "Wanderer",
     email: "joe@example.com",
   });
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   return (
     <UserContext.Provider value={{ loggedInUser, setLoggedInUser, isLoggedIn, setIsLoggedIn}}>
       {children}

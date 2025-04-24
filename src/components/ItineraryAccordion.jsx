@@ -5,19 +5,20 @@ import { MenuOptions } from "./MenuOptions.jsx";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/User.jsx";
 import { IoMdHeart } from "react-icons/io";
+
 import {
-  deleteFavourite,
-  getFavouritesByUsername,
-  postFavourite,
+   deleteFavourite,
+   getFavouritesByUsername,
+   postFavourite,
+  getFavouritesByUserId 
 } from "../api.js";
 
 const Favourite = ({ itineraryId, favourites }) => {
-  const { loggedInUser } = useContext(UserContext);
-  const returnColour = (fave) => (fave ? "heart-fav" : "heart-unfav");
-
-  const [isFavourited, setIsFavourited] = useState(false);
-  const [colour, setColour] = useState("heart-unfav");
-  const [favouriteId, setFavouriteId] = useState(null);
+   const { loggedInUser } = useContext(UserContext);
+   const returnColour = (fave) => (fave ? "heart-fav" : "heart-unfav");
+   const [isFavourited, setIsFavourited] = useState(false);
+   const [colour, setColour] = useState("heart-unfav");
+   const [favouriteId, setFavouriteId] = useState(null);
 
   useEffect(() => {
     const faveMatch =
@@ -66,20 +67,22 @@ const Favourite = ({ itineraryId, favourites }) => {
   );
 };
 
-export const ItineraryAccordion = ({ itineraries }) => {
+export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
   const { loggedInUser } = useContext(UserContext);
   const [deletedIds, setDeletedIds] = useState([]);
   const [errorId, setErrorId] = useState(null);
-  const [favourites, setFavourites] = useState([]);
+     const [favourites, setFavourites] = useState([]);
+     
+    
+   useEffect(() => {
+      getFavouritesByUsername(loggedInUser.username).then((faves) => {
+         setFavourites(faves);
+      });
+   }, [itineraries]);
 
-  useEffect(() => {
-    getFavouritesByUsername(loggedInUser.username).then((faves) => {
-      setFavourites(faves);
-    });
-  }, [itineraries]);
 
   const accordionItems = itineraries.map((itinerary) => {
-    const [title, setTitle] = useState(itinerary.title);
+      const [title, setTitle] = useState(itinerary.title);
     const {
       userId,
       username,
@@ -88,7 +91,9 @@ export const ItineraryAccordion = ({ itineraries }) => {
       modifiedAt,
       countryName,
     } = itinerary;
-
+    //! Itinerary DTO needs country id
+    // const { countryName } = getCountryById(country_id);
+    
     return (
       <div key={itineraryId} className="rounded ps-3 pe-3" id="accordion-item">
         <Accordion.Item eventKey={itineraryId}>
@@ -100,13 +105,17 @@ export const ItineraryAccordion = ({ itineraries }) => {
             >
               <div className="d-flex justify-content-between align-items-center w-100">
                 <div className="d-flex flex-column">
-                  <Link
-                    to={`/users/${username}`}
-                    className="text-muted fs-6 mb-2"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    {username}
-                  </Link>
+
+                  {!itinerariesMode && (
+                    <Link
+                      to={`/users/${username}`}
+                      className="text-muted fs-6 mb-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {username}
+                    </Link>
+                  )}
+
                   <Link
                     to={`/countries/${countryName}`}
                     className="text-muted fs-6 mb-2"
@@ -114,7 +123,6 @@ export const ItineraryAccordion = ({ itineraries }) => {
                   >
                     {countryName}
                   </Link>
-
                   <p className="fs-5 mb-0">
                     {deletedIds.includes(itineraryId) ? "Deleted" : title}
                   </p>
