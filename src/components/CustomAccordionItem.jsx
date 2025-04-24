@@ -10,7 +10,6 @@ import { Favourite } from './Favourite.jsx';
 
 export const CustomAccordionItem = ({
   itinerary,
-  itinerariesMode,
   deletedIds,
   setDeletedIds,
   errorId,
@@ -35,7 +34,7 @@ export const CustomAccordionItem = ({
           >
             <div className="d-flex justify-content-between align-items-center w-100">
               <div className="d-flex flex-column">
-                {!itinerariesMode && (
+                {loggedInUser.userId !== userId && (
                   <Link
                     to={`/users/${username}`}
                     className="text-muted fs-6 mb-2"
