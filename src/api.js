@@ -196,14 +196,15 @@ export const getPhotosByActivityId = (activityId) => {
    });
 };
 
-export const postPhoto = ({file, caption, activityId}) => {
-   const photoObj = caption
-      ? { file, caption, activityId }
-      : { file, activityId };
+export const postPhoto = (file, caption, activityId) => {
+   const formData = new FormData();
+   formData.append("file", file);
+   formData.append("caption", caption);
+   formData.append("activityId", activityId);
    return api
-      .post(`/photos`, photoObj)
-      .then((res) => res)
-      .catch((err) => err);
+       .post(`/photos`, formData,{headers: { 'Content-Type': 'multipart/form-data' }})
+       .then((res) => res)
+       .catch((err) => err);
 };
 
 export const updatePhoto = (photoId, file) => {
