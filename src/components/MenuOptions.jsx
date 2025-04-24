@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { FaEdit } from "react-icons/fa";
-import { MdDelete } from "react-icons/md";
-import { TitleUpdateForm } from "./TitleUpdateForm";
+import { useState } from 'react';
+import { FaEdit } from 'react-icons/fa';
+import { MdDelete } from 'react-icons/md';
+import { TitleUpdateForm } from './TitleUpdateForm';
 import {
   deleteActivity,
   deleteItinerary,
   deletePhoto,
   patchActivity,
   patchItinerary,
-} from "../api";
+} from '../api';
 
 export const MenuOptions = ({
   id,
@@ -32,12 +32,12 @@ export const MenuOptions = ({
 
   const modalInfoLookup = {
     itinerary: {
-      modalTitle: "Update itinerary title",
-      modalLabel: "New itinerary title:",
+      modalTitle: 'Update itinerary title',
+      modalLabel: 'New itinerary title:',
     },
     activity: {
-      modalTitle: "Update activity title",
-      modalLabel: "New activity title:",
+      modalTitle: 'Update activity title',
+      modalLabel: 'New activity title:',
     },
   };
 
@@ -66,15 +66,16 @@ export const MenuOptions = ({
   return (
     <>
       <div className="m-2">
-        <FaEdit size={20} onClick={handleEditClick} className="menu-options" />
+        <FaEdit size={20} onClick={handleEditClick} className="icon-color" />
         <MdDelete
+          className="icon-color"
           size={20}
           onClick={handleDeleteClick}
-          className="menu-options"
         />
       </div>
       {modalShow && (
         <TitleUpdateForm
+          className="icon-color"
           show={modalShow}
           onHide={() => setModalShow(false)}
           modalInfo={modalInfoLookup[componentName]}
