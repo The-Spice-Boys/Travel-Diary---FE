@@ -20,51 +20,51 @@ const Favourite = ({ itineraryId, favourites }) => {
    const [colour, setColour] = useState("heart-unfav");
    const [favouriteId, setFavouriteId] = useState(null);
 
-   useEffect(() => {
-      const faveMatch =
-         favourites.find((fave) => {
-            const isFave = fave.itinerary.itineraryId === itineraryId;
-            return isFave;
-         }) ?? null;
+  useEffect(() => {
+    const faveMatch =
+      favourites.find((fave) => {
+        const isFave = fave.itinerary.itineraryId === itineraryId;
+        return isFave;
+      }) ?? null;
 
-      const newFaveState = faveMatch === null ? false : true;
-      setIsFavourited(newFaveState);
-      setColour(returnColour(newFaveState));
-      setFavouriteId(newFaveState ? faveMatch.favouriteId : null);
-   }, [favourites]);
+    const newFaveState = faveMatch === null ? false : true;
+    setIsFavourited(newFaveState);
+    setColour(returnColour(newFaveState));
+    setFavouriteId(newFaveState ? faveMatch.favouriteId : null);
+  }, [favourites]);
 
-   const handleFavourite = () => {
-      const newFaveState = !isFavourited;
-      setColour(returnColour(newFaveState));
-      setIsFavourited(newFaveState);
+  const handleFavourite = () => {
+    const newFaveState = !isFavourited;
+    setColour(returnColour(newFaveState));
+    setIsFavourited(newFaveState);
 
-      if (newFaveState) {
-         postFavourite({ userId: loggedInUser.userId, itineraryId })
-            .then(({ favouriteId }) => {
-               setFavouriteId(favouriteId);
-            })
-            .catch((err) => {
-               setColour("heart-unfav");
-               setIsFavourited(false);
-            });
-      } else {
-         deleteFavourite(favouriteId).catch((err) => {
-            setColour("heart-fav");
-            setIsFavourited(true);
-         });
-      }
-   };
+    if (newFaveState) {
+      postFavourite({ userId: loggedInUser.userId, itineraryId })
+        .then(({ favouriteId }) => {
+          setFavouriteId(favouriteId);
+        })
+        .catch((err) => {
+          setColour("heart-unfav");
+          setIsFavourited(false);
+        });
+    } else {
+      deleteFavourite(favouriteId).catch((err) => {
+        setColour("heart-fav");
+        setIsFavourited(true);
+      });
+    }
+  };
 
-   return (
-      <IoMdHeart
-         className={`heart ${colour} m-2`}
-         onClick={(e) => {
-            e.stopPropagation();
-            handleFavourite();
-         }}
-         size={25}
-      />
-   );
+  return (
+    <IoMdHeart
+      className={`heart ${colour} m-2`}
+      onClick={(e) => {
+        e.stopPropagation();
+        handleFavourite();
+      }}
+      size={25}
+    />
+  );
 };
 
 export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
@@ -82,10 +82,10 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
 
 
   const accordionItems = itineraries.map((itinerary) => {
+      const [title, setTitle] = useState(itinerary.title);
     const {
       userId,
       username,
-      title,
       itineraryId,
       isPrivate,
       modifiedAt,
@@ -105,6 +105,7 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
             >
               <div className="d-flex justify-content-between align-items-center w-100">
                 <div className="d-flex flex-column">
+
                   {!itinerariesMode && (
                     <Link
                       to={`/users/${username}`}
@@ -122,59 +123,53 @@ export const ItineraryAccordion = ({ itineraries, itinerariesMode }) => {
                   >
                     {countryName}
                   </Link>
-                           <p className="fs-5 mb-0">
-                              {deletedIds.includes(itineraryId)
-                                 ? "Deleted"
-                                 : title}
-                           </p>
-                           {errorId === itineraryId && (
-                              <p className="text-danger fs-6 mb-0 p-0">
-                                 Failed to delete
-                              </p>
-                           )}
-                        </div>
-                        {isLoggedIn && (
-                           <div className="ms-2">
-                              {!deletedIds.includes(itineraryId) &&
-                                 (loggedInUser.userId === userId ? (
-                                    <MenuOptions
-                                       id={itineraryId}
-                                       componentName={"itinerary"}
-                                       setDeletedIds={setDeletedIds}
-                                       setErrorId={setErrorId}
-                                    />
-                                 ) : (
-                                    <Favourite
-                                       itineraryId={itineraryId}
-                                       favourites={favourites}
-                                    />
-                                 ))}
-                           </div>
-                        )}
-                     </div>
-                  </Accordion.Header>
-               </div>
-               <Accordion.Body>
-                  <Itinerary
-                     key={itineraryId}
-                     itineraryId={itineraryId}
-                     userId={userId}
-                     addActivityStatus={
-                        username === loggedInUser.username &&
-                        itinerariesMode === "userItineraries"
-                    }
-                  />
-               </Accordion.Body>
-            </Accordion.Item>
-         </div>
-      );
-   });
-
-   return (
-      <div className="d-flex justify-content-center p-1">
-         <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
-            {accordionItems}
-         </Accordion>
+                  <p className="fs-5 mb-0">
+                    {deletedIds.includes(itineraryId) ? "Deleted" : title}
+                  </p>
+                  {errorId === itineraryId && (
+                    <p className="text-danger fs-6 mb-0 p-0">
+                      Failed to delete
+                    </p>
+                  )}
+                </div>
+                <div className="ms-2">
+                  {!deletedIds.includes(itineraryId) &&
+                    (loggedInUser.userId === userId ? (
+                      <MenuOptions
+                        id={itineraryId}
+                        componentName={"itinerary"}
+                        setDeletedIds={setDeletedIds}
+                        setErrorId={setErrorId}
+                        setTitle={setTitle}
+                        title={title}
+                      />
+                    ) : (
+                      <Favourite
+                        itineraryId={itineraryId}
+                        favourites={favourites}
+                      />
+                    ))}
+                </div>
+              </div>
+            </Accordion.Header>
+          </div>
+          <Accordion.Body>
+            <Itinerary
+              key={itineraryId}
+              itineraryId={itineraryId}
+              userId={userId}
+            />
+          </Accordion.Body>
+        </Accordion.Item>
       </div>
-   );
+    );
+  });
+
+  return (
+    <div className="d-flex justify-content-center p-1">
+      <Accordion className="d-flex flex-column gap-3 align-items-center p-5 width-card">
+        {accordionItems}
+      </Accordion>
+    </div>
+  );
 };
