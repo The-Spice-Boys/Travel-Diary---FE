@@ -27,7 +27,7 @@ export const GlobeSearch = () => {
   useEffect(() => {
     if (!globeInstance.current) {
       globeInstance.current = Globe()(containerRef.current)
-        .globeImageUrl('public/globe-background.svg')
+        .globeImageUrl('/globe-background.svg')
         .backgroundColor('#ececec')
         .polygonCapColor(() => 'rgba(222, 209, 203, 1)')
         .polygonSideColor(() => '#fff')
