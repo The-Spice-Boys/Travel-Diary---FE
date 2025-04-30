@@ -76,7 +76,7 @@ Example flow:
 ### 1. Clone the Repo
 
 ```bash
-  git clone https://github.com/your-org/travel-diary-frontend.git
+  git clone https://github.com/The-Spice-Boys/Travel-Diary---FE.git
 ```
 
 ### 2. Install Dependencies
