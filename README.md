@@ -3,7 +3,7 @@
 Welcome to the **Travel Diary** web app — an interactive platform where travellers can create itineraries, post photos and notes about their trips, and explore inspiration from others around the world.  
 This frontend connects to our Java Spring Boot backend and brings the social travel experience to life! 🌍✨
 
-🔗 **Live App**: [Travel Diary on Netlify](https://your-netlify-link.netlify.app)
+🔗 **Live App**: [Travel Diary on Netlify](https://thetraveldiary-spiceboys.netlify.app/)
 
 ---
 
